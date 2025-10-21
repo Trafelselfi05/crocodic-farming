@@ -1,59 +1,13 @@
 @import "tailwindcss";
 
-
-:root {
-  --hijau-tua: rgba(31, 78, 32, 1);
-  --putih: rgba(255, 255, 255, 1);
-  --white: rgba(255, 255, 255, 1);
-  --hijau-muda: rgba(127, 208, 131, 1);
-  --abu-abu: rgba(158, 158, 158, 1);
-  --hijau-paling-muda: rgba(244, 250, 244, 1);
-  --colorsbrown: rgba(172, 127, 94, 1);
-  --grey-100: rgba(170, 170, 170, 1);
-  --black: rgba(0, 0, 0, 1);
-  --main-background: rgba(249, 249, 249, 1);
-  --baby-blue: rgba(206, 221, 240, 1);
-  --poppins-medium-14-font-family: "Poppins", Helvetica;
-  --poppins-medium-14-font-weight: 500;
-  --poppins-medium-14-font-size: 14px;
-  --poppins-medium-14-letter-spacing: 0px;
-  --poppins-medium-14-line-height: normal;
-  --poppins-medium-14-font-style: normal;
-  --poppins-semibold-16-font-family: "Poppins", Helvetica;
-  --poppins-semibold-16-font-weight: 600;
-  --poppins-semibold-16-font-size: 16px;
-  --poppins-semibold-16-letter-spacing: 0px;
-  --poppins-semibold-16-line-height: normal;
-  --poppins-semibold-16-font-style: normal;
-  --poppins-bold-24-font-family: "Poppins", Helvetica;
-  --poppins-bold-24-font-weight: 600;
-  --poppins-bold-24-font-size: 24px;
-  --poppins-bold-24-letter-spacing: 0px;
-  --poppins-bold-24-line-height: normal;
-  --poppins-bold-24-font-style: normal;
-  --poppins-semibold-14-font-family: "Poppins", Helvetica;
-  --poppins-semibold-14-font-weight: 600;
-  --poppins-semibold-14-font-size: 14px;
-  --poppins-semibold-14-letter-spacing: 0px;
-  --poppins-semibold-14-line-height: normal;
-  --poppins-semibold-14-font-style: normal;
-  --poppins-reguler-12-font-family: "Poppins", Helvetica;
-  --poppins-reguler-12-font-weight: 400;
-  --poppins-reguler-12-font-size: 12px;
-  --poppins-reguler-12-letter-spacing: 0px;
-  --poppins-reguler-12-line-height: normal;
-  --poppins-reguler-12-font-style: normal;
-}
-
 * {
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
 }
 
-html,
 body {
-  margin: 0px;
-  height: 100%;
+  /* Atur font Poppins sebagai default di seluruh body */
+  font-family: var(--font-poppins), sans-serif;
 }
 
 button:focus-visible {
