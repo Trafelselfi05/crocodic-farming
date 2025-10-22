@@ -8,7 +8,7 @@ export default function BottomNavbar() {
 
   return (
     <nav
-      className="sticky bottom-0 w-full  h-[101px]"
+      className="sticky bottom-0 w-full h-[101px] bg-transparent"
       role="navigation"
       aria-label="Main navigation"
     >
@@ -26,16 +26,19 @@ export default function BottomNavbar() {
         <ellipse cx="201" cy="0" rx="40" ry="40" fill="white" />
       </svg>
 
-      {/* Active Indicator - Animasi untuk menunjukkan halaman aktif */}
+      {/* Active Indicator - Double Lingkaran untuk efek cekungan */}
       <div
-        className="absolute top-0 h-[57.43%] transition-all duration-500 ease-in-out"
+        className="absolute top-0 transition-all duration-500 ease-in-out"
         style={{
           width: '14.43%',
+          height: '57.43%',
           left: pathname === "/" ? '7.71%' : 
                 pathname === "/statistik" ? '31.34%' :
                 pathname === "/lahan" ? '56.22%' : '78.36%',
         }}
       >
+        
+        {/* Lingkaran utama aktif */}
         <svg
           className="w-full h-full transition-all duration-500 ease-in-out"
           viewBox="0 0 58 58"

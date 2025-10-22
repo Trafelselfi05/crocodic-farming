@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="id">
       <body className={poppins.variable} suppressHydrationWarning>
-        <main className="bg-hijau-paling-muda w-full h-screen flex flex-col md:hidden">
+        <main className="bg-[#F4FAF4] w-full h-screen flex flex-col md:hidden">
           {/* Bagian isi halaman scrollable */}
           <section className="flex-1 overflow-y-auto overflow-x-hidden flex flex-col items-center gap-5 pt-5 pb-5">
             {children}
