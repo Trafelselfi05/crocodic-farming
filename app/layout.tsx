@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="id">
       <body className={poppins.variable} suppressHydrationWarning>
-        <main className="bg-[#F4FAF4] w-full h-screen flex flex-col md:hidden">
+        <main className="bg-soft w-full h-screen flex flex-col md:hidden">
           {/* Bagian isi halaman scrollable */}
           <section className="flex-1 overflow-y-auto overflow-x-hidden flex flex-col items-center gap-5 pt-5 pb-5">
             {children}
@@ -32,7 +32,7 @@ export default function RootLayout({
           <BottomNavbar />
         </main>
 
-        <div className="w-full h-screen md:flex hidden justify-center items-center">
+        <div className="w-full h-screen md:flex hidden justify-center items-center bg-accent">
           <h1 className="text-4xl font-bold ">Mobile View Only</h1>
         </div>
       </body>

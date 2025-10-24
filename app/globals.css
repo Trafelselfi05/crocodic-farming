@@ -33,3 +33,33 @@ a:focus {
   outline: 2px solid #4a90e2;
   outline-offset: 2px;
 }
+
+/* === Custom Palette Layer === */
+@layer utilities {
+  .bg-primary {
+    @apply bg-[#1F4E20];
+  }
+  .bg-secondary {
+    @apply bg-[#7FD083];
+  }
+  .bg-soft {
+    @apply bg-[#F4FAF4];
+  }
+
+  .text-primary {
+    @apply text-[#1F4E20];
+  }
+  .text-secondary {
+    @apply text-[#7FD083];
+  }
+  .text-soft {
+    @apply text-[#F4FAF4];
+  }
+
+  .border-primary {
+    @apply border-[#1F4E20];
+  }
+  .border-secondary {
+    @apply border-[#7FD083];
+  }
+}

@@ -3,11 +3,12 @@
 import Link from "next/link";
 import Image from "next/image";
 
+
 export default function Dashboard() {
   return (
     <>
       {/* Header */}
-      <div className="relative h-5 w-full ml-12 ">
+      <div className="relative h-5 w-full ml-12">
         <div className="flex items-center gap-2.5 py-0 relative">
           {/* Ikon SVG */}
           <svg
@@ -171,7 +172,7 @@ export default function Dashboard() {
         className="flex flex-col items-start gap-4 px-6 relative w-full "
         aria-labelledby="lahan-heading"
       >
-        <div className="flex flex-col items-start relative w-full">
+        <div className="flex flex-col items-start relative w-full ">
           {/* Header Lahan & "Semua Lahan" Link */}
           <div className="flex w-full items-center justify-between relative mb-2">
             {/* Title */}
