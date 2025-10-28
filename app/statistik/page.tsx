@@ -11,7 +11,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import { Filter } from "lucide-react";
+import {Settings2 as Filter } from "lucide-react";
 
 export default function SensorPage() {
   const [selectedPeriod, setSelectedPeriod] = useState<
@@ -93,14 +93,14 @@ export default function SensorPage() {
   const periodButtons = ["harian", "mingguan", "bulanan"] as const;
 
   return (
-    <div className="min-h-screen bg-[#F4FAF4] p-6 space-y-6 relative">
+    <div className=" w-full bg-[#F4FAF4] px-6 space-y-4 relative">
       {/* Header */}
       <div className="flex items-center justify-between relative">
         <h1 className="text-2xl font-bold text-[#1F4E20]">Pemantauan Sensor</h1>
         <div className="relative">
           <button
             onClick={() => setDropdownOpen(!dropdownOpen)}
-            className="p-2 bg-white border border-[#7FD083] rounded-full shadow-sm hover:bg-[#7FD083]/10 transition"
+            className="p-2 border border-primary bg-white rounded-full shadow-sm hover:bg-[#7FD083]/10 transition"
           >
             <Filter className="w-5 h-5 text-[#1F4E20]" />
           </button>

@@ -10,30 +10,6 @@ body {
   font-family: var(--font-poppins), sans-serif;
 }
 
-button:focus-visible {
-  outline: 2px solid #4a90e2 !important;
-  outline: -webkit-focus-ring-color auto 5px !important;
-}
-
-a {
-  text-decoration: none;
-}
-
-button {
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  font: inherit;
-  color: inherit;
-}
-
-button:focus,
-a:focus {
-  outline: 2px solid #4a90e2;
-  outline-offset: 2px;
-}
-
 /* === Custom Palette Layer === */
 @layer utilities {
   .bg-primary {

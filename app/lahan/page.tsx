@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Filter, ChevronRight, X, Wifi, QrCode } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import Link from "next/link";
 
 interface Lahan {
   id: number;
@@ -43,14 +44,10 @@ export default function LahanPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F4FAF4] p-4 flex flex-col">
+    <div className="min-h-screen bg-[#F4FAF4] w-full px-6 flex flex-col">
       {/* Header */}
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-semibold text-[#1F4E20]">Lahan</h1>
-        <button className="flex items-center gap-2 bg-white shadow p-2 rounded-full border">
-          <Filter size={18} />
-          <span className="text-sm text-gray-700">Filter</span>
-        </button>
       </div>
 
       {/* Filter Horizontal Scroll */}
@@ -59,7 +56,7 @@ export default function LahanPage() {
           <button
             key={f}
             onClick={() => setFilter(f)}
-            className={`px-4 py-1 rounded-full border text-sm whitespace-nowrap ${
+            className={`px-4 py-1 rounded-full border text-sm flex justify-center items-center whitespace-nowrap ${
               filter === f
                 ? "bg-[#1F4E20] text-white border-[#1F4E20]"
                 : "bg-white text-gray-700 border-gray-300"
@@ -87,20 +84,40 @@ export default function LahanPage() {
           .map((lahan) => (
             <div
               key={lahan.id}
-              className="bg-white rounded-md shadow p-4 flex flex-col justify-between"
+              className="bg-white rounded-md shadow pt-4 flex flex-col justify-between"
             >
-              <div className="flex justify-between items-center mb-2">
+              <div className="flex justify-between items-center mb-2 px-4">
                 <h2 className="text-lg font-semibold text-gray-800">
                   {lahan.nama}
                 </h2>
                 <ChevronRight className="text-gray-400" size={20} />
               </div>
-              <p className="text-sm text-gray-600">Luas: {lahan.luas}</p>
-              <p className="text-sm text-gray-600">Tanaman: {lahan.tanaman}</p>
+              <p className="text-sm px-4 text-gray-600">Luas: {lahan.luas}</p>
+              <p className="text-sm px-4 pb-4 text-gray-600">Tanaman: {lahan.tanaman}</p>
 
-              <button className="mt-3 w-full py-1.5 rounded-md bg-gray-100 text-gray-700 text-sm font-medium hover:bg-gray-200 transition">
-                Detail
-              </button>
+              {/* Detail Button */}
+              <Link
+                href="#"
+                className="flex w-full h-7 items-center justify-between px-3 relative bg-[#7FD083] rounded-b-lg"
+              >
+                <span className="relative font-poppins font-normal text-xs text-white">
+                  Detail
+                </span>
+                <svg
+                  className="relative w-4 h-4 ml-1"
+                  viewBox="0 0 18 18"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M6.75 13.5L11.25 9L6.75 4.5"
+                    stroke="white"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </Link>
             </div>
           ))}
       </div>
