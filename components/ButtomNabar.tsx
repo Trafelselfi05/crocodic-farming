@@ -1,256 +1,87 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { motion } from "framer-motion";
+import { Home, BarChart2, Leaf, Settings } from "lucide-react";
+
+const navItems = [
+  { href: "/", label: "Beranda", icon: Home },
+  { href: "/statistik", label: "Statistik", icon: BarChart2 },
+  { href: "/lahan", label: "Lahan", icon: Leaf },
+  { href: "/setelan", label: "Setelan", icon: Settings },
+];
 
 export default function BottomNavbar() {
   const pathname = usePathname();
+  const router = useRouter();
 
   return (
-    <nav
-      className="sticky bottom-0 w-full h-[101px] bg-transparent"
-      role="navigation"
-      aria-label="Main navigation"
-    >
-      {/* Background SVG */}
-      <svg
-        className="absolute w-full h-[71.29%] top-[28.71%] left-0 transition-all duration-300"
-        viewBox="0 0 402 72"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M0 20C0 8.95 8.95 0 20 0H382C393.05 0 402 8.95 402 20V72H0V20Z"
-          fill="white"
-        />
-        <ellipse cx="201" cy="0" rx="40" ry="40" fill="white" />
-      </svg>
+    <div className="w-full bg-white sticky bottom-0 shadow-inner rounded-t-2xl flex justify-center items-center py-2">
+      <ul className="flex justify-around items-end w-full max-w-md px-2">
+        {navItems.map((item) => {
+          const isActive = pathname === item.href;
+          const Icon = item.icon;
 
-      {/* Active Indicator */}
-      <div
-        className="absolute top-0 transition-all duration-500 ease-in-out"
-        style={{
-          width: '14.43%',
-          height: '57.43%',
-          left: pathname === "/" ? '7.71%' : 
-                pathname === "/statistik" ? '31.34%' :
-                pathname === "/lahan" ? '56.22%' : '78.36%',
-        }}
-      >
-        <svg
-          className="w-full h-full transition-all duration-500 ease-in-out"
-          viewBox="0 0 58 58"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <circle
-            cx="29"
-            cy="29"
-            r="29"
-            fill="#1F4E20"
-            className="transition-all duration-500 ease-in-out"
-          />
-        </svg>
-      </div>
+          return (
+            <li
+              key={item.href}
+              onClick={() => router.push(item.href)}
+              className="relative flex flex-col items-center justify-end flex-1 cursor-pointer group"
+            >
+              <motion.div
+                className="relative flex items-center justify-center"
+                animate={{
+                  y: isActive ? -10 : 0,
+                  scale: isActive ? 1.05 : 1,
+                }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
+                {/* SVG Circle Background (only active) */}
+                {isActive && (
+                  <motion.svg
+                    width="44"
+                    height="44"
+                    viewBox="0 0 44 44"
+                    className="absolute"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    exit={{ scale: 0 }}
+                    transition={{ type: "spring", stiffness: 250, damping: 18 }}
+                  >
+                    <circle
+                      cx="22"
+                      cy="22"
+                      r="20"
+                      fill="#1F4E20"
+                      stroke="#1F4E20"
+                      strokeWidth="2"
+                    />
 
-      {/* Beranda */}
-      <Link
-        href="/"
-        className="w-[14.43%] h-[57.43%] left-[7.71%] absolute top-0 group transition-all duration-300 hover:scale-105"
-        aria-label="Beranda"
-        aria-current={pathname === "/" ? "page" : undefined}
-      >
-        <svg
-          className="w-full h-full transition-all duration-300"
-          viewBox="0 0 58 58"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <circle
-            cx="29"
-            cy="29"
-            r="29"
-            fill="transparent"
-            className="transition-all duration-300"
-          />
-          <path
-            d="M38 25.5L29 18L20 25.5V36C20 36.5304 20.2107 37.0391 20.5858 37.4142C20.9609 37.7893 21.4696 38 22 38H36C36.5304 38 37.0391 37.7893 37.4142 37.4142C37.7893 37.0391 38 36.5304 38 36V25.5Z"
-            stroke={pathname === "/" ? "white" : "#7FD083"}
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="transition-all duration-300 group-hover:stroke-white"
-          />
-          <path
-            d="M26 38V29H32V38"
-            stroke={pathname === "/" ? "white" : "#7FD083"}
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="transition-all duration-300 group-hover:stroke-white"
-          />
-        </svg>
-      </Link>
-      <span
-        className={`absolute w-[15.17%] h-[20.79%] top-[70.30%] left-[7.46%] flex items-center justify-center font-['Poppins',Helvetica] font-medium text-sm text-center tracking-[0] leading-[normal] transition-all duration-300 ${
-          pathname === "/" ? "text-hijau-tua font-semibold scale-105" : "text-abu-abu group-hover:text-hijau-tua"
-        }`}
-      >
-        Beranda
-      </span>
+                  </motion.svg>
+                )}
 
-      {/* Statistik */}
-      <Link
-        href="/statistik"
-        className="w-[14.43%] h-[57.43%] left-[31.34%] absolute top-0 group transition-all duration-300 hover:scale-105"
-        aria-label="Statistik"
-        aria-current={pathname === "/statistik" ? "page" : undefined}
-      >
-        <svg
-          className="w-full h-full transition-all duration-300"
-          viewBox="0 0 58 58"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <circle
-            cx="29"
-            cy="29"
-            r="29"
-            fill="transparent"
-            className="transition-all duration-300"
-          />
-          <path
-            d="M17 18V8M9.5 18V1M2 18V13"
-            stroke={pathname === "/statistik" ? "white" : "#9E9E9E"}
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="transition-all duration-300 group-hover:stroke-white"
-            transform="translate(12, 12) scale(1.5)"
-          />
-        </svg>
-      </Link>
-      <span
-        className={`absolute w-[15.17%] h-[20.79%] top-[70.30%] left-[30.85%] flex items-center justify-center font-['Poppins',Helvetica] font-medium text-sm text-center tracking-[0] leading-[normal] transition-all duration-300 ${
-          pathname === "/statistik" ? "text-hijau-tua font-semibold scale-105" : "text-abu-abu group-hover:text-hijau-tua"
-        }`}
-      >
-        Statistik
-      </span>
+                {/* Icon */}
+                <Icon
+                  className={`w-5 h-5 z-10 transition-colors duration-300 ${
+                    isActive
+                      ? "text-white"
+                      : "text-gray-500 group-hover:text-[#1F4E20]"
+                  }`}
+                />
+              </motion.div>
 
-      {/* Lahan */}
-      <Link
-        href="/lahan"
-        className="w-[14.43%] h-[57.43%] left-[56.22%] absolute top-0 group transition-all duration-300 hover:scale-105"
-        aria-label="Lahan"
-        aria-current={pathname === "/lahan" ? "page" : undefined}
-      >
-        <svg
-          className="w-full h-full transition-all duration-300"
-          viewBox="0 0 58 58"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <circle
-            cx="29"
-            cy="29"
-            r="29"
-            fill="transparent"
-            className="transition-all duration-300"
-          />
-          <path
-            d="M3 3H10V10H3V3Z"
-            stroke={pathname === "/lahan" ? "white" : "#9E9E9E"}
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="transition-all duration-300 group-hover:stroke-white"
-            transform="translate(10, 10) scale(1.8)"
-          />
-          <path
-            d="M14 3H21V10H14V3Z"
-            stroke={pathname === "/lahan" ? "white" : "#9E9E9E"}
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="transition-all duration-300 group-hover:stroke-white"
-            transform="translate(10, 10) scale(1.8)"
-          />
-          <path
-            d="M14 14H21V21H14V14Z"
-            stroke={pathname === "/lahan" ? "white" : "#9E9E9E"}
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="transition-all duration-300 group-hover:stroke-white"
-            transform="translate(10, 10) scale(1.8)"
-          />
-          <path
-            d="M3 14H10V21H3V14Z"
-            stroke={pathname === "/lahan" ? "white" : "#9E9E9E"}
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="transition-all duration-300 group-hover:stroke-white"
-            transform="translate(10, 10) scale(1.8)"
-          />
-        </svg>
-      </Link>
-      <span
-        className={`absolute w-[15.17%] h-[20.79%] top-[70.30%] left-[55.72%] flex items-center justify-center font-['Poppins',Helvetica] font-medium text-sm text-center tracking-[0] leading-[normal] transition-all duration-300 ${
-          pathname === "/lahan" ? "text-hijau-tua font-semibold scale-105" : "text-abu-abu group-hover:text-hijau-tua"
-        }`}
-      >
-        Lahan
-      </span>
-
-      {/* Setelan */}
-      <Link
-        href="/setelan"
-        className="w-[14.43%] h-[57.43%] left-[78.36%] absolute top-0 group transition-all duration-300 hover:scale-105"
-        aria-label="Setelan"
-        aria-current={pathname === "/setelan" ? "page" : undefined}
-      >
-        <svg
-          className="w-full h-full transition-all duration-300" 
-          viewBox="0 0 58 58"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <circle
-            cx="29"
-            cy="29"
-            r="29"
-            fill="transparent"
-            className="transition-all duration-300"
-          />
-          <circle
-            cx="29"
-            cy="29"
-            r="3"
-            stroke={pathname === "/setelan" ? "white" : "#9E9E9E"}
-            strokeWidth="2"
-            className="transition-all duration-300 group-hover:stroke-white"
-            transform="translate(0, 0) scale(1.2)"
-          />
-          <path
-            d="M19.4 15C19.1277 15.6171 18.7583 16.1936 18.3 16.7L19.5 18.5L18.5 19.5L16.7 18.3C16.1936 18.7583 15.6171 19.1277 15 19.4V21H13V19.4C12.3829 19.1277 11.8064 18.7583 11.3 18.3L9.5 19.5L8.5 18.5L9.7 16.7C9.24167 16.1936 8.87233 15.6171 8.6 15H7V13H8.6C8.87233 12.3829 9.24167 11.8064 9.7 11.3L8.5 9.5L9.5 8.5L11.3 9.7C11.8064 9.24167 12.3829 8.87233 13 8.6V7H15V8.6C15.6171 8.87233 16.1936 9.24167 16.7 9.7L18.5 8.5L19.5 9.5L18.3 11.3C18.7583 11.8064 19.1277 12.3829 19.4 13H21V15H19.4Z"
-            stroke={pathname === "/setelan" ? "white" : "#9E9E9E"}
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="transition-all duration-300 group-hover:stroke-white"
-            transform="translate(-2, -2) scale(1.1)"
-          />
-        </svg>
-      </Link>
-      <span
-        className={`absolute w-[15.17%] h-[20.79%] top-[70.30%] left-[77.86%] flex items-center justify-center font-['Poppins',Helvetica] font-medium text-sm text-center tracking-[0] leading-[normal] transition-all duration-300 ${
-          pathname === "/setelan" ? "text-hijau-tua font-semibold scale-105" : "text-abu-abu group-hover:text-hijau-tua"
-        }`}
-      >
-        Setelan
-      </span>
-    </nav>
+              {/* Label */}
+              <span
+                className={`text-[0.7rem] font-medium mt-1 transition-all duration-300 ${
+                  isActive ? "text-[#1F4E20] font-semibold" : "text-gray-500"
+                }`}
+              >
+                {item.label}
+              </span>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
   );
 }

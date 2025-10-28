@@ -1,10 +1,11 @@
 "use client";
 
+import { Bean } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
 export default function Dashboard() {
-    const [isPenyiramanOn, setIsPenyiramanOn] = useState(true);
+  const [isPenyiramanOn, setIsPenyiramanOn] = useState(true);
   const [isPemupukanOn, setIsPemupukanOn] = useState(false);
 
   return (
@@ -13,21 +14,7 @@ export default function Dashboard() {
       <div className="relative h-5 w-full ml-12">
         <div className="flex items-center gap-2.5 py-0 relative">
           {/* Ikon SVG */}
-          <svg
-            className="w-5 h-5" // Menggunakan w-5 h-5 (20px) untuk mendekati 19px
-            viewBox="0 0 19 19"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            {/* Menggunakan bg-green-800 sebagai pengganti warna solid #1F4E20 */}
-            <rect width="19" height="19" rx="4" fill="#1F4E20" />
-            <path
-              d="M9.5 5V14M6 9.5H13"
-              stroke="white"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-          </svg>
+          <img src="logo.png" className="w-5" alt="" />
 
           {/* Teks */}
           <p
@@ -87,25 +74,24 @@ export default function Dashboard() {
           </div>
           {/* Notification Button */}
 
-<Link
-  href="/notifikasi"
-  aria-label="Notifications"
-  className="w-14 h-14 rounded-full flex items-center justify-center"
->
-  <svg
-    className="relative w-full h-full"
-    viewBox="0 0 53 53"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <circle cx="26.5" cy="26.5" r="26.5" fill="white" />
-    <path
-      d="M26.5 40C28.433 40 30 38.433 30 36.5H23C23 38.433 24.567 40 26.5 40ZM37 30.5V23C37 18.365 34.717 14.463 30.5 13.438V12.5C30.5 11.119 29.381 10 26.5 10C23.619 10 22.5 11.119 22.5 12.5V13.438C18.283 14.463 16 18.365 16 23V30.5L13 33.5V35H40V33.5L37 30.5Z"
-      fill="#1F4E20"
-    />
-    <circle cx="38" cy="15" r="7" fill="#FF3B30" />
-  </svg>
-</Link>
+          <Link
+            href="/notifikasi"
+            aria-label="Notifications"
+            className="w-14 h-14 rounded-full flex items-center justify-center "
+          >
+            <svg
+              className="relative w-full h-full"
+              viewBox="0 0 53 53"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle cx="26.5" cy="26.5" r="26.5" fill="#1F4E20" />
+              <path
+                d="M26.5 40C28.433 40 30 38.433 30 36.5H23C23 38.433 24.567 40 26.5 40ZM37 30.5V23C37 18.365 34.717 14.463 30.5 13.438V12.5C30.5 11.119 29.381 10 26.5 10C23.619 10 22.5 11.119 22.5 12.5V13.438C18.283 14.463 16 18.365 16 23V30.5L13 33.5V35H40V33.5L37 30.5Z"
+                fill="white"
+              />
+            </svg>
+          </Link>
         </div>
         {/* Weather Card */}
         <article
@@ -221,7 +207,7 @@ export default function Dashboard() {
         </div>
 
         {/* Lahan Cards Container (Horizontal Scroll/Wrap) */}
-        <div className="flex w-full items-start gap-3 relative flex-wrap">
+        <div className="flex w-full items-start gap-3 relative">
           {/* Lahan 1 Card */}
           <article
             className="flex flex-col flex-1 min-w-[160px] h-28 items-center justify-between relative bg-white rounded-lg border border-solid border-[#1f4e20]"
@@ -259,7 +245,7 @@ export default function Dashboard() {
             {/* Detail Button */}
             <Link
               href="#"
-              className="flex w-full h-7 items-center justify-center relative bg-[#7FD083] rounded-b-lg"
+              className="flex w-full h-7 items-center justify-between px-3 relative bg-[#7FD083] rounded-b-lg"
             >
               <span className="relative font-poppins font-normal text-xs text-white">
                 Detail
@@ -291,7 +277,7 @@ export default function Dashboard() {
                   Lahan 2
                 </h3>
               </div>
-              <button type="button" aria-label="More options for Lahan 2">
+              <button type="button" aria-label="More options for Lahan 1">
                 <svg
                   className="relative w-6 h-6 text-black"
                   viewBox="0 0 24 24"
@@ -317,7 +303,7 @@ export default function Dashboard() {
             {/* Detail Button */}
             <Link
               href="#"
-              className="flex w-full h-7 items-center justify-center relative bg-[#7FD083] rounded-b-lg"
+              className="flex w-full h-7 items-center justify-between px-3 relative bg-secondary rounded-b-lg"
             >
               <span className="relative font-poppins font-normal text-xs text-white">
                 Detail
@@ -342,11 +328,11 @@ export default function Dashboard() {
       </section>
 
       {/* Lahan Detail Card */}
-      <article className=" px-6 w-full bg-green-600ail-heading">
+      <article className=" px-6 w-full bg-green-600ail-heading bg-white">
         <div className="rounded-lg border border-solid border-[#1f4e20] flex flex-col gap-4 items-center px-2">
-          <div className="flex flex-col items-start relative w-full">
+          <div className="flex flex-col items-start relative w-full pt-2">
             {/* Header Title */}
-            <div className="flex items-start px-2 py-1 relative w-full">
+            <div className="flex items-start px-2 relative w-full">
               <h2
                 id="lahan-detail-heading"
                 className="relative font-poppins font-semibold text-lg text-black"
@@ -357,118 +343,118 @@ export default function Dashboard() {
           </div>
 
           {/* Toggle Switches Container */}
-    <div className="flex items-center justify-between gap-3 relative w-full px-2">
-      {/* === Penyiraman Otomatis === */}
-      <div className="flex flex-1 items-center justify-between p-2 bg-[#E0F5E1] rounded-lg border border-solid border-[#1f4e20]">
-        <div className="flex items-center gap-1">
-          {/* Icon Air */}
-          <svg
-            className="relative w-5 h-5"
-            viewBox="0 0 20 20"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M10 2V4M10 16V18M4.22 4.22L5.64 5.64M14.36 14.36L15.78 15.78M2 10H4M16 10H18M4.22 15.78L5.64 14.36M14.36 5.64L15.78 4.22"
-              stroke="#1F4E20"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-            <path
-              d="M10 6C10 8 8 10 10 12C12 10 10 8 10 6Z"
-              fill="#4A90E2"
-              stroke="#4A90E2"
-              strokeWidth="1.5"
-            />
-          </svg>
-          <label className="flex flex-col items-start justify-center">
-            <span className="text-xs font-normal text-black leading-tight">
-              Penyiraman <br /> Otomatis
-            </span>
-          </label>
-        </div>
+          <div className="flex flex-wrap md:flex-nowrap items-stretch justify-between gap-3 w-full px-2">
+            {/* === Penyiraman Otomatis === */}
+            <div className="flex flex-1 min-w-[180px] items-center justify-between p-2 bg-soft border-secondary rounded-lg border border-solid ">
+              <div className="flex items-center gap-1">
+                {/* Icon Air */}
+                <svg
+                  className="relative w-5 h-5"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M10 2V4M10 16V18M4.22 4.22L5.64 5.64M14.36 14.36L15.78 15.78M2 10H4M16 10H18M4.22 15.78L5.64 14.36M14.36 5.64L15.78 4.22"
+                    stroke="#1F4E20"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M10 6C10 8 8 10 10 12C12 10 10 8 10 6Z"
+                    fill="#4A90E2"
+                    stroke="#4A90E2"
+                    strokeWidth="1.5"
+                  />
+                </svg>
+                <label className="flex flex-col items-start justify-center">
+                  <span className="text-xs font-normal text-black leading-tight">
+                    Penyiraman <br /> Otomatis
+                  </span>
+                </label>
+              </div>
 
-        {/* Switch */}
-        <button
-          onClick={() => setIsPenyiramanOn(!isPenyiramanOn)}
-          type="button"
-          role="switch"
-          aria-checked={isPenyiramanOn}
-          aria-label="Toggle penyiraman otomatis"
-          className="flex-shrink-0 transition-all"
-        >
-          <div
-            className={`relative w-[46px] h-[24px] rounded-full transition-colors duration-300 ${
-              isPenyiramanOn ? "bg-[#7FD083]" : "bg-gray-300"
-            }`}
-          >
-            <div
-              className={`absolute top-[2px] w-5 h-5 bg-white rounded-full shadow-md transition-all duration-300 ${
-                isPenyiramanOn ? "right-[2px]" : "left-[2px]"
-              }`}
-            />
+              {/* Switch */}
+              <button
+                onClick={() => setIsPenyiramanOn(!isPenyiramanOn)}
+                type="button"
+                role="switch"
+                aria-checked={isPenyiramanOn}
+                aria-label="Toggle penyiraman otomatis"
+                className="flex-shrink-0 transition-all"
+              >
+                <div
+                  className={`relative w-[46px] h-[24px] rounded-full transition-colors duration-300 ${
+                    isPenyiramanOn ? "bg-[#7FD083]" : "bg-gray-300"
+                  }`}
+                >
+                  <div
+                    className={`absolute top-[2px] w-5 h-5 bg-white rounded-full shadow-md transition-all duration-300 ${
+                      isPenyiramanOn ? "right-[2px]" : "left-[2px]"
+                    }`}
+                  />
+                </div>
+              </button>
+            </div>
+
+            {/* === Pemupukan Otomatis === */}
+            <div className="flex flex-1 min-w-[180px] items-center justify-between p-2 bg-soft border-secondary rounded-lg border border-solid ">
+              <div className="flex items-center gap-1">
+                {/* Icon Pupuk */}
+                <svg
+                  className="relative w-6 h-6"
+                  viewBox="0 0 26 26"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <rect
+                    x="6"
+                    y="4"
+                    width="14"
+                    height="18"
+                    rx="2"
+                    stroke="#1F4E20"
+                    strokeWidth="2"
+                  />
+                  <path
+                    d="M10 10H16M10 14H16M10 18H14"
+                    stroke="#1F4E20"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
+                </svg>
+                <label className="flex flex-col items-start justify-center">
+                  <span className="text-xs font-normal text-black leading-tight">
+                    Pemupukan
+                    <br />
+                    Otomatis
+                  </span>
+                </label>
+              </div>
+
+              {/* Switch */}
+              <button
+                onClick={() => setIsPemupukanOn(!isPemupukanOn)}
+                type="button"
+                role="switch"
+                aria-checked={isPemupukanOn}
+                aria-label="Toggle pemupukan otomatis"
+                className="flex-shrink-0 transition-all"
+              >
+                <div
+                  className={`relative w-[46px] h-[24px] rounded-full transition-colors duration-300 ${
+                    isPemupukanOn ? "bg-[#7FD083]" : "bg-gray-300"
+                  }`}
+                >
+                  <div
+                    className={`absolute top-[2px] w-5 h-5 bg-white rounded-full shadow-md transition-all duration-300 ${
+                      isPemupukanOn ? "right-[2px]" : "left-[2px]"
+                    }`}
+                  />
+                </div>
+              </button>
+            </div>
           </div>
-        </button>
-      </div>
-
-      {/* === Pemupukan Otomatis === */}
-      <div className="flex flex-1 items-center justify-between p-2 bg-[#E0F5E1] rounded-lg border border-solid border-[#1f4e20]">
-        <div className="flex items-center gap-1">
-          {/* Icon Pupuk */}
-          <svg
-            className="relative w-6 h-6"
-            viewBox="0 0 26 26"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <rect
-              x="6"
-              y="4"
-              width="14"
-              height="18"
-              rx="2"
-              stroke="#1F4E20"
-              strokeWidth="2"
-            />
-            <path
-              d="M10 10H16M10 14H16M10 18H14"
-              stroke="#1F4E20"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-            />
-          </svg>
-          <label className="flex flex-col items-start justify-center">
-            <span className="text-xs font-normal text-black leading-tight">
-              Pemupukan
-              <br />
-              Otomatis
-            </span>
-          </label>
-        </div>
-
-        {/* Switch */}
-        <button
-          onClick={() => setIsPemupukanOn(!isPemupukanOn)}
-          type="button"
-          role="switch"
-          aria-checked={isPemupukanOn}
-          aria-label="Toggle pemupukan otomatis"
-          className="flex-shrink-0 transition-all"
-        >
-          <div
-            className={`relative w-[46px] h-[24px] rounded-full transition-colors duration-300 ${
-              isPemupukanOn ? "bg-[#7FD083]" : "bg-gray-300"
-            }`}
-          >
-            <div
-              className={`absolute top-[2px] w-5 h-5 bg-white rounded-full shadow-md transition-all duration-300 ${
-                isPemupukanOn ? "right-[2px]" : "left-[2px]"
-              }`}
-            />
-          </div>
-        </button>
-      </div>
-    </div>
 
           {/* Sensor Data Container */}
           <div className="flex flex-col w-full items-center gap-3 relative px-2">
@@ -701,7 +687,7 @@ export default function Dashboard() {
           {/* Detail Button */}
           <Link
             href="#"
-            className="flex w-full items-center justify-center gap-8 py-4 relative bg-[#1F4E20] rounded-lg"
+            className="flex w-full items-center justify-center gap-8 py-4 relative bg-[#1F4E20] rounded-lg mb-4"
           >
             <span className="relative font-poppins font-semibold text-base text-white">
               Lihat Detail Lahan
