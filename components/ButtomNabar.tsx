@@ -19,7 +19,9 @@ export default function BottomNavbar() {
     <div className="w-full bg-white sticky bottom-0 shadow-inner rounded-t-2xl flex justify-center items-center py-2">
       <ul className="flex justify-around items-end w-full max-w-md px-2">
         {navItems.map((item) => {
-          const isActive = pathname === item.href;
+          const isActive =
+            pathname === item.href ||
+            pathname.startsWith(item.href + "/");
           const Icon = item.icon;
 
           return (
@@ -36,7 +38,6 @@ export default function BottomNavbar() {
                 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
-                {/* SVG Circle Background (only active) */}
                 {isActive && (
                   <motion.svg
                     width="44"
@@ -56,11 +57,9 @@ export default function BottomNavbar() {
                       stroke="#1F4E20"
                       strokeWidth="2"
                     />
-
                   </motion.svg>
                 )}
 
-                {/* Icon */}
                 <Icon
                   className={`w-5 h-5 z-10 transition-colors duration-300 ${
                     isActive
@@ -70,7 +69,6 @@ export default function BottomNavbar() {
                 />
               </motion.div>
 
-              {/* Label */}
               <span
                 className={`text-[0.7rem] font-medium mt-1 transition-all duration-300 ${
                   isActive ? "text-[#1F4E20] font-semibold" : "text-gray-500"

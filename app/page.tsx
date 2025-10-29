@@ -75,7 +75,7 @@ export default function Dashboard() {
           {/* Notification Button */}
 
           <Link
-            href="/notifikasi"
+            href="/setelan/notifikasi"
             aria-label="Notifications"
             className="w-14 h-14 rounded-full flex items-center justify-center "
           >

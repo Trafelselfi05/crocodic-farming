@@ -11,7 +11,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import {Settings2 as Filter } from "lucide-react";
+import { Settings2 as Filter } from "lucide-react";
 
 export default function SensorPage() {
   const [selectedPeriod, setSelectedPeriod] = useState<
@@ -68,10 +68,8 @@ export default function SensorPage() {
   const averageData = {
     nutrient: allData["Lahan 1"].nutrient.map((d, i) => ({
       day: d.day,
-      nitrogen:
-        (d.nitrogen + allData["Lahan 2"].nutrient[i].nitrogen) / 2,
-      phospor:
-        (d.phospor + allData["Lahan 2"].nutrient[i].phospor) / 2,
+      nitrogen: (d.nitrogen + allData["Lahan 2"].nutrient[i].nitrogen) / 2,
+      phospor: (d.phospor + allData["Lahan 2"].nutrient[i].phospor) / 2,
       kalium: (d.kalium + allData["Lahan 2"].nutrient[i].kalium) / 2,
     })),
     suhu: allData["Lahan 1"].suhu.map((d, i) => ({
@@ -80,7 +78,10 @@ export default function SensorPage() {
     })),
   };
 
-  const lahanList = ["Semua Lahan", ...Array.from({ length: 10 }, (_, i) => `Lahan ${i + 1}`)];
+  const lahanList = [
+    "Semua Lahan",
+    ...Array.from({ length: 10 }, (_, i) => `Lahan ${i + 1}`),
+  ];
 
   const selectedData =
     selectedLahan === "Semua Lahan"
@@ -134,7 +135,7 @@ export default function SensorPage() {
       </p>
 
       {/* Tombol Harian / Mingguan / Bulanan */}
-      <div className="flex w-full bg-white rounded-xl overflow-hidden shadow-sm">
+      <div className="flex w-full bg-white rounded-xl border border-primary overflow-hidden shadow-sm">
         {periodButtons.map((period) => (
           <button
             key={period}
@@ -150,28 +151,72 @@ export default function SensorPage() {
         ))}
       </div>
 
-      {/* Grafik Nutrisi */}
-      <div className="bg-white p-4 rounded-xl shadow-sm">
-        <h2 className="text-lg font-semibold text-[#1F4E20] mb-4">
-          Kandungan Nutrisi
-        </h2>
-        <ResponsiveContainer width="100%" height={300}>
-          <LineChart data={nutrientData}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="day" />
-            <YAxis domain={[0, 60]} />
-            <Tooltip />
-            <Legend />
-            <Line type="monotone" dataKey="nitrogen" stroke="#1F4E20" strokeWidth={2} />
-            <Line type="monotone" dataKey="phospor" stroke="#7FD083" strokeWidth={2} />
-            <Line type="monotone" dataKey="kalium" stroke="#f59e0b" strokeWidth={2} />
-          </LineChart>
-        </ResponsiveContainer>
-      </div>
+{/* Grafik Nutrisi */}
+<div className="bg-white p-4 rounded-xl shadow-sm">
+  <h2 className="text-lg font-semibold text-[#1F4E20] mb-4">
+    Kandungan Nutrisi
+  </h2>
+
+  <ResponsiveContainer width="100%" height={300}>
+    <LineChart data={nutrientData}>
+      <CartesianGrid strokeDasharray="3 3" />
+      <XAxis dataKey="day" />
+      <YAxis
+        domain={[0, 60]}
+        label={{
+          value: "Tingkat NPK (ppm)",
+          angle: -90,
+          position: "insideLeft",
+          style: {
+            textAnchor: "middle",
+            fill: "#1F4E20",
+            fontWeight: 600,
+          },
+        }}
+      />
+      <Tooltip />
+      <Legend />
+      <Line
+        type="monotone"
+        dataKey="nitrogen"
+        stroke="#1F4E20"
+        strokeWidth={2}
+      />
+      <Line
+        type="monotone"
+        dataKey="phospor"
+        stroke="#7FD083"
+        strokeWidth={2}
+      />
+      <Line
+        type="monotone"
+        dataKey="kalium"
+        stroke="#f59e0b"
+        strokeWidth={2}
+      />
+    </LineChart>
+  </ResponsiveContainer>
+
+  {/* === Zona Ideal Berdasarkan Periode === */}
+  <div className="mt-4 bg-[#F4FAF4] rounded-lg p-3 border border-[#7FD083]/40">
+    <p className="text-sm text-[#1F4E20] font-semibold capitalize mb-1">
+      {selectedPeriod}
+    </p>
+    <p className="text-sm text-[#1F4E20] font-medium">Zona ideal untuk:</p>
+    <ul className="text-sm text-[#1F4E20] ml-4 list-disc">
+      <li>Nitrogen (20–50 ppm)</li>
+      <li>Phospor (15–30 ppm)</li>
+      <li>Kalium (30–60 ppm)</li>
+    </ul>
+  </div>
+</div>
+
 
       {/* Grafik Suhu Tanah */}
       <div className="bg-white p-4 rounded-xl shadow-sm">
-        <h2 className="text-lg font-semibold text-[#1F4E20] mb-4">Suhu Tanah</h2>
+        <h2 className="text-lg font-semibold text-[#1F4E20] mb-4">
+          Suhu Tanah
+        </h2>
         <ResponsiveContainer width="100%" height={300}>
           <LineChart data={temperatureData}>
             <CartesianGrid strokeDasharray="3 3" />
@@ -179,7 +224,12 @@ export default function SensorPage() {
             <YAxis domain={[0, 50]} />
             <Tooltip />
             <Legend />
-            <Line type="monotone" dataKey="suhu" stroke="#ef4444" strokeWidth={2} />
+            <Line
+              type="monotone"
+              dataKey="suhu"
+              stroke="#ef4444"
+              strokeWidth={2}
+            />
           </LineChart>
         </ResponsiveContainer>
       </div>

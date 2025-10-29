@@ -6,7 +6,7 @@ import {
   Pencil,
   Trash2,
   Plus,
-  Filter,
+  Settings2 as Filter,
   ChevronLeft,
   Check,
 } from "lucide-react";
@@ -28,38 +28,40 @@ export default function LahanDetailPage() {
   });
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4 flex flex-col">
-      {/* Header */}
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-2">
-          <ArrowLeft className="text-gray-700 w-5 h-5" />
-          <h1 className="text-xl font-semibold text-gray-800">Lahan #01</h1>
+    <div className=" bg-gray-50 px-6 w-full flex flex-col">
+      <div className="sticky top-0 bg-soft z-50">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-2">
+            <ArrowLeft className="text-gray-700 w-5 h-5" />
+            <h1 className="text-xl font-semibold text-gray-800">Lahan #01</h1>
+          </div>
         </div>
-      </div>
 
-      {/* Info Section */}
-      <div className="flex justify-between items-center mb-4">
-        <div>
-          <p className="text-gray-700 text-sm">Luas: 2 ha</p>
-          <p className="text-gray-700 text-sm">Tanaman: Padi</p>
+        {/* Info Section */}
+        <div className="flex justify-between items-center mb-4">
+          <div>
+            <p className="text-gray-700 text-sm">Luas: 2 ha</p>
+            <p className="text-gray-700 text-sm">Tanaman: Padi</p>
+          </div>
+          <div className="flex gap-3">
+            <button className="bg-primary p-3 rounded-full" onClick={() => setShowEditModal(true)}> 
+              <Pencil className="text-white" />
+            </button>
+            <button className="bg-primary p-3 rounded-full">
+              <Trash2 className="text-white" />
+            </button>
+          </div>
         </div>
-        <div className="flex gap-3">
-          <button onClick={() => setShowEditModal(true)}>
-            <Pencil className="text-gray-700" />
-          </button>
-          <button>
-            <Trash2 className="text-red-500" />
-          </button>
-        </div>
-      </div>
 
-      {/* Tombol Tambah Sensor */}
-      <button className="flex items-center justify-center gap-2 w-full py-2 bg-green-600 text-white rounded-lg mb-4">
-        <Plus className="w-5 h-5" /> Tambah Sensor
-      </button>
+        {/* Tombol Tambah Sensor */}
+        <button className="flex items-center justify-center gap-2 w-full py-2 bg-green-600 text-white rounded-lg mb-4">
+          <Plus className="w-5 h-5" /> Tambah Sensor
+        </button>
+      </div>
 
       {/* Scrollable Container */}
-      <div className="space-y-4 overflow-y-auto">
+      <div className="space-y-4 overflow-y-auto ">
         {[1, 2, 3, 4].map((i) => (
           <div key={i} className="bg-white p-4 rounded-xl shadow-sm space-y-3">
             {/* Penyiraman Otomatis */}
@@ -92,18 +94,18 @@ export default function LahanDetailPage() {
             </div>
 
             {/* Jadwal */}
-            <div className="flex justify-between items-center mt-2">
-              <span className="text-gray-700 font-medium">Jadwal</span>
+            <div className="flex justify-between items-center mt-4">
+              <span className="text-gray-700 font-bold">Jadwal</span>
               <button
                 onClick={() => setShowFilterModal(true)}
-                className="p-1.5 rounded-lg hover:bg-gray-100"
+                className="p-1.5 rounded-full hover:bg-gray-100 border border-secondary"
               >
-                <Filter className="w-4 h-4 text-gray-600" />
+                <Filter className="w-4 h-4 text-primary" />
               </button>
             </div>
 
             {/* Waktu */}
-            <div className="flex justify-between items-center gap-2 mt-2">
+            <div className="flex justify-between items-center gap-2 mt-4">
               <div className="flex flex-col items-center flex-1 border rounded-lg p-2">
                 <span className="text-xs text-gray-500">Dari</span>
                 <span className="text-sm font-medium text-gray-800">
@@ -179,9 +181,7 @@ export default function LahanDetailPage() {
                 >
                   Batal
                 </button>
-                <button
-                  className="flex-1 py-2 bg-[#1F4E20] text-white rounded-lg font-medium hover:bg-[#183d19] transition"
-                >
+                <button className="flex-1 py-2 bg-[#1F4E20] text-white rounded-lg font-medium hover:bg-[#183d19] transition">
                   Simpan
                 </button>
               </div>
