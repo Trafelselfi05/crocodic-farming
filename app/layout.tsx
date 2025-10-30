@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import BottomNavbar from "../components/ButtomNabar";
+import SplashScreen from "@/components/SplashScreen";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -14,21 +15,17 @@ export const metadata: Metadata = {
   description: "Pertanian Cerdas, Panen Berkualitas",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="id">
-      <body className={poppins.variable} suppressHydrationWarning>
+      <body suppressHydrationWarning>
+        {/* SplashScreen tampil dulu */}
+        <SplashScreen />
+
         <main className="bg-soft w-full h-screen flex flex-col md:hidden">
-          {/* Bagian isi halaman scrollable */}
           <section className="flex-1 overflow-y-auto overflow-x-hidden flex flex-col items-center gap-5 pt-5 pb-5">
             {children}
           </section>
-
-          {/* Navbar selalu di bawah */}
           <BottomNavbar />
         </main>
 
