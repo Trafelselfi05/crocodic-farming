@@ -222,7 +222,7 @@ export default function SplashScreen({
           initial={{ opacity: 0, x: -40 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
-          className="text-2xl md:text-3xl font-semibold text-white mb-2"
+          className="text-2xl md:text-3xl font-semibold text-white mb-2 uppercase"
         >
           Crocodic Smart Farming
         </motion.h1>

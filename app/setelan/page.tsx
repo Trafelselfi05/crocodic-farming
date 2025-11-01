@@ -4,7 +4,7 @@ import { User, Globe, Bell, Info, LogOut, ChevronRight } from "lucide-react";
 import Link from "next/link";
 
 const menuItems = [
-  { name: "Profil", icon: User, href: "/profil" },
+  { name: "Profil", icon: User, href: "/profile" },
   { name: "Aturan Zona Waktu", icon: Globe, href: "/zona-waktu" },
   { name: "Notifikasi", icon: Bell, href: "/notifikasi" },
   { name: "Tentang Kami", icon: Info, href: "/tentang" },
@@ -18,7 +18,7 @@ export default function SetelanPage() {
       <h1 className="text-2xl font-bold text-[#1F4E20] mb-6">Setelan</h1>
 
       {/* Menu List */}
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-6">
         {menuItems.map((item, i) => (
           <Link
             key={i}

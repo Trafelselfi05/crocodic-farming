@@ -143,7 +143,7 @@ export default function SensorPage() {
             className={`w-1/3 py-2 capitalize font-medium transition ${
               selectedPeriod === period
                 ? "bg-[#1F4E20] text-white"
-                : "bg-[#F4FAF4] text-[#1F4E20] hover:bg-[#7FD083]/20"
+                : "bg-[#ffffff] text-[#1F4E20] hover:bg-[#7FD083]/20"
             }`}
           >
             {period}
