@@ -29,7 +29,7 @@ export default function LahanDetailPage() {
 
   return (
     <div className=" bg-gray-50 px-6 w-full flex flex-col">
-      <div className="sticky top-0 bg-soft z-50">
+      <div className="sticky top-0 bg-soft z-20">
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">

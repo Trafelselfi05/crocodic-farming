@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { Home, BarChart2, Leaf, Settings } from "lucide-react";
+import { Home,SquareActivity as BarChart2,LayoutGrid as Leaf,Bolt as Settings } from "lucide-react";
 
 const navItems = [
   { href: "/", label: "Beranda", icon: Home },

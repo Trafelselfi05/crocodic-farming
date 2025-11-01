@@ -15,14 +15,19 @@ export const metadata: Metadata = {
   description: "Pertanian Cerdas, Panen Berkualitas",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="id">
       <body suppressHydrationWarning>
         {/* SplashScreen tampil dulu */}
-        <SplashScreen />
 
         <main className="bg-soft w-full h-screen flex flex-col md:hidden">
+          <SplashScreen />
+
           <section className="flex-1 overflow-y-auto overflow-x-hidden flex flex-col items-center gap-5 pt-5 pb-5">
             {children}
           </section>

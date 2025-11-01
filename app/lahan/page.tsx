@@ -56,7 +56,7 @@ export default function LahanPage() {
           <button
             key={f}
             onClick={() => setFilter(f)}
-            className={`px-4 py-1 rounded-full border text-sm flex justify-center items-center whitespace-nowrap ${
+            className={`px-4 py-2 rounded-full border text-sm flex justify-center items-center whitespace-nowrap ${
               filter === f
                 ? "bg-[#1F4E20] text-white border-[#1F4E20]"
                 : "bg-white text-gray-700 border-gray-300"
@@ -97,7 +97,7 @@ export default function LahanPage() {
 
               {/* Detail Button */}
               <Link
-                href="#"
+                href="/lahan/id"
                 className="flex w-full h-7 items-center justify-between px-3 relative bg-[#7FD083] rounded-b-lg"
               >
                 <span className="relative font-poppins font-normal text-xs text-white">
