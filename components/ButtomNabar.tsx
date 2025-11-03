@@ -102,30 +102,33 @@ export default function BottomNavbar() {
                 aria-label={item.label}
                 aria-current={isActive ? "page" : undefined}
               >
-                {/* Active state with SVG graphic */}
+                {/* Active state circle background with animation and spacing */}
                 <div 
-                  className={`absolute left-1/2 -translate-x-1/2 w-[64px] h-[64px] flex items-center justify-center transition-all duration-300 ease-out ${
+                  className={`absolute left-1/2 -translate-x-1/2 w-[64px] h-[64px] bg-[#1F4E20] rounded-full flex items-center justify-center transition-all duration-300 ease-out shadow-lg ${
                     isActive 
                       ? 'top-[-42px] opacity-100 scale-100' 
                       : 'top-[0px] opacity-0 scale-75'
                   }`}
                 >
+                  {/* Icon inside circle - perfectly centered */}
                   {isActive && (
-                    <img
-                      src={`/asset/grafik/${item.label.toLowerCase()}-active.svg`}
-                      alt={`${item.label} active`}
-                      className="w-full h-full object-contain"
-                    />
+                    <div className="flex items-center justify-center w-full h-full">
+                      <Icon
+                        size={28}
+                        strokeWidth={2.5}
+                        className="text-white"
+                      />
+                    </div>
                   )}
                 </div>
 
-                {/* Inactive state with SVG graphic */}
+                {/* Icon wrapper for inactive state */}
                 {!isActive && (
-                  <div className="relative flex items-center justify-center w-6 h-6 z-10 mb-0 transition-opacity duration-300 ease-out">
-                    <img
-                      src={`/asset/grafik/${item.label.toLowerCase()}-inactive.svg`}
-                      alt={`${item.label} inactive`}
-                      className="w-full h-full object-contain hover:opacity-80 transition-opacity duration-200"
+                  <div className="relative flex items-center justify-center w-6 h-6 z-10 mb-0">
+                    <Icon
+                      size={20}
+                      strokeWidth={2.5}
+                      className="text-[#9E9E9E] hover:text-[#1F4E20] transition-colors duration-300 ease-out"
                     />
                   </div>
                 )}
