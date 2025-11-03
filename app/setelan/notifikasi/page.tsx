@@ -1,7 +1,8 @@
 "use client";
 
-import { ArrowLeft, Trash2,Settings2 as Filter, Clock, Droplet } from "lucide-react";
+import { ArrowLeft, Trash2, Settings2 as Filter, Clock } from "lucide-react";
 import React, { useState } from "react";
+import Image from "next/image";
 
 type Notifikasi = {
   id: number;
@@ -36,8 +37,8 @@ const dummyNotifikasi: Notifikasi[] = [
   {
     id: 4,
     lahan: "Lahan 3",
-    judul: "Sensor Kelembapan",
-    deskripsi: "Kelembapan turun 20%",
+    judul: "Sensor Kelembaban Tanah",
+    deskripsi: "Kelembaban turun 20%",
     waktu: "2 jam yang lalu",
   },
   {
@@ -71,8 +72,8 @@ const dummyNotifikasi: Notifikasi[] = [
   {
     id: 9,
     lahan: "Lahan 1",
-    judul: "Sensor Kelembapan",
-    deskripsi: "Kelembapan normal kembali",
+    judul: "Sensor Kelembaban Lingkungan",
+    deskripsi: "Kelembaban normal kembali",
     waktu: "50 menit yang lalu",
   },
   {
@@ -85,18 +86,51 @@ const dummyNotifikasi: Notifikasi[] = [
   {
     id: 11,
     lahan: "Lahan 5",
-    judul: "Pemupukan Otomatis",
-    deskripsi: "Pemupukan berjalan 8 menit",
+    judul: "Sensor NPK",
+    deskripsi: "Kadar NPK menurun",
     waktu: "8 menit yang lalu",
   },
   {
     id: 12,
     lahan: "Lahan 2",
-    judul: "Sensor Suhu Tanah",
+    judul: "Sensor Suhu Lingkungan",
     deskripsi: "Suhu turun 2°C",
     waktu: "25 menit yang lalu",
   },
+  {
+    id: 13,
+    lahan: "Lahan 3",
+    judul: "Sensor pH Tanah",
+    deskripsi: "pH tanah berubah menjadi 6.5",
+    waktu: "40 menit yang lalu",
+  },
 ];
+
+// Function to get icon based on notification title
+const getNotificationIcon = (judul: string): string => {
+  const judulLower = judul.toLowerCase();
+  
+  if (judulLower.includes("kelembaban lingkungan")) {
+    return "/asset/beranda/kelembapanlingkungan.svg";
+  } else if (judulLower.includes("suhu tanah")) {
+    return "/asset/beranda/suhu.svg";
+  } else if (judulLower.includes("npk")) {
+    return "/asset/beranda/npk.svg";
+  } else if (judulLower.includes("suhu lingkungan")) {
+    return "/asset/beranda/suhulingkungan.svg";
+  } else if (judulLower.includes("ph tanah")) {
+    return "/asset/beranda/ph.svg";
+  } else if (judulLower.includes("kelembaban tanah") || judulLower.includes("kelembapan")) {
+    return "/asset/beranda/kelembapantanah.svg";
+  } else if (judulLower.includes("penyiraman")) {
+    return "/asset/beranda/kelembapantanah.svg"; // Using soil moisture icon for watering
+  } else if (judulLower.includes("pemupukan")) {
+    return "/asset/beranda/npk.svg"; // Using NPK icon for fertilizing
+  }
+  
+  // Default icon
+  return "/asset/beranda/kelembapantanah.svg";
+};
 
 export default function NotifikasiPage() {
   const [filter, setFilter] = useState<string>("Semua");
@@ -117,10 +151,10 @@ export default function NotifikasiPage() {
       : dummyNotifikasi.filter((n) => n.lahan === filter);
 
   return (
-    <div className="bg-[#F4FAF4] px-6 w-full flex flex-col">
+    <div className="bg-[#F4FAF4] w-full h-screen flex flex-col">
       {/* Header */}
-      <div className="sticky top-0 bg-soft">
-        <div className="flex justify-between items-center mb-4 ">
+      <div className="sticky top-0 bg-[#F4FAF4] z-20 px-6 pt-2 pb-3 shadow-sm">
+        <div className="flex justify-between items-center mb-3">
           <button className="p-2 rounded-full hover:bg-[#7FD083]/20 transition">
             <ArrowLeft className="w-5 h-5 text-[#1F4E20]" />
           </button>
@@ -131,7 +165,7 @@ export default function NotifikasiPage() {
         </div>
 
         {/* Filter Dropdown */}
-        <div className="relative mb-4">
+        <div className="relative">
           <button
             onClick={() => setDropdownOpen(!dropdownOpen)}
             className="w-full flex justify-between items-center bg-white border border-[#7FD083] px-4 py-2 rounded-lg shadow-sm text-[#1F4E20] hover:bg-[#7FD083]/10 transition"
@@ -141,7 +175,7 @@ export default function NotifikasiPage() {
           </button>
 
           {dropdownOpen && (
-            <div className="absolute mt-2 w-full bg-white border border-[#7FD083] rounded-lg shadow-md z-10">
+            <div className="absolute mt-2 w-full bg-white border border-[#7FD083] rounded-lg shadow-md z-30 max-h-60 overflow-y-auto">
               {lahanOptions.map((option) => (
                 <button
                   key={option}
@@ -149,7 +183,7 @@ export default function NotifikasiPage() {
                     setFilter(option);
                     setDropdownOpen(false);
                   }}
-                  className={`w-full text-left px-4 py-2 hover:bg-[#7FD083]/10 ${
+                  className={`w-full text-left px-4 py-2 hover:bg-[#7FD083]/10 transition ${
                     option === filter ? "bg-[#7FD083]/10 font-semibold" : ""
                   }`}
                 >
@@ -162,14 +196,22 @@ export default function NotifikasiPage() {
       </div>
 
       {/* Scrollable Container */}
-      <div className="flex flex-col gap-3 overflow-y-auto pb-4">
+      <div className="flex-1 flex flex-col gap-3 overflow-y-auto px-6 py-3">
         {filteredData.map((item) => (
           <div
             key={item.id}
-            className="flex items-center gap-3 bg-white rounded-lg shadow-sm border border-[#7FD083]/50 p-4"
+            className="flex items-center gap-3 bg-white rounded-lg shadow-sm border border-[#7FD083]/50 p-4 hover:shadow-md transition"
           >
-            <Droplet className="w-9 h-9 text-[#7FD083]" />
-            <div className="flex flex-col space-y-2">
+            {/* Dynamic Icon */}
+            <div className="flex-shrink-0">
+              <img
+                src={getNotificationIcon(item.judul)}
+                alt={item.judul}
+                className="w-9 h-9"
+              />
+            </div>
+            
+            <div className="flex flex-col space-y-2 flex-1">
               <p className="text-[#1F4E20] font-semibold">
                 {item.lahan} - {item.judul}
               </p>
