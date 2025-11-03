@@ -44,22 +44,22 @@ export default function LahanPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F4FAF4] w-full px-6 flex flex-col">
+    <div className="min-h-screen bg-[#F4FAF4] w-full px-6 pb-24 flex flex-col">
       {/* Header */}
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-semibold text-[#1F4E20]">Lahan</h1>
       </div>
 
       {/* Filter Horizontal Scroll */}
-      <div className="flex gap-2 overflow-x-auto pb-2 mb-4">
+      <div className="flex gap-2 overflow-x-auto pb-2 mb-4 px-2.5">
         {["Semua", "Padi", "Jagung", "Cabai", "Kedelai", "Tomat"].map((f) => (
           <button
             key={f}
             onClick={() => setFilter(f)}
-            className={`px-4 py-2 rounded-full border text-sm flex justify-center items-center whitespace-nowrap ${
+            className={`px-6 py-1.5 rounded-[10px] text-sm font-semibold whitespace-nowrap transition-colors ${
               filter === f
-                ? "bg-[#1F4E20] text-white border-[#1F4E20]"
-                : "bg-white text-gray-700 border-gray-300"
+                ? "bg-white text-[#1F4E20] border-[0.5px] border-solid border-[#1F4E20]"
+                : "bg-[#1F4E20] text-white"
             }`}
           >
             {f}
@@ -76,7 +76,7 @@ export default function LahanPage() {
       </button>
 
       {/* Grid Card Lahan */}
-      <div className="grid grid-cols-2 gap-4 overflow-y-auto pb-6">
+      <div className="grid grid-cols-2 gap-2.5 overflow-y-auto pb-6 flex-1">
         {dataLahan
           .filter((lahan) =>
             filter === "Semua" ? true : lahan.tanaman === filter
@@ -84,27 +84,29 @@ export default function LahanPage() {
           .map((lahan) => (
             <div
               key={lahan.id}
-              className="bg-white rounded-md shadow pt-4 flex flex-col justify-between"
+              className="bg-white rounded-[10px] shadow pt-4 flex flex-col justify-between h-[112px] border-[0.5px] border-solid border-[#1F4E20]"
             >
               <div className="flex justify-between items-center mb-2 px-4">
-                <h2 className="text-lg font-semibold text-gray-800">
+                <h2 className="text-sm font-semibold text-black">
                   {lahan.nama}
                 </h2>
                 <ChevronRight className="text-gray-400" size={20} />
               </div>
-              <p className="text-sm px-4 text-gray-600">Luas: {lahan.luas}</p>
-              <p className="text-sm px-4 pb-4 text-gray-600">Tanaman: {lahan.tanaman}</p>
+              <div className="px-4 flex-1">
+                <p className="text-xs text-black">Luas: {lahan.luas}</p>
+                <p className="text-xs text-black">Tanaman: {lahan.tanaman}</p>
+              </div>
 
               {/* Detail Button */}
               <Link
                 href="/lahan/id"
-                className="flex w-full h-7 items-center justify-between px-3 relative bg-[#7FD083] rounded-b-lg"
+                className="flex w-full h-[29px] items-center justify-between px-3 relative bg-[#7FD083] rounded-b-[10px]"
               >
-                <span className="relative font-poppins font-normal text-xs text-white">
+                <span className="relative font-medium text-sm text-white">
                   Detail
                 </span>
                 <svg
-                  className="relative w-4 h-4 ml-1"
+                  className="relative w-[18px] h-[18px]"
                   viewBox="0 0 18 18"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
