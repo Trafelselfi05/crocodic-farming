@@ -8,7 +8,7 @@ export default function Dashboard() {
   const [isPemupukanOn, setIsPemupukanOn] = useState(false);
 
   return (
-    <div className="flex flex-col items-center gap-5 w-full px-3.5 pb-32">
+    <div className="flex flex-col items-center gap-5 w-full px-3.5 pb-6">
       {/* Header */}
       <div className="relative w-full h-5">
         <div className="flex items-center gap-2.5">

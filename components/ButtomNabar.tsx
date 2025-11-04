@@ -17,22 +17,18 @@ export default function BottomNavbar() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
-  // Set active index based on pathname
+  // Update active nav item
   useEffect(() => {
     const index = navItems.findIndex(
       (item) => pathname === item.href || pathname.startsWith(item.href + "/")
     );
-    if (index !== -1) {
-      setActiveIndex(index);
-    }
+    if (index !== -1) setActiveIndex(index);
   }, [pathname]);
 
   const handleNavClick = (href: string, index: number) => {
     if (activeIndex !== index) {
       setIsTransitioning(true);
       setActiveIndex(index);
-      
-      // Smooth transition before navigation
       setTimeout(() => {
         router.push(href);
         setIsTransitioning(false);
@@ -41,55 +37,17 @@ export default function BottomNavbar() {
   };
 
   return (
-    <nav 
-      className="fixed bottom-0 left-0 right-0 z-50 h-[101px]"
-      role="navigation" 
+    <nav
+      className="sticky bottom-0 left-0 right-0 z-30 bg-transparent"
+      role="navigation"
       aria-label="Main navigation"
     >
-      <div className="relative w-full max-w-[402px] h-full mx-auto">
-        {/* Background with precise cutout */}
-        <div className="absolute w-full h-[72px] top-[29px] left-0">
-          <svg className="w-full h-full" viewBox="0 0 402 72" preserveAspectRatio="none">
-            <defs>
-              <mask id="cutout-mask">
-                <rect x="0" y="0" width="402" height="72" fill="white" rx="20" />
-                {navItems.map((item, index) => {
-                  const isActive = activeIndex === index;
-                  // Calculate exact center position based on flex layout
-                  // With 4 items and justify-around: positions are at 20%, 40%, 60%, 80%
-                  const xPercent = ((index + 1) / (navItems.length + 1)) * 100;
-                  const xPos = (402 * xPercent) / 100;
-                  
-                  return (
-                    <circle
-                      key={`cutout-${index}`}
-                      cx={xPos}
-                      cy="5"
-                      r={isActive ? "32" : "0"}
-                      fill="black"
-                      style={{ transition: 'r 0.3s ease-out' }}
-                    />
-                  );
-                })}
-              </mask>
-            </defs>
-            <rect 
-              x="0" 
-              y="0" 
-              width="402" 
-              height="72" 
-              fill="white" 
-              mask="url(#cutout-mask)"
-              rx="20"
-            />
-          </svg>
-        </div>
-        
-        {/* Shadow overlay */}
-        <div className="absolute w-full h-[72px] top-[29px] left-0 shadow-[0_-4px_12px_rgba(0,0,0,0.08)] rounded-t-[20px] pointer-events-none" />
+      <div className="relative w-full mx-auto h-[90px] sm:h-[100px]">
+        {/* Background Base */}
+        <div className="absolute w-full h-[70px] sm:h-[80px] bottom-0 rounded-t-[24px] bg-white" />
 
-        {/* Navigation items container */}
-        <div className="relative h-full flex items-end justify-around px-6 pb-3">
+        {/* Navigation Items */}
+        <div className="relative h-full flex items-end justify-around px-4 sm:px-6 pb-3">
           {navItems.map((item, index) => {
             const isActive = activeIndex === index;
             const Icon = item.icon;
@@ -98,49 +56,51 @@ export default function BottomNavbar() {
               <button
                 key={item.href}
                 onClick={() => handleNavClick(item.href, index)}
-                className="relative flex flex-col items-center w-14 outline-none focus:outline-none"
+                className="relative flex flex-col items-center justify-end w-16 sm:w-20 focus:outline-none"
                 aria-label={item.label}
                 aria-current={isActive ? "page" : undefined}
               >
-                {/* Active state circle background with animation and spacing */}
-                <div 
-                  className={`absolute left-1/2 -translate-x-1/2 w-[64px] h-[64px] bg-[#1F4E20] rounded-full flex items-center justify-center transition-all duration-300 ease-out shadow-lg ${
-                    isActive 
-                      ? 'top-[-42px] opacity-100 scale-100' 
-                      : 'top-[0px] opacity-0 scale-75'
-                  }`}
-                >
-                  {/* Icon inside circle - perfectly centered */}
-                  {isActive && (
-                    <div className="flex items-center justify-center w-full h-full">
-                      <Icon
-                        size={28}
-                        strokeWidth={2.5}
-                        className="text-white"
-                      />
-                    </div>
-                  )}
-                </div>
+{/* === Active Circle with White Semi-Background (Fixed) === */}
+<div
+  className={`absolute left-1/2 -translate-x-1/2 transition-all duration-300 ease-out ${
+    isActive
+      ? "bottom-[42px] sm:bottom-[48px] opacity-100 scale-100"
+      : "bottom-[20px] opacity-0 scale-75"
+  }`}
+>
+  {/* === White half circle background (menghadap ke atas) === */}
+  <div className="absolute left-1/2 -translate-x-1/2 -bottom-4  w-[84px] h-[45px]  bg-soft rounded-b-full z-0" />
 
-                {/* Icon wrapper for inactive state */}
+  {/* === Green Active Circle === */}
+  <div className="relative w-[58px] sm:w-[64px] h-[58px] sm:h-[64px] bg-[#1F4E20] rounded-full flex items-center justify-center shadow-md z-10">
+    <Icon
+      size={26}
+      strokeWidth={2.5}
+      className="text-white transition-transform duration-300"
+    />
+  </div>
+</div>
+
+
+                {/* === Inactive Icon === */}
                 {!isActive && (
-                  <div className="relative flex items-center justify-center w-6 h-6 z-10 mb-0">
+                  <div className="mb-1 flex items-center justify-center">
                     <Icon
-                      size={20}
-                      strokeWidth={2.5}
-                      className="text-[#9E9E9E] hover:text-[#1F4E20] transition-colors duration-300 ease-out"
+                      size={22}
+                      strokeWidth={2.3}
+                      className="text-gray-400 hover:text-[#1F4E20] transition-colors duration-200"
                     />
                   </div>
                 )}
 
-                {/* Label text with fade animation */}
+                {/* === Label === */}
                 <span
-                  className={`relative z-10 text-sm font-medium text-center whitespace-nowrap transition-all duration-300 ease-out ${
-                    isActive 
-                      ? 'text-[#1F4E20] opacity-100 mt-[46px]' 
-                      : 'text-[#9E9E9E] opacity-80 mt-2'
+                  className={`text-[0.75rem] sm:text-sm font-medium transition-all duration-300 ${
+                    isActive
+                      ? "text-[#1F4E20] opacity-100 mt-[60px]"
+                      : "text-gray-500 opacity-80 mt-2"
                   }`}
-                  style={{ fontFamily: "'Poppins', Helvetica" }}
+                  style={{ fontFamily: "'Poppins', sans-serif" }}
                 >
                   {item.label}
                 </span>
