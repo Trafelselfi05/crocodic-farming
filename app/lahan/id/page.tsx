@@ -320,7 +320,7 @@ export default function LahanDetailPage() {
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
             transition={{ duration: 0.4 }}
-            className="sticky inset-0 bg-black/50 flex justify-center items-end z-50"
+            className="fixed inset-0 bg-black/50 flex justify-center items-end z-50"
           >
             <div className="bg-white w-full rounded-t-2xl p-5 space-y-4">
               <h2 className="text-lg font-semibold text-gray-800">
