@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   ArrowLeft,
   Pencil,
@@ -13,6 +14,7 @@ import {
 import { motion, AnimatePresence } from "motion/react";
 
 export default function LahanDetailPage() {
+  const router = useRouter();
   const [showFilterModal, setShowFilterModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showWeekdayModal, setShowWeekdayModal] = useState(false);
@@ -28,18 +30,20 @@ export default function LahanDetailPage() {
   });
 
   return (
-    <div className=" bg-gray-50 px-6 w-full flex flex-col">
-      <div className="sticky top-0 bg-soft z-20">
+    <div className="bg-gray-50 w-full flex flex-col h-screen">
+      <div className="sticky top-0 bg-gray-50 z-20 px-6 pt-2 pb-3">
         {/* Header */}
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
-            <ArrowLeft className="text-gray-700 w-5 h-5" />
+            <button onClick={() => router.push('/lahan')} className="cursor-pointer">
+              <ArrowLeft className="text-gray-700 w-5 h-5" />
+            </button>
             <h1 className="text-xl font-semibold text-gray-800">Lahan #01</h1>
           </div>
         </div>
 
         {/* Info Section */}
-        <div className="flex justify-between items-center mb-4">
+        <div className="flex justify-between items-center mb-3">
           <div>
             <p className="text-gray-700 text-sm">Luas: 2 ha</p>
             <p className="text-gray-700 text-sm">Tanaman: Padi</p>
@@ -55,13 +59,13 @@ export default function LahanDetailPage() {
         </div>
 
         {/* Tombol Tambah Sensor */}
-        <button className="flex items-center justify-center gap-2 w-full py-2 bg-green-600 text-white rounded-lg mb-4">
+        <button className="flex items-center justify-center gap-2 w-full py-2 bg-green-600 text-white rounded-lg mb-0">
           <Plus className="w-5 h-5" /> Tambah Sensor
         </button>
       </div>
 
       {/* Scrollable Container */}
-      <div className="space-y-4 overflow-y-auto ">
+      <div className="space-y-4 overflow-y-auto flex-1 px-6 pb-6">
         {[1, 2, 3, 4].map((i) => (
           <div key={i} className="bg-white p-4 rounded-xl shadow-sm space-y-3">
             {/* Penyiraman Otomatis */}
