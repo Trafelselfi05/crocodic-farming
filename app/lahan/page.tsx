@@ -56,10 +56,10 @@ export default function LahanPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F4FAF4] w-full px-6 pb-24 flex flex-col">
+    <div className="min-h-screen bg-[#F4FAF4] w-full px-6 pb-24 flex flex-col font-poppins">
       {/* Header */}
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-semibold text-[#1F4E20]">Lahan</h1>
+        <h1 className="text-2xl font-semibold text-[#1F4E20] font-poppins">Lahan</h1>
       </div>
 
       {/* Filter Horizontal Scroll */}
@@ -68,7 +68,7 @@ export default function LahanPage() {
           <button
             key={f}
             onClick={() => setFilter(f)}
-            className={`px-6 py-1.5 rounded-[10px] text-sm font-semibold whitespace-nowrap transition-colors ${filter === f
+            className={`px-6 py-1.5 rounded-[10px] text-sm font-semibold whitespace-nowrap transition-colors font-poppins ${filter === f
               ? "bg-white text-[#1F4E20] border border-[#1F4E20]"
               : "bg-[#1F4E20] text-white border border-transparent"
               }`}
@@ -81,7 +81,7 @@ export default function LahanPage() {
       {/* Tombol Tambah Lahan */}
       <button
         onClick={() => setShowModal(true)}
-        className="w-full py-2 mb-4 bg-[#1F4E20] text-white rounded-md font-medium hover:bg-[#163b17] transition"
+        className="w-full py-2 mb-4 bg-[#1F4E20] text-white rounded-md font-medium hover:bg-[#163b17] transition font-poppins"
       >
         + Tambah Lahan
       </button>
@@ -100,7 +100,7 @@ export default function LahanPage() {
               >
                 {/* Header Card - Nama dan Icon */}
                 <div className="flex items-center justify-between h-[33px] px-3">
-                  <div className="text-sm font-semibold text-black">
+                  <div className="text-sm font-semibold text-black font-poppins">
                     {lahan.nama}
                   </div>
                   <div className="w-6 h-6 p-1 bg-[#1F4E20] rounded-xl flex items-center justify-center flex-shrink-0">
@@ -117,10 +117,10 @@ export default function LahanPage() {
                 {/* Info Section - Luas dan Tanaman */}
                 <div className="flex flex-col items-center px-3 mb-[9px]">
                   <div className="flex flex-col w-full items-start gap-0.5">
-                    <p className="text-xs text-black">
+                    <p className="text-xs text-black font-poppins">
                       Luas: {lahan.luas.replace('ha', 'Ha')}
                     </p>
-                    <p className="text-xs text-black">
+                    <p className="text-xs text-black font-poppins">
                       Tanaman: {lahan.tanaman}
                     </p>
                   </div>
@@ -131,7 +131,7 @@ export default function LahanPage() {
                   href={`/lahan/id`}
                   className="flex w-full h-[29px] items-center justify-between px-3 bg-[#7FD083] rounded-b-[10px]"
                 >
-                  <span className="font-medium text-sm text-white">
+                  <span className="font-medium text-sm text-white font-poppins">
                     Detail
                   </span>
                   <svg
@@ -195,7 +195,7 @@ export default function LahanPage() {
                   <>
                     {/* Header Section */}
                     <div className="flex flex-col gap-[30px] w-full">
-                      <h2 className="text-2xl font-semibold text-black">
+                      <h2 className="text-2xl font-semibold text-black font-poppins">
                         Tambah Lahan
                       </h2>
 
@@ -208,7 +208,7 @@ export default function LahanPage() {
                             placeholder="Nama Lahan"
                             value={namaLahan}
                             onChange={(e) => setNamaLahan(e.target.value)}
-                            className="absolute inset-0 w-full h-full px-4 text-sm text-gray-600 bg-transparent border-none outline-none placeholder-gray-400"
+                            className="absolute inset-0 w-full h-full px-4 text-sm text-gray-600 bg-transparent border-none outline-none placeholder-gray-400 font-poppins"
                           />
                         </div>
 
@@ -219,7 +219,7 @@ export default function LahanPage() {
                             placeholder="Jenis Tanaman"
                             value={tanaman}
                             onChange={(e) => setTanaman(e.target.value)}
-                            className="absolute inset-0 w-full h-full px-4 text-sm text-gray-600 bg-transparent border-none outline-none placeholder-gray-400"
+                            className="absolute inset-0 w-full h-full px-4 text-sm text-gray-600 bg-transparent border-none outline-none placeholder-gray-400 font-poppins"
                           />
                         </div>
 
@@ -230,7 +230,7 @@ export default function LahanPage() {
                             placeholder="Luas Lahan"
                             value={ukuran}
                             onChange={(e) => setUkuran(e.target.value)}
-                            className="absolute inset-0 w-full h-full px-4 text-sm text-gray-600 bg-transparent border-none outline-none placeholder-gray-400"
+                            className="absolute inset-0 w-full h-full px-4 text-sm text-gray-600 bg-transparent border-none outline-none placeholder-gray-400 font-poppins"
                           />
                         </div>
                       </div>
@@ -240,13 +240,13 @@ export default function LahanPage() {
                     <div className="flex flex-col gap-2 w-full">
                       <button
                         onClick={() => setStep(2)}
-                        className="w-full h-[55px] bg-[#1F4E20] text-white rounded-xl text-base font-semibold hover:opacity-90 transition-opacity"
+                        className="w-full h-[55px] bg-[#1F4E20] text-white rounded-xl text-base font-semibold hover:opacity-90 transition-opacity font-poppins"
                       >
                         Selanjutnya
                       </button>
                       <button
                         onClick={closeModal}
-                        className="w-full h-[55px] bg-gray-200 bg-opacity-25 text-black rounded-xl text-base font-semibold hover:opacity-90 transition-opacity"
+                        className="w-full h-[55px] bg-gray-200 bg-opacity-25 text-black rounded-xl text-base font-semibold hover:opacity-90 transition-opacity font-poppins"
                       >
                         Batal
                       </button>
@@ -258,10 +258,10 @@ export default function LahanPage() {
                 {step === 2 && (
                   <>
                     <div className="flex flex-col gap-1 w-full items-center">
-                      <h2 className="text-2xl font-semibold text-black text-center w-full">
+                      <h2 className="text-2xl font-semibold text-black text-center w-full font-poppins">
                         Sambungkan Perangkat Sensor
                       </h2>
-                      <p className="text-sm text-black text-center opacity-60">
+                      <p className="text-sm text-black text-center opacity-60 font-poppins">
                         Pindai kode
                       </p>
                     </div>
@@ -277,10 +277,10 @@ export default function LahanPage() {
                         <QrCode className="w-5 h-5 text-black" />
                       </div>
                       <div className="flex-1">
-                        <h3 className="text-base font-semibold text-black">
+                        <h3 className="text-base font-semibold text-black font-poppins">
                           Pindai Kode
                         </h3>
-                        <p className="text-xs text-black opacity-60 mt-1">
+                        <p className="text-xs text-black opacity-60 mt-1 font-poppins">
                           Arahkan kamera Anda ke kode QR pada perangkat untuk memindai.
                         </p>
                       </div>
@@ -289,13 +289,13 @@ export default function LahanPage() {
                     <div className="flex flex-col gap-2 w-full">
                       <button
                         onClick={() => setStep(3)}
-                        className="w-full h-[55px] bg-[#1F4E20] text-white rounded-xl text-base font-semibold hover:opacity-90 transition-opacity"
+                        className="w-full h-[55px] bg-[#1F4E20] text-white rounded-xl text-base font-semibold hover:opacity-90 transition-opacity font-poppins"
                       >
                         Selanjutnya
                       </button>
                       <button
                         onClick={() => setStep(1)}
-                        className="w-full h-[55px] bg-gray-200 bg-opacity-25 text-black rounded-xl text-base font-semibold hover:opacity-90 transition-opacity"
+                        className="w-full h-[55px] bg-gray-200 bg-opacity-25 text-black rounded-xl text-base font-semibold hover:opacity-90 transition-opacity font-poppins"
                       >
                         Kembali
                       </button>
@@ -307,7 +307,7 @@ export default function LahanPage() {
                 {step === 3 && (
                   <>
                     <div className="flex flex-col gap-[30px] w-full items-center">
-                      <h2 className="text-2xl font-semibold text-black w-full">
+                      <h2 className="text-2xl font-semibold text-black w-full font-poppins">
                         Konfirmasi Lahan
                       </h2>
 
@@ -324,13 +324,13 @@ export default function LahanPage() {
                     <div className="flex flex-col gap-2 w-full">
                       <button
                         onClick={() => setStep(4)}
-                        className="w-full h-[55px] bg-[#1F4E20] text-white rounded-xl text-base font-semibold hover:opacity-90 transition-opacity"
+                        className="w-full h-[55px] bg-[#1F4E20] text-white rounded-xl text-base font-semibold hover:opacity-90 transition-opacity font-poppins"
                       >
                         Sambungkan Sensor
                       </button>
                       <button
                         onClick={() => setStep(2)}
-                        className="w-full h-[55px] bg-gray-200 bg-opacity-25 text-black rounded-xl text-base font-semibold hover:opacity-90 transition-opacity"
+                        className="w-full h-[55px] bg-gray-200 bg-opacity-25 text-black rounded-xl text-base font-semibold hover:opacity-90 transition-opacity font-poppins"
                       >
                         Kembali
                       </button>
@@ -343,7 +343,7 @@ export default function LahanPage() {
                   <>
                     <div className="flex flex-col gap-[17px] w-full">
                       <div className="flex items-center justify-center w-full">
-                        <h2 className="text-base font-semibold text-black">
+                        <h2 className="text-base font-semibold text-black font-poppins">
                           Pilih sensor yang digunakan
                         </h2>
                       </div>
@@ -372,7 +372,7 @@ export default function LahanPage() {
                                   defaultChecked
                                 />
                                 <div className="flex-1 flex items-start">
-                                  <span className="text-[10px] text-black font-normal leading-normal w-full">
+                                  <span className="text-[10px] text-black font-normal leading-normal w-full font-poppins">
                                     {item}
                                   </span>
                                 </div>
@@ -386,13 +386,13 @@ export default function LahanPage() {
                     <div className="flex flex-col gap-2 w-full">
                       <button
                         onClick={() => setStep(5)}
-                        className="w-full h-[55px] bg-[#1F4E20] text-white rounded-xl text-base font-semibold hover:opacity-90 transition-opacity"
+                        className="w-full h-[55px] bg-[#1F4E20] text-white rounded-xl text-base font-semibold hover:opacity-90 transition-opacity font-poppins"
                       >
                         Selanjutnya
                       </button>
                       <button
                         onClick={() => setStep(3)}
-                        className="w-full h-[55px] bg-[#AAAAAA]/25 text-black rounded-xl text-base font-semibold hover:bg-[#AAAAAA]/35 transition-all"
+                        className="w-full h-[55px] bg-[#AAAAAA]/25 text-black rounded-xl text-base font-semibold hover:bg-[#AAAAAA]/35 transition-all font-poppins"
                       >
                         Kembali
                       </button>
@@ -410,20 +410,20 @@ export default function LahanPage() {
                         <path d="M20 0C8.972 0 0 8.9719 0 20C0 31.0281 8.972 40 20 40C31.028 40 40 31.0281 40 20C40 8.9719 31.028 0 20 0ZM20 36.7568C10.761 36.7568 3.243 29.2401 3.243 20C3.243 10.7605 10.76 3.2432 20 3.2432C29.24 3.2432 36.757 10.7605 36.757 20C36.757 29.24 29.24 36.7568 20 36.7568Z" fill="#1F4E20"/>
                       </svg>
 
-                      <p className="text-sm text-black text-center px-2">
+                      <p className="text-sm text-black text-center px-2 font-poppins">
                         "Lahan {namaLahan || "13"}" berhasil ditambahkan
                       </p>
                     </div>
 
                     <div className="flex flex-col gap-2.5 w-full">
                       <button
-                        className="w-full h-[45px] bg-[#1F4E20] text-white rounded-xl text-sm font-semibold hover:opacity-90 transition-opacity"
+                        className="w-full h-[45px] bg-[#1F4E20] text-white rounded-xl text-sm font-semibold hover:opacity-90 transition-opacity font-poppins"
                       >
                         Detail
                       </button>
                       <button
                         onClick={closeModal}
-                        className="w-full h-[45px] bg-[#AAAAAA]/25 text-black rounded-xl text-sm font-semibold hover:bg-[#AAAAAA]/35 transition-all"
+                        className="w-full h-[45px] bg-[#AAAAAA]/25 text-black rounded-xl text-sm font-semibold hover:bg-[#AAAAAA]/35 transition-all font-poppins"
                       >
                         Selesai
                       </button>

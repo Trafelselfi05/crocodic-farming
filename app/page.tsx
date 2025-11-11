@@ -8,7 +8,7 @@ export default function Dashboard() {
   const [isPemupukanOn, setIsPemupukanOn] = useState(false);
 
   return (
-    <div className="flex flex-col items-center gap-5 w-full px-3.5 pb-6">
+    <div className="flex flex-col items-center gap-5 w-full px-3.5 pb-6 font-['Poppins']">
       {/* Header */}
       <div className="relative w-full h-5">
         <div className="flex items-center gap-2.5">
@@ -226,7 +226,6 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
-
       {/* Lahan Detail Card */}
       <div className="w-full bg-white rounded-[10px] border border-[#1F4E20] flex flex-col gap-2.5">
         {/* Title */}
@@ -237,68 +236,47 @@ export default function Dashboard() {
         {/* Toggle Switches */}
         <div className="flex gap-2.5 px-2">
           {/* Penyiraman */}
-          <div className="flex-1 bg-[#F4FAF4] border-[0.1px] border-[#1F4E20] rounded-[10px] p-2 flex items-center justify-between min-h-[54px]">
+          <div className="w-[155px] h-[54px] bg-[#F4FAF4] border-[0.1px] border-[#1F4E20] rounded-[10px] p-2 flex items-center justify-between">
             <div className="flex items-center gap-1.5">
-              <svg className="w-5 h-5 flex-shrink-0" viewBox="0 0 20 20" fill="none">
-                <path
-                  d="M10 2V4M10 16V18M4.22 4.22L5.64 5.64M14.36 14.36L15.78 15.78M2 10H4M16 10H18M4.22 15.78L5.64 14.36M14.36 5.64L15.78 4.22"
-                  stroke="#1F4E20"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-                <path
-                  d="M10 6C10 8 8 10 10 12C12 10 10 8 10 6Z"
-                  fill="#4A90E2"
-                  stroke="#4A90E2"
-                  strokeWidth="1.5"
-                />
-              </svg>
-              <label className="text-xs text-black leading-tight">
+              <img
+                src="/asset/lahan/penyiraman-otomatis.svg"
+                alt="Ikon penyiraman"
+                className="w-5 h-5 flex-shrink-0"
+              />
+              <label className="text-xs text-black leading-tight font-normal">
                 Penyiraman <br /> Otomatis
               </label>
             </div>
             <button
               onClick={() => setIsPenyiramanOn(!isPenyiramanOn)}
               type="button"
-              role="switch"
-              aria-checked={isPenyiramanOn}
-              className="flex-shrink-0"
+              aria-label="Toggle penyiraman otomatis"
+              aria-pressed={isPenyiramanOn}
+              className="w-[31px] h-[18px] flex-shrink-0 bg-transparent border-none cursor-pointer flex items-center justify-center"
             >
-              <div
-                className={`relative w-[31px] h-[24px] rounded-full transition-colors ${
-                  isPenyiramanOn ? "bg-[#7FD083]" : "bg-gray-300"
-                }`}
-              >
-                <div
-                  className={`absolute top-[2px] w-5 h-5 bg-white rounded-full shadow transition-all ${
-                    isPenyiramanOn ? "right-[2px]" : "left-[2px]"
-                  }`}
-                />
-              </div>
+              {isPenyiramanOn ? (
+                <svg xmlns="http://www.w3.org/2000/svg" width="31" height="19" viewBox="0 0 31 19" fill="none">
+                  <path fillRule="evenodd" clipRule="evenodd" d="M30.1088 9.04167C30.1088 6.64367 29.1561 4.34388 27.4605 2.64824C25.7649 0.952601 23.4651 0 21.0671 0H9.04167C6.64367 3.5733e-08 4.34388 0.952601 2.64824 2.64824C0.952602 4.34388 0 6.64367 0 9.04167C0 11.4397 0.952602 13.7394 2.64824 15.4351C4.34388 17.1307 6.64367 18.0833 9.04167 18.0833H21.0671C23.4651 18.0833 25.7649 17.1307 27.4605 15.4351C29.1561 13.7394 30.1088 11.4397 30.1088 9.04167ZM21.1562 3.35575C21.9028 3.35575 22.6421 3.5028 23.3319 3.78852C24.0216 4.07423 24.6484 4.493 25.1763 5.02093C25.7042 5.54885 26.123 6.17559 26.4087 6.86536C26.6944 7.55513 26.8415 8.29442 26.8415 9.04102C26.8415 9.78762 26.6944 10.5269 26.4087 11.2167C26.123 11.9064 25.7042 12.5332 25.1763 13.0611C24.6484 13.589 24.0216 14.0078 23.3319 14.2935C22.6421 14.5792 21.9028 14.7263 21.1562 14.7263C19.6484 14.7263 18.2023 14.1273 17.1361 13.0611C16.0699 11.9949 15.4709 10.5488 15.4709 9.04102C15.4709 7.53319 16.0699 6.08712 17.1361 5.02093C18.2023 3.95473 19.6484 3.35575 21.1562 3.35575Z" fill="#1F4E20" />
+                </svg>
+              ) : (
+                <svg xmlns="http://www.w3.org/2000/svg" width="31" height="18" viewBox="0 0 31 18" fill="none">
+                  <path d="M29.4237 8.82292C29.4237 6.68185 28.5732 4.62847 27.0592 3.1145C25.5452 1.60054 23.4919 0.75 21.3508 0.75H8.82292C6.68185 0.75 4.62847 1.60054 3.1145 3.1145C1.60054 4.62847 0.75 6.68185 0.75 8.82292C0.75 10.964 1.60054 13.0174 3.1145 14.5313C4.62847 16.0453 6.68185 16.8958 8.82292 16.8958H21.3495C23.4906 16.8958 25.544 16.0453 27.0579 14.5313C28.5719 13.0174 29.4224 10.964 29.4224 8.82292H29.4237Z" stroke="#AAAAAA" strokeWidth="1.5" strokeLinejoin="round" />
+                </svg>
+              )}
             </button>
           </div>
 
           {/* Pemupukan */}
-          <div className="flex-1 bg-[#F4FAF4] border-[0.1px] border-[#1F4E20] rounded-[10px] p-2 flex items-center justify-between min-h-[54px]">
+          <div className="w-[155px] h-[54px] bg-[#F4FAF4] border-[0.1px] border-[#1F4E20] rounded-[10px] p-2 flex items-center justify-between">
             <div className="flex items-center gap-1.5">
-              <svg className="w-[26px] h-[26px] flex-shrink-0" viewBox="0 0 26 26" fill="none">
-                <rect
-                  x="6"
-                  y="4"
-                  width="14"
-                  height="18"
-                  rx="2"
-                  stroke="#1F4E20"
-                  strokeWidth="2"
+              <div className="w-[26px] h-[26px] flex-shrink-0 relative">
+                <img
+                  src="/asset/lahan/pemupukan-otomatis.svg"
+                  alt="Ikon pemupukan"
+                  className="absolute w-[76.94%] h-[91.89%] top-[4.28%] left-[12.36%]"
                 />
-                <path
-                  d="M10 10H16M10 14H16M10 18H14"
-                  stroke="#1F4E20"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                />
-              </svg>
-              <label className="text-xs text-black leading-tight">
+              </div>
+              <label className="text-xs text-black leading-tight font-normal">
                 Pemupukan
                 <br />
                 Otomatis
@@ -307,33 +285,31 @@ export default function Dashboard() {
             <button
               onClick={() => setIsPemupukanOn(!isPemupukanOn)}
               type="button"
-              role="switch"
-              aria-checked={isPemupukanOn}
-              className="flex-shrink-0"
+              aria-label="Toggle pemupukan otomatis"
+              aria-pressed={isPemupukanOn}
+              className="w-[31px] h-[18px] flex-shrink-0 bg-transparent border-none cursor-pointer flex items-center justify-center"
             >
-              <div
-                className={`relative w-[31px] h-[24px] rounded-full transition-colors ${
-                  isPemupukanOn ? "bg-[#7FD083]" : "bg-gray-300"
-                }`}
-              >
-                <div
-                  className={`absolute top-[2px] w-5 h-5 bg-white rounded-full shadow transition-all ${
-                    isPemupukanOn ? "right-[2px]" : "left-[2px]"
-                  }`}
-                />
-              </div>
+              {isPemupukanOn ? (
+                <svg xmlns="http://www.w3.org/2000/svg" width="31" height="19" viewBox="0 0 31 19" fill="none">
+                  <path fillRule="evenodd" clipRule="evenodd" d="M30.1088 9.04167C30.1088 6.64367 29.1561 4.34388 27.4605 2.64824C25.7649 0.952601 23.4651 0 21.0671 0H9.04167C6.64367 3.5733e-08 4.34388 0.952601 2.64824 2.64824C0.952602 4.34388 0 6.64367 0 9.04167C0 11.4397 0.952602 13.7394 2.64824 15.4351C4.34388 17.1307 6.64367 18.0833 9.04167 18.0833H21.0671C23.4651 18.0833 25.7649 17.1307 27.4605 15.4351C29.1561 13.7394 30.1088 11.4397 30.1088 9.04167ZM21.1562 3.35575C21.9028 3.35575 22.6421 3.5028 23.3319 3.78852C24.0216 4.07423 24.6484 4.493 25.1763 5.02093C25.7042 5.54885 26.123 6.17559 26.4087 6.86536C26.6944 7.55513 26.8415 8.29442 26.8415 9.04102C26.8415 9.78762 26.6944 10.5269 26.4087 11.2167C26.123 11.9064 25.7042 12.5332 25.1763 13.0611C24.6484 13.589 24.0216 14.0078 23.3319 14.2935C22.6421 14.5792 21.9028 14.7263 21.1562 14.7263C19.6484 14.7263 18.2023 14.1273 17.1361 13.0611C16.0699 11.9949 15.4709 10.5488 15.4709 9.04102C15.4709 7.53319 16.0699 6.08712 17.1361 5.02093C18.2023 3.95473 19.6484 3.35575 21.1562 3.35575Z" fill="#1F4E20" />
+                </svg>
+              ) : (
+                <svg xmlns="http://www.w3.org/2000/svg" width="31" height="18" viewBox="0 0 31 18" fill="none">
+                  <path d="M29.4237 8.82292C29.4237 6.68185 28.5732 4.62847 27.0592 3.1145C25.5452 1.60054 23.4919 0.75 21.3508 0.75H8.82292C6.68185 0.75 4.62847 1.60054 3.1145 3.1145C1.60054 4.62847 0.75 6.68185 0.75 8.82292C0.75 10.964 1.60054 13.0174 3.1145 14.5313C4.62847 16.0453 6.68185 16.8958 8.82292 16.8958H21.3495C23.4906 16.8958 25.544 16.0453 27.0579 14.5313C28.5719 13.0174 29.4224 10.964 29.4224 8.82292H29.4237Z" stroke="#AAAAAA" strokeWidth="1.5" strokeLinejoin="round" />
+                </svg>
+              )}
             </button>
           </div>
         </div>
 
-{/* Sensor Data */}
+        {/* Sensor Data */}
         <div className="flex flex-col gap-2.5 px-2">
           {/* NPK */}
           <div className="h-[73px] bg-white rounded-[10px] border-[0.5px] border-[#1F4E20] flex items-center justify-between px-4">
             <div className="flex items-center gap-5">
-              <img 
-                src="/asset/beranda/npk.svg" 
-                alt="NPK Icon" 
+              <img
+                src="/asset/beranda/npk.svg"
+                alt="NPK Icon"
                 className="w-[35px] h-[35px] flex-shrink-0"
               />
               <span className="text-base font-semibold text-[#1F4E20]">NPK</span>
@@ -344,9 +320,9 @@ export default function Dashboard() {
           {/* Suhu Tanah */}
           <div className="h-[73px] bg-white rounded-[10px] border-[0.5px] border-[#1F4E20] flex items-center justify-between px-4">
             <div className="flex items-center gap-5">
-              <img 
-                src="/asset/beranda/suhu.svg" 
-                alt="Suhu Tanah Icon" 
+              <img
+                src="/asset/beranda/suhu.svg"
+                alt="Suhu Tanah Icon"
                 className="w-[35px] h-[35px] flex-shrink-0"
               />
               <span className="text-base font-semibold text-[#1F4E20]">
@@ -359,9 +335,9 @@ export default function Dashboard() {
           {/* pH Tanah */}
           <div className="h-[73px] bg-white rounded-[10px] border-[0.5px] border-[#1F4E20] flex items-center justify-between px-4">
             <div className="flex items-center gap-5">
-              <img 
-                src="/asset/beranda/ph.svg" 
-                alt="pH Tanah Icon" 
+              <img
+                src="/asset/beranda/ph.svg"
+                alt="pH Tanah Icon"
                 className="w-[35px] h-[35px] flex-shrink-0"
               />
               <span className="text-base font-semibold text-[#1F4E20]">
@@ -374,9 +350,9 @@ export default function Dashboard() {
           {/* Kelembaban Tanah */}
           <div className="h-[73px] bg-white rounded-[10px] border-[0.5px] border-[#1F4E20] flex items-center justify-between px-4">
             <div className="flex items-center gap-5">
-              <img 
-                src="/asset/beranda/kelembapantanah.svg" 
-                alt="Kelembaban Tanah Icon" 
+              <img
+                src="/asset/beranda/kelembapantanah.svg"
+                alt="Kelembaban Tanah Icon"
                 className="w-[35px] h-[35px] flex-shrink-0"
               />
               <span className="text-base font-semibold text-[#1F4E20]">
@@ -389,9 +365,9 @@ export default function Dashboard() {
           {/* Suhu Lingkungan */}
           <div className="h-[73px] bg-white rounded-[10px] border-[0.5px] border-[#1F4E20] flex items-center justify-between px-4">
             <div className="flex items-center gap-5">
-              <img 
-                src="/asset/beranda/suhulingkungan.svg" 
-                alt="Suhu Lingkungan Icon" 
+              <img
+                src="/asset/beranda/suhulingkungan.svg"
+                alt="Suhu Lingkungan Icon"
                 className="w-[35px] h-[35px] flex-shrink-0"
               />
               <span className="text-base font-semibold text-[#1F4E20]">
@@ -404,9 +380,9 @@ export default function Dashboard() {
           {/* Kelembaban Lingkungan */}
           <div className="h-[95px] bg-white rounded-[10px] border-[0.5px] border-[#1F4E20] flex items-center justify-between px-4">
             <div className="flex items-center gap-5">
-              <img 
-                src="/asset/beranda/kelembapanlingkungan.svg" 
-                alt="Kelembaban Lingkungan Icon" 
+              <img
+                src="/asset/beranda/kelembapanlingkungan.svg"
+                alt="Kelembaban Lingkungan Icon"
                 className="w-[35px] h-[35px] flex-shrink-0"
               />
               <span className="text-base font-semibold text-[#1F4E20]">

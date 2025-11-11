@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   LineChart,
   Line,
@@ -11,7 +11,202 @@ import {
   ResponsiveContainer,
   Area,
   AreaChart,
+  BarChart,
+  Bar,
 } from "recharts";
+
+// Data statis yang lengkap dan konsisten untuk semua grafik
+const generateCompleteData = () => {
+  const baseHarian = {
+    nutrient: [
+      { day: "Sen", nitrogen: 40, phospor: 25, kalium: 50 },
+      { day: "Sel", nitrogen: 35, phospor: 22, kalium: 45 },
+      { day: "Rab", nitrogen: 42, phospor: 27, kalium: 48 },
+      { day: "Kam", nitrogen: 45, phospor: 30, kalium: 52 },
+      { day: "Jum", nitrogen: 38, phospor: 20, kalium: 40 },
+      { day: "Sab", nitrogen: 44, phospor: 28, kalium: 49 },
+      { day: "Min", nitrogen: 41, phospor: 26, kalium: 47 },
+    ],
+    suhu: [
+      { day: "Sen", suhu: 28 },
+      { day: "Sel", suhu: 30 },
+      { day: "Rab", suhu: 29 },
+      { day: "Kam", suhu: 31 },
+      { day: "Jum", suhu: 27 },
+      { day: "Sab", suhu: 33 },
+      { day: "Min", suhu: 30 },
+    ],
+    ph: [
+      { day: "Sen", ph: 6.5 },
+      { day: "Sel", ph: 6.8 },
+      { day: "Rab", ph: 6.3 },
+      { day: "Kam", ph: 6.9 },
+      { day: "Jum", ph: 6.6 },
+      { day: "Sab", ph: 6.7 },
+      { day: "Min", ph: 6.4 },
+    ],
+    kelembapanTanah: [
+      { day: "Sen", kelembapan: 42 },
+      { day: "Sel", kelembapan: 45 },
+      { day: "Rab", kelembapan: 38 },
+      { day: "Kam", kelembapan: 47 },
+      { day: "Jum", kelembapan: 35 },
+      { day: "Sab", kelembapan: 40 },
+      { day: "Min", kelembapan: 43 },
+    ],
+    suhuLingkungan: [
+      { day: "Sen", suhu: 26 },
+      { day: "Sel", suhu: 28 },
+      { day: "Rab", suhu: 27 },
+      { day: "Kam", suhu: 29 },
+      { day: "Jum", suhu: 25 },
+      { day: "Sab", suhu: 30 },
+      { day: "Min", suhu: 28 },
+    ],
+    kelembapanLingkungan: [
+      { day: "Sen", kelembapan: 65 },
+      { day: "Sel", kelembapan: 68 },
+      { day: "Rab", kelembapan: 62 },
+      { day: "Kam", kelembapan: 70 },
+      { day: "Jum", kelembapan: 60 },
+      { day: "Sab", kelembapan: 72 },
+      { day: "Min", kelembapan: 66 },
+    ],
+  };
+
+  const baseMingguan = {
+    nutrient: [
+      { day: "Mgg 1", nitrogen: 42, phospor: 26, kalium: 48 },
+      { day: "Mgg 2", nitrogen: 38, phospor: 24, kalium: 46 },
+      { day: "Mgg 3", nitrogen: 44, phospor: 28, kalium: 50 },
+      { day: "Mgg 4", nitrogen: 40, phospor: 25, kalium: 47 },
+    ],
+    suhu: [
+      { day: "Mgg 1", suhu: 29 },
+      { day: "Mgg 2", suhu: 28 },
+      { day: "Mgg 3", suhu: 31 },
+      { day: "Mgg 4", suhu: 30 },
+    ],
+    ph: [
+      { day: "Mgg 1", ph: 6.6 },
+      { day: "Mgg 2", ph: 6.4 },
+      { day: "Mgg 3", ph: 6.8 },
+      { day: "Mgg 4", ph: 6.5 },
+    ],
+    kelembapanTanah: [
+      { day: "Mgg 1", kelembapan: 43 },
+      { day: "Mgg 2", kelembapan: 40 },
+      { day: "Mgg 3", kelembapan: 45 },
+      { day: "Mgg 4", kelembapan: 42 },
+    ],
+    suhuLingkungan: [
+      { day: "Mgg 1", suhu: 27 },
+      { day: "Mgg 2", suhu: 26 },
+      { day: "Mgg 3", suhu: 29 },
+      { day: "Mgg 4", suhu: 28 },
+    ],
+    kelembapanLingkungan: [
+      { day: "Mgg 1", kelembapan: 66 },
+      { day: "Mgg 2", kelembapan: 64 },
+      { day: "Mgg 3", kelembapan: 68 },
+      { day: "Mgg 4", kelembapan: 65 },
+    ],
+  };
+
+  const baseBulanan = {
+    nutrient: [
+      { day: "Jan", nitrogen: 41, phospor: 25, kalium: 48 },
+      { day: "Feb", nitrogen: 39, phospor: 24, kalium: 46 },
+      { day: "Mar", nitrogen: 43, phospor: 27, kalium: 50 },
+      { day: "Apr", nitrogen: 42, phospor: 26, kalium: 49 },
+      { day: "Mei", nitrogen: 40, phospor: 25, kalium: 47 },
+      { day: "Jun", nitrogen: 44, phospor: 28, kalium: 51 },
+    ],
+    suhu: [
+      { day: "Jan", suhu: 29 },
+      { day: "Feb", suhu: 28 },
+      { day: "Mar", suhu: 30 },
+      { day: "Apr", suhu: 31 },
+      { day: "Mei", suhu: 29 },
+      { day: "Jun", suhu: 32 },
+    ],
+    ph: [
+      { day: "Jan", ph: 6.5 },
+      { day: "Feb", ph: 6.4 },
+      { day: "Mar", ph: 6.7 },
+      { day: "Apr", ph: 6.6 },
+      { day: "Mei", ph: 6.5 },
+      { day: "Jun", ph: 6.8 },
+    ],
+    kelembapanTanah: [
+      { day: "Jan", kelembapan: 42 },
+      { day: "Feb", kelembapan: 40 },
+      { day: "Mar", kelembapan: 44 },
+      { day: "Apr", kelembapan: 43 },
+      { day: "Mei", kelembapan: 41 },
+      { day: "Jun", kelembapan: 45 },
+    ],
+    suhuLingkungan: [
+      { day: "Jan", suhu: 28 },
+      { day: "Feb", suhu: 27 },
+      { day: "Mar", suhu: 29 },
+      { day: "Apr", suhu: 30 },
+      { day: "Mei", suhu: 28 },
+      { day: "Jun", suhu: 31 },
+    ],
+    kelembapanLingkungan: [
+      { day: "Jan", kelembapan: 65 },
+      { day: "Feb", kelembapan: 63 },
+      { day: "Mar", kelembapan: 67 },
+      { day: "Apr", kelembapan: 66 },
+      { day: "Mei", kelembapan: 64 },
+      { day: "Jun", kelembapan: 68 },
+    ],
+  };
+
+  const allData: any = {};
+  
+  // Generate data untuk semua lahan (1-10)
+  for (let i = 1; i <= 10; i++) {
+    allData[`Lahan ${i}`] = {
+      harian: JSON.parse(JSON.stringify(baseHarian)),
+      mingguan: JSON.parse(JSON.stringify(baseMingguan)),
+      bulanan: JSON.parse(JSON.stringify(baseBulanan)),
+    };
+    
+    // Tambahkan variasi untuk membuat data setiap lahan berbeda
+    if (i > 1) {
+      const variation = (i - 1) * 0.8;
+      
+      // Apply variation to all data types
+      ['harian', 'mingguan', 'bulanan'].forEach(period => {
+        ['nutrient', 'suhu', 'ph', 'kelembapanTanah', 'suhuLingkungan', 'kelembapanLingkungan'].forEach(dataType => {
+          allData[`Lahan ${i}`][period][dataType] = allData[`Lahan ${i}`][period][dataType].map((item: any) => {
+            const newItem = { ...item };
+            
+            if (dataType === 'nutrient') {
+              newItem.nitrogen = Math.max(20, Math.min(55, Math.round(item.nitrogen + (Math.sin(i) * 4))));
+              newItem.phospor = Math.max(15, Math.min(35, Math.round(item.phospor + (Math.cos(i) * 3))));
+              newItem.kalium = Math.max(30, Math.min(65, Math.round(item.kalium + (Math.sin(i * 1.5) * 5))));
+            } else if (dataType === 'suhu' || dataType === 'suhuLingkungan') {
+              newItem.suhu = Math.max(20, Math.min(40, Math.round(item.suhu + (Math.sin(i) * 3))));
+            } else if (dataType === 'ph') {
+              newItem.ph = Math.max(5.5, Math.min(7.5, Number((item.ph + (Math.cos(i) * 0.3)).toFixed(1))));
+            } else if (dataType.includes('kelembapan')) {
+              newItem.kelembapan = Math.max(30, Math.min(80, Math.round(item.kelembapan + (Math.sin(i) * 8))));
+            }
+            
+            return newItem;
+          });
+        });
+      });
+    }
+  }
+
+  return allData;
+};
+
+const allData = generateCompleteData();
 
 export default function SensorPage() {
   const [selectedPeriod, setSelectedPeriod] = useState<
@@ -19,275 +214,163 @@ export default function SensorPage() {
   >("harian");
   const [selectedLahan, setSelectedLahan] = useState("Semua Lahan");
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
-  // === Data lengkap untuk semua periode dan lahan ===
-  const allData = {
-    "Lahan 1": {
-      harian: {
-        nutrient: [
-          { day: "Sen", nitrogen: 40, phospor: 25, kalium: 50 },
-          { day: "Sel", nitrogen: 35, phospor: 22, kalium: 45 },
-          { day: "Rab", nitrogen: 42, phospor: 27, kalium: 48 },
-          { day: "Kam", nitrogen: 45, phospor: 30, kalium: 52 },
-          { day: "Jum", nitrogen: 38, phospor: 20, kalium: 40 },
-          { day: "Sab", nitrogen: 44, phospor: 28, kalium: 49 },
-          { day: "Min", nitrogen: 41, phospor: 26, kalium: 47 },
-        ],
-        suhu: [
-          { day: "Sen", suhu: 28 },
-          { day: "Sel", suhu: 30 },
-          { day: "Rab", suhu: 29 },
-          { day: "Kam", suhu: 31 },
-          { day: "Jum", suhu: 27 },
-          { day: "Sab", suhu: 33 },
-          { day: "Min", suhu: 30 },
-        ],
-      },
-      mingguan: {
-        nutrient: [
-          { day: "Mgg 1", nitrogen: 42, phospor: 26, kalium: 48 },
-          { day: "Mgg 2", nitrogen: 38, phospor: 24, kalium: 46 },
-          { day: "Mgg 3", nitrogen: 44, phospor: 28, kalium: 50 },
-          { day: "Mgg 4", nitrogen: 40, phospor: 25, kalium: 47 },
-        ],
-        suhu: [
-          { day: "Mgg 1", suhu: 29 },
-          { day: "Mgg 2", suhu: 28 },
-          { day: "Mgg 3", suhu: 31 },
-          { day: "Mgg 4", suhu: 30 },
-        ],
-      },
-      bulanan: {
-        nutrient: [
-          { day: "Jan", nitrogen: 41, phospor: 25, kalium: 48 },
-          { day: "Feb", nitrogen: 39, phospor: 24, kalium: 46 },
-          { day: "Mar", nitrogen: 43, phospor: 27, kalium: 50 },
-          { day: "Apr", nitrogen: 42, phospor: 26, kalium: 49 },
-          { day: "Mei", nitrogen: 40, phospor: 25, kalium: 47 },
-          { day: "Jun", nitrogen: 44, phospor: 28, kalium: 51 },
-        ],
-        suhu: [
-          { day: "Jan", suhu: 29 },
-          { day: "Feb", suhu: 28 },
-          { day: "Mar", suhu: 30 },
-          { day: "Apr", suhu: 31 },
-          { day: "Mei", suhu: 29 },
-          { day: "Jun", suhu: 32 },
-        ],
-      },
-    },
-    "Lahan 2": {
-      harian: {
-        nutrient: [
-          { day: "Sen", nitrogen: 48, phospor: 20, kalium: 45 },
-          { day: "Sel", nitrogen: 44, phospor: 22, kalium: 50 },
-          { day: "Rab", nitrogen: 46, phospor: 25, kalium: 52 },
-          { day: "Kam", nitrogen: 42, phospor: 28, kalium: 48 },
-          { day: "Jum", nitrogen: 39, phospor: 21, kalium: 44 },
-          { day: "Sab", nitrogen: 45, phospor: 26, kalium: 47 },
-          { day: "Min", nitrogen: 43, phospor: 27, kalium: 49 },
-        ],
-        suhu: [
-          { day: "Sen", suhu: 26 },
-          { day: "Sel", suhu: 29 },
-          { day: "Rab", suhu: 28 },
-          { day: "Kam", suhu: 30 },
-          { day: "Jum", suhu: 27 },
-          { day: "Sab", suhu: 32 },
-          { day: "Min", suhu: 31 },
-        ],
-      },
-      mingguan: {
-        nutrient: [
-          { day: "Mgg 1", nitrogen: 45, phospor: 24, kalium: 47 },
-          { day: "Mgg 2", nitrogen: 43, phospor: 23, kalium: 46 },
-          { day: "Mgg 3", nitrogen: 46, phospor: 26, kalium: 49 },
-          { day: "Mgg 4", nitrogen: 44, phospor: 25, kalium: 48 },
-        ],
-        suhu: [
-          { day: "Mgg 1", suhu: 28 },
-          { day: "Mgg 2", suhu: 29 },
-          { day: "Mgg 3", suhu: 30 },
-          { day: "Mgg 4", suhu: 29 },
-        ],
-      },
-      bulanan: {
-        nutrient: [
-          { day: "Jan", nitrogen: 44, phospor: 23, kalium: 47 },
-          { day: "Feb", nitrogen: 43, phospor: 22, kalium: 45 },
-          { day: "Mar", nitrogen: 46, phospor: 25, kalium: 49 },
-          { day: "Apr", nitrogen: 45, phospor: 24, kalium: 48 },
-          { day: "Mei", nitrogen: 44, phospor: 23, kalium: 46 },
-          { day: "Jun", nitrogen: 47, phospor: 26, kalium: 50 },
-        ],
-        suhu: [
-          { day: "Jan", suhu: 28 },
-          { day: "Feb", suhu: 27 },
-          { day: "Mar", suhu: 29 },
-          { day: "Apr", suhu: 30 },
-          { day: "Mei", suhu: 28 },
-          { day: "Jun", suhu: 31 },
-        ],
-      },
-    },
-    "Lahan 3": {
-      harian: {
-        nutrient: [
-          { day: "Sen", nitrogen: 37, phospor: 23, kalium: 47 },
-          { day: "Sel", nitrogen: 41, phospor: 26, kalium: 49 },
-          { day: "Rab", nitrogen: 39, phospor: 24, kalium: 46 },
-          { day: "Kam", nitrogen: 43, phospor: 28, kalium: 51 },
-          { day: "Jum", nitrogen: 36, phospor: 22, kalium: 44 },
-          { day: "Sab", nitrogen: 42, phospor: 27, kalium: 48 },
-          { day: "Min", nitrogen: 40, phospor: 25, kalium: 47 },
-        ],
-        suhu: [
-          { day: "Sen", suhu: 27 },
-          { day: "Sel", suhu: 29 },
-          { day: "Rab", suhu: 28 },
-          { day: "Kam", suhu: 30 },
-          { day: "Jum", suhu: 26 },
-          { day: "Sab", suhu: 31 },
-          { day: "Min", suhu: 29 },
-        ],
-      },
-      mingguan: {
-        nutrient: [
-          { day: "Mgg 1", nitrogen: 40, phospor: 25, kalium: 47 },
-          { day: "Mgg 2", nitrogen: 39, phospor: 24, kalium: 46 },
-          { day: "Mgg 3", nitrogen: 42, phospor: 27, kalium: 49 },
-          { day: "Mgg 4", nitrogen: 41, phospor: 26, kalium: 48 },
-        ],
-        suhu: [
-          { day: "Mgg 1", suhu: 28 },
-          { day: "Mgg 2", suhu: 27 },
-          { day: "Mgg 3", suhu: 30 },
-          { day: "Mgg 4", suhu: 29 },
-        ],
-      },
-      bulanan: {
-        nutrient: [
-          { day: "Jan", nitrogen: 40, phospor: 24, kalium: 47 },
-          { day: "Feb", nitrogen: 38, phospor: 23, kalium: 45 },
-          { day: "Mar", nitrogen: 42, phospor: 26, kalium: 49 },
-          { day: "Apr", nitrogen: 41, phospor: 25, kalium: 48 },
-          { day: "Mei", nitrogen: 39, phospor: 24, kalium: 46 },
-          { day: "Jun", nitrogen: 43, phospor: 27, kalium: 50 },
-        ],
-        suhu: [
-          { day: "Jan", suhu: 28 },
-          { day: "Feb", suhu: 27 },
-          { day: "Mar", suhu: 29 },
-          { day: "Apr", suhu: 30 },
-          { day: "Mei", suhu: 28 },
-          { day: "Jun", suhu: 31 },
-        ],
-      },
-    },
-  };
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
-  // Generate data untuk Lahan 4-10 (menggunakan variasi dari Lahan 1-3)
-  for (let i = 4; i <= 10; i++) {
-    const baseLahan = allData[`Lahan ${((i - 1) % 3) + 1}` as keyof typeof allData];
-    allData[`Lahan ${i}` as keyof typeof allData] = {
-      harian: {
-        nutrient: baseLahan.harian.nutrient.map(d => ({
-          ...d,
-          nitrogen: d.nitrogen + Math.floor(Math.random() * 6 - 3),
-          phospor: d.phospor + Math.floor(Math.random() * 4 - 2),
-          kalium: d.kalium + Math.floor(Math.random() * 6 - 3),
-        })),
-        suhu: baseLahan.harian.suhu.map(d => ({
-          ...d,
-          suhu: d.suhu + Math.floor(Math.random() * 4 - 2),
-        })),
-      },
-      mingguan: {
-        nutrient: baseLahan.mingguan.nutrient.map(d => ({
-          ...d,
-          nitrogen: d.nitrogen + Math.floor(Math.random() * 6 - 3),
-          phospor: d.phospor + Math.floor(Math.random() * 4 - 2),
-          kalium: d.kalium + Math.floor(Math.random() * 6 - 3),
-        })),
-        suhu: baseLahan.mingguan.suhu.map(d => ({
-          ...d,
-          suhu: d.suhu + Math.floor(Math.random() * 4 - 2),
-        })),
-      },
-      bulanan: {
-        nutrient: baseLahan.bulanan.nutrient.map(d => ({
-          ...d,
-          nitrogen: d.nitrogen + Math.floor(Math.random() * 6 - 3),
-          phospor: d.phospor + Math.floor(Math.random() * 4 - 2),
-          kalium: d.kalium + Math.floor(Math.random() * 6 - 3),
-        })),
-        suhu: baseLahan.bulanan.suhu.map(d => ({
-          ...d,
-          suhu: d.suhu + Math.floor(Math.random() * 4 - 2),
-        })),
-      },
-    };
-  }
-
-  // Fungsi untuk menghitung rata-rata semua lahan
+  // Fungsi untuk menghitung rata-rata semua lahan dengan error handling
   const calculateAverageData = (period: "harian" | "mingguan" | "bulanan") => {
-    const lahanKeys = Object.keys(allData).filter(key => key !== "Semua Lahan");
-    const firstLahan = allData[lahanKeys[0] as keyof typeof allData][period];
+    try {
+      const lahanKeys = Object.keys(allData).filter(key => key !== "Semua Lahan");
+      
+      if (lahanKeys.length === 0) {
+        return getEmptyData();
+      }
 
-    return {
-      nutrient: firstLahan.nutrient.map((_, index) => {
-        const dayName = firstLahan.nutrient[index].day;
-        let totalN = 0, totalP = 0, totalK = 0;
+      const firstLahan = allData[lahanKeys[0]][period];
+      
+      if (!firstLahan) {
+        return getEmptyData();
+      }
 
-        lahanKeys.forEach(lahan => {
-          const data = allData[lahan as keyof typeof allData][period].nutrient[index];
-          totalN += data.nitrogen;
-          totalP += data.phospor;
-          totalK += data.kalium;
-        });
+      // Helper function untuk menghitung rata-rata array data
+      const calculateAverageForType = (dataType: string) => {
+        return firstLahan[dataType]?.map((_: any, index: number) => {
+          const dayName = firstLahan[dataType][index]?.day || `Day ${index + 1}`;
+          let total = 0;
+          let count = 0;
 
-        return {
-          day: dayName,
-          nitrogen: Math.round(totalN / lahanKeys.length),
-          phospor: Math.round(totalP / lahanKeys.length),
-          kalium: Math.round(totalK / lahanKeys.length),
-        };
-      }),
-      suhu: firstLahan.suhu.map((_, index) => {
-        const dayName = firstLahan.suhu[index].day;
-        let totalSuhu = 0;
+          lahanKeys.forEach(lahan => {
+            const data = allData[lahan]?.[period]?.[dataType]?.[index];
+            if (data) {
+              if (dataType === 'nutrient') {
+                // Do nothing here, handled separately for each nutrient
+              } else {
+                const value = data[getValueKey(dataType)] || 0;
+                total += value;
+                count++;
+              }
+            }
+          });
 
-        lahanKeys.forEach(lahan => {
-          const data = allData[lahan as keyof typeof allData][period].suhu[index];
-          totalSuhu += data.suhu;
-        });
+          if (dataType === 'nutrient') {
+            let totalN = 0, totalP = 0, totalK = 0;
+            let nutrientCount = 0;
 
-        return {
-          day: dayName,
-          suhu: Math.round(totalSuhu / lahanKeys.length),
-        };
-      }),
-    };
+            lahanKeys.forEach(lahan => {
+              const data = allData[lahan]?.[period]?.[dataType]?.[index];
+              if (data) {
+                totalN += data.nitrogen || 0;
+                totalP += data.phospor || 0;
+                totalK += data.kalium || 0;
+                nutrientCount++;
+              }
+            });
+
+            return {
+              day: dayName,
+              nitrogen: nutrientCount > 0 ? Math.round(totalN / nutrientCount) : 0,
+              phospor: nutrientCount > 0 ? Math.round(totalP / nutrientCount) : 0,
+              kalium: nutrientCount > 0 ? Math.round(totalK / nutrientCount) : 0,
+            };
+          } else {
+            return {
+              day: dayName,
+              [getValueKey(dataType)]: count > 0 ? 
+                (dataType === 'ph' ? Number((total / count).toFixed(1)) : Math.round(total / count)) 
+                : 0,
+            };
+          }
+        }) || [];
+      };
+
+      return {
+        nutrient: calculateAverageForType('nutrient'),
+        suhu: calculateAverageForType('suhu'),
+        ph: calculateAverageForType('ph'),
+        kelembapanTanah: calculateAverageForType('kelembapanTanah'),
+        suhuLingkungan: calculateAverageForType('suhuLingkungan'),
+        kelembapanLingkungan: calculateAverageForType('kelembapanLingkungan'),
+      };
+    } catch (error) {
+      console.error('Error calculating average data:', error);
+      return getEmptyData();
+    }
   };
+
+  // Helper function untuk mendapatkan key value berdasarkan tipe data
+  const getValueKey = (dataType: string) => {
+    switch (dataType) {
+      case 'suhu':
+      case 'suhuLingkungan':
+        return 'suhu';
+      case 'ph':
+        return 'ph';
+      case 'kelembapanTanah':
+      case 'kelembapanLingkungan':
+        return 'kelembapan';
+      default:
+        return 'value';
+    }
+  };
+
+  // Helper function untuk data kosong
+  const getEmptyData = () => ({
+    nutrient: [],
+    suhu: [],
+    ph: [],
+    kelembapanTanah: [],
+    suhuLingkungan: [],
+    kelembapanLingkungan: [],
+  });
 
   const lahanList = [
     "Semua Lahan",
     ...Array.from({ length: 10 }, (_, i) => `Lahan ${i + 1}`),
   ];
 
-  // Mendapatkan data berdasarkan filter
+  // Mendapatkan data berdasarkan filter dengan error handling
   const getFilteredData = () => {
-    if (selectedLahan === "Semua Lahan") {
+    try {
+      if (selectedLahan === "Semua Lahan") {
+        return calculateAverageData(selectedPeriod);
+      }
+      
+      const lahanData = allData[selectedLahan]?.[selectedPeriod];
+      if (!lahanData) {
+        console.warn(`No data found for ${selectedLahan} - ${selectedPeriod}`);
+        return calculateAverageData(selectedPeriod);
+      }
+      
+      return lahanData;
+    } catch (error) {
+      console.error('Error getting filtered data:', error);
       return calculateAverageData(selectedPeriod);
     }
-    return allData[selectedLahan as keyof typeof allData]?.[selectedPeriod] || calculateAverageData(selectedPeriod);
   };
 
   const selectedData = getFilteredData();
-  const nutrientData = selectedData.nutrient;
-  const temperatureData = selectedData.suhu;
+  
+  // Data dengan fallback ke array kosong
+  const nutrientData = selectedData?.nutrient || [];
+  const temperatureData = selectedData?.suhu || [];
+  const phData = selectedData?.ph || [];
+  const soilMoistureData = selectedData?.kelembapanTanah || [];
+  const environmentTemperatureData = selectedData?.suhuLingkungan || [];
+  const environmentHumidityData = selectedData?.kelembapanLingkungan || [];
 
   const periodButtons = ["harian", "mingguan", "bulanan"] as const;
+
+  // Helper function untuk menghitung rata-rata dengan aman
+  const calculateSafeAverage = (data: any[], key: string) => {
+    if (!data || data.length === 0) return 0;
+    const sum = data.reduce((acc, curr) => acc + (curr[key] || 0), 0);
+    return dataType === 'ph' ? Number((sum / data.length).toFixed(1)) : Math.round(sum / data.length);
+  };
+
+  let dataType = '';
 
   // Custom Tooltip untuk Suhu
   const CustomTooltipSuhu = ({ active, payload, coordinate }: any) => {
@@ -378,6 +461,59 @@ export default function SensorPage() {
     return null;
   };
 
+  // Custom Tooltip untuk Bar Charts
+  const CustomTooltipBar = ({ active, payload, coordinate, dataKey }: any) => {
+    if (active && payload && payload.length && coordinate) {
+      return (
+        <div
+          className="flex flex-col items-center pointer-events-none"
+          style={{
+            position: 'absolute',
+            left: `${coordinate.x}px`,
+            top: `${coordinate.y - 55}px`,
+            transform: 'translateX(-50%)',
+          }}
+        >
+          <div className="bg-[#1F4E20] text-white px-3 py-1.5 rounded-lg text-sm font-semibold shadow-lg">
+            {payload[0].value}{dataKey === 'ph' ? '' : dataKey.includes('kelembapan') ? '%' : '°C'}
+          </div>
+          <div
+            className="w-0 h-0"
+            style={{
+              borderLeft: '8px solid transparent',
+              borderRight: '8px solid transparent',
+              borderTop: '10px solid #1F4E20',
+              marginTop: '-1px'
+            }}
+          ></div>
+        </div>
+      );
+    }
+    return null;
+  };
+
+  // Weather forecast data
+  const weatherData = [
+    { day: "Sen", weather: "☀", temp: "28 °C", rain: "0 mm", desc: "Cerah" },
+    { day: "Sel", weather: "🌤️", temp: "27 °C", rain: "1 mm", desc: "Cerah Berawan" },
+    { day: "Rab", weather: "☁️", temp: "26 °C", rain: "3 mm", desc: "Berawan" },
+    { day: "Kam", weather: "🌧️", temp: "25 °C", rain: "12 mm", desc: "Hujan Ringan" },
+    { day: "Jum", weather: "⛈️", temp: "23 °C", rain: "35 mm", desc: "Hujan Lebat" },
+    { day: "Sab", weather: "🌧️", temp: "24 °C", rain: "12 mm", desc: "Hujan Ringan" },
+    { day: "Min", weather: "☁️", temp: "25 °C", rain: "2 mm", desc: "Berawan" },
+  ];
+
+  // Prevent hydration mismatch by showing loading on server
+  if (!isClient) {
+    return (
+      <div className="w-full bg-[#F4FAF4] px-6 pb-6 space-y-4 relative">
+        <div className="flex items-center justify-between relative pt-4">
+          <h1 className="text-2xl font-bold text-[#1F4E20]">Loading...</h1>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="w-full bg-[#F4FAF4] px-6 pb-6 space-y-4 relative">
       {/* Header */}
@@ -447,74 +583,81 @@ export default function SensorPage() {
             className="h-12"
           />
         </div>
-        <ResponsiveContainer width="100%" height={300}>
-          <LineChart data={nutrientData} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#EEEEEE" />
-            <XAxis
-              dataKey="day"
-              tick={{ fill: '#1F4E20', fontSize: 11 }}
-              axisLine={{ stroke: '#EEEEEE' }}
-              tickLine={false}
-            />
-            <YAxis
-              domain={[0, 60]}
-              ticks={[10, 20, 30, 40, 50]}
-              tick={{ fill: '#1F4E20', fontSize: 11 }}
-              axisLine={{ stroke: '#EEEEEE' }}
-              tickLine={false}
-              label={{
-                value: "Tingkat NPK (ppm)",
-                angle: -90,
-                position: "insideLeft",
-                style: {
-                  textAnchor: "middle",
-                  fill: "#1F4E20",
-                  fontWeight: 600,
-                  fontSize: 11,
-                },
-              }}
-            />
-            <Tooltip
-              content={<CustomTooltipNPK />}
-              cursor={false}
-              wrapperStyle={{ outline: 'none', pointerEvents: 'none' }}
-              allowEscapeViewBox={{ x: true, y: true }}
-              isAnimationActive={false}
-              trigger="hover"
-              offset={0}
-            />
-            <Line
-              type="linear"
-              dataKey="nitrogen"
-              stroke="#1F4E20"
-              strokeWidth={2}
-              dot={{ fill: '#1F4E20', stroke: '#fff', strokeWidth: 2, r: 6 }}
-              activeDot={{ r: 8, fill: '#1F4E20', stroke: '#fff', strokeWidth: 2 }}
-              name="Nitrogen"
-              isAnimationActive={false}
-            />
-            <Line
-              type="linear"
-              dataKey="phospor"
-              stroke="#FFB310"
-              strokeWidth={2}
-              dot={{ fill: '#FFB310', stroke: '#fff', strokeWidth: 2, r: 6 }}
-              activeDot={{ r: 8, fill: '#FFB310', stroke: '#fff', strokeWidth: 2 }}
-              name="Phospor"
-              isAnimationActive={false}
-            />
-            <Line
-              type="linear"
-              dataKey="kalium"
-              stroke="#6691FF"
-              strokeWidth={2}
-              dot={{ fill: '#6691FF', stroke: '#fff', strokeWidth: 2, r: 6 }}
-              activeDot={{ r: 8, fill: '#6691FF', stroke: '#fff', strokeWidth: 2 }}
-              name="Kalium"
-              isAnimationActive={false}
-            />
-          </LineChart>
-        </ResponsiveContainer>
+        
+        {nutrientData.length > 0 ? (
+          <ResponsiveContainer width="100%" height={300}>
+            <LineChart data={nutrientData} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#EEEEEE" />
+              <XAxis
+                dataKey="day"
+                tick={{ fill: '#1F4E20', fontSize: 11 }}
+                axisLine={{ stroke: '#EEEEEE' }}
+                tickLine={false}
+              />
+              <YAxis
+                domain={[0, 60]}
+                ticks={[10, 20, 30, 40, 50]}
+                tick={{ fill: '#1F4E20', fontSize: 11 }}
+                axisLine={{ stroke: '#EEEEEE' }}
+                tickLine={false}
+                label={{
+                  value: "Tingkat NPK (ppm)",
+                  angle: -90,
+                  position: "insideLeft",
+                  style: {
+                    textAnchor: "middle",
+                    fill: "#1F4E20",
+                    fontWeight: 600,
+                    fontSize: 11,
+                  },
+                }}
+              />
+              <Tooltip
+                content={<CustomTooltipNPK />}
+                cursor={false}
+                wrapperStyle={{ outline: 'none', pointerEvents: 'none' }}
+                allowEscapeViewBox={{ x: true, y: true }}
+                isAnimationActive={false}
+                trigger="hover"
+                offset={0}
+              />
+              <Line
+                type="linear"
+                dataKey="nitrogen"
+                stroke="#1F4E20"
+                strokeWidth={2}
+                dot={{ fill: '#1F4E20', stroke: '#fff', strokeWidth: 2, r: 6 }}
+                activeDot={{ r: 8, fill: '#1F4E20', stroke: '#fff', strokeWidth: 2 }}
+                name="Nitrogen"
+                isAnimationActive={false}
+              />
+              <Line
+                type="linear"
+                dataKey="phospor"
+                stroke="#FFB310"
+                strokeWidth={2}
+                dot={{ fill: '#FFB310', stroke: '#fff', strokeWidth: 2, r: 6 }}
+                activeDot={{ r: 8, fill: '#FFB310', stroke: '#fff', strokeWidth: 2 }}
+                name="Phospor"
+                isAnimationActive={false}
+              />
+              <Line
+                type="linear"
+                dataKey="kalium"
+                stroke="#6691FF"
+                strokeWidth={2}
+                dot={{ fill: '#6691FF', stroke: '#fff', strokeWidth: 2, r: 6 }}
+                activeDot={{ r: 8, fill: '#6691FF', stroke: '#fff', strokeWidth: 2 }}
+                name="Kalium"
+                isAnimationActive={false}
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        ) : (
+          <div className="h-[300px] flex items-center justify-center text-gray-500">
+            Tidak ada data yang tersedia
+          </div>
+        )}
 
         <div className="mt-4">
           <p className="text-base font-bold text-black mb-2 text-center">
@@ -536,82 +679,88 @@ export default function SensorPage() {
         </h2>
 
         <div className="h-[300px] w-full">
-          <ResponsiveContainer width="100%" height="100%">
-            <AreaChart
-              data={temperatureData}
-              margin={{ top: 5, right: 5, bottom: 5, left: 0 }}
-            >
-              <defs>
-                <linearGradient id="colorSuhu" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#7FD083" stopOpacity={0.25} />
-                  <stop offset="95%" stopColor="#7FD083" stopOpacity={0.02} />
-                </linearGradient>
-              </defs>
+          {temperatureData.length > 0 ? (
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart
+                data={temperatureData}
+                margin={{ top: 5, right: 5, bottom: 5, left: 0 }}
+              >
+                <defs>
+                  <linearGradient id="colorSuhu" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#7FD083" stopOpacity={0.25} />
+                    <stop offset="95%" stopColor="#7FD083" stopOpacity={0.02} />
+                  </linearGradient>
+                </defs>
 
-              <CartesianGrid
-                strokeDasharray="0"
-                stroke="#EEEEEE"
-                vertical={false}
-              />
+                <CartesianGrid
+                  strokeDasharray="0"
+                  stroke="#EEEEEE"
+                  vertical={false}
+                />
 
-              <XAxis
-                dataKey="day"
-                tick={{ fill: '#1F4E20', fontSize: 11 }}
-                axisLine={{ stroke: '#EEEEEE' }}
-                tickLine={false}
-              />
+                <XAxis
+                  dataKey="day"
+                  tick={{ fill: '#1F4E20', fontSize: 11 }}
+                  axisLine={{ stroke: '#EEEEEE' }}
+                  tickLine={false}
+                />
 
-              <YAxis
-                domain={[0, 50]}
-                ticks={[10, 20, 30, 40, 50]}
-                tick={{ fill: '#1F4E20', fontSize: 11 }}
-                axisLine={{ stroke: '#EEEEEE' }}
-                tickLine={false}
-                label={{
-                  value: "Jumlah Suhu (°C)",
-                  angle: -90,
-                  position: "insideLeft",
-                  style: {
-                    textAnchor: "middle",
-                    fill: "#1F4E20",
-                    fontWeight: 600,
-                    fontSize: 11,
-                  },
-                }}
-              />
+                <YAxis
+                  domain={[0, 50]}
+                  ticks={[10, 20, 30, 40, 50]}
+                  tick={{ fill: '#1F4E20', fontSize: 11 }}
+                  axisLine={{ stroke: '#EEEEEE' }}
+                  tickLine={false}
+                  label={{
+                    value: "Jumlah Suhu (°C)",
+                    angle: -90,
+                    position: "insideLeft",
+                    style: {
+                      textAnchor: "middle",
+                      fill: "#1F4E20",
+                      fontWeight: 600,
+                      fontSize: 11,
+                    },
+                  }}
+                />
 
-              <Tooltip
-                content={<CustomTooltipSuhu />}
-                cursor={false}
-                wrapperStyle={{ outline: 'none', pointerEvents: 'none' }}
-                allowEscapeViewBox={{ x: true, y: true }}
-                isAnimationActive={false}
-                trigger="hover"
-                offset={0}
-              />
+                <Tooltip
+                  content={<CustomTooltipSuhu />}
+                  cursor={false}
+                  wrapperStyle={{ outline: 'none', pointerEvents: 'none' }}
+                  allowEscapeViewBox={{ x: true, y: true }}
+                  isAnimationActive={false}
+                  trigger="hover"
+                  offset={0}
+                />
 
-              <Area
-                type="linear"
-                dataKey="suhu"
-                stroke="#7FD083"
-                strokeWidth={2}
-                fill="url(#colorSuhu)"
-                dot={{
-                  fill: '#1F4E20',
-                  stroke: '#fff',
-                  strokeWidth: 2,
-                  r: 6
-                }}
-                activeDot={{
-                  r: 8,
-                  fill: '#1F4E20',
-                  stroke: '#fff',
-                  strokeWidth: 2
-                }}
-                isAnimationActive={false}
-              />
-            </AreaChart>
-          </ResponsiveContainer>
+                <Area
+                  type="linear"
+                  dataKey="suhu"
+                  stroke="#7FD083"
+                  strokeWidth={2}
+                  fill="url(#colorSuhu)"
+                  dot={{
+                    fill: '#1F4E20',
+                    stroke: '#fff',
+                    strokeWidth: 2,
+                    r: 6
+                  }}
+                  activeDot={{
+                    r: 8,
+                    fill: '#1F4E20',
+                    stroke: '#fff',
+                    strokeWidth: 2
+                  }}
+                  isAnimationActive={false}
+                />
+              </AreaChart>
+            </ResponsiveContainer>
+          ) : (
+            <div className="h-full flex items-center justify-center text-gray-500">
+              Tidak ada data yang tersedia
+            </div>
+          )}
         </div>
 
         <div className="mt-4">
@@ -622,8 +771,359 @@ export default function SensorPage() {
             Rata-rata suhu tanah {selectedPeriod === 'harian' ? 'hari ini' : selectedPeriod === 'mingguan' ? 'minggu ini' : 'bulan ini'} :
           </p>
           <p className="text-2xl text-[#1F4E20] font-bold">
-            {Math.round(temperatureData.reduce((acc, curr) => acc + curr.suhu, 0) / temperatureData.length)}°C
+            {calculateSafeAverage(temperatureData, 'suhu')}°C
           </p>
+        </div>
+      </div>
+
+      {/* Grafik pH Tanah */}
+      <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
+        <h2 className="text-base font-semibold text-[#1F4E20] mb-4">
+          Grafik pH Tanah
+        </h2>
+
+        <div className="h-[300px] w-full">
+          {phData.length > 0 ? (
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart
+                data={phData}
+                margin={{ top: 5, right: 5, bottom: 5, left: 0 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" stroke="#EEEEEE" />
+                <XAxis
+                  dataKey="day"
+                  tick={{ fill: '#1F4E20', fontSize: 11 }}
+                  axisLine={{ stroke: '#EEEEEE' }}
+                  tickLine={false}
+                />
+                <YAxis
+                  domain={[0, 14]}
+                  ticks={[0, 2, 4, 6, 8, 10, 12, 14]}
+                  tick={{ fill: '#1F4E20', fontSize: 11 }}
+                  axisLine={{ stroke: '#EEEEEE' }}
+                  tickLine={false}
+                  label={{
+                    value: "Tingkat pH",
+                    angle: -90,
+                    position: "insideLeft",
+                    style: {
+                      textAnchor: "middle",
+                      fill: "#1F4E20",
+                      fontWeight: 600,
+                      fontSize: 11,
+                    },
+                  }}
+                />
+                <Tooltip
+                  content={(props) => <CustomTooltipBar {...props} dataKey="ph" />}
+                  cursor={false}
+                  wrapperStyle={{ outline: 'none', pointerEvents: 'none' }}
+                  allowEscapeViewBox={{ x: true, y: true }}
+                  isAnimationActive={false}
+                  trigger="hover"
+                  offset={0}
+                />
+                <Bar
+                  dataKey="ph"
+                  fill="#7FD083"
+                  radius={[5, 5, 0, 0]}
+                  isAnimationActive={false}
+                />
+              </BarChart>
+            </ResponsiveContainer>
+          ) : (
+            <div className="h-full flex items-center justify-center text-gray-500">
+              Tidak ada data yang tersedia
+            </div>
+          )}
+        </div>
+
+        <div className="mt-4">
+          <p className="text-xs text-black font-semibold mb-1">
+            {selectedPeriod.charAt(0).toUpperCase() + selectedPeriod.slice(1)}
+          </p>
+          <p className="text-xs text-black mb-1">
+            Zona ideal pH tanah: 6.0 - 7.0
+          </p>
+        </div>
+      </div>
+
+      {/* Grafik Kelembapan Tanah */}
+      <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
+        <h2 className="text-base font-semibold text-[#1F4E20] mb-4">
+          Grafik Kelembapan Tanah
+        </h2>
+
+        <div className="h-[300px] w-full">
+          {soilMoistureData.length > 0 ? (
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart
+                data={soilMoistureData}
+                margin={{ top: 5, right: 5, bottom: 5, left: 0 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" stroke="#EEEEEE" />
+                <XAxis
+                  dataKey="day"
+                  tick={{ fill: '#1F4E20', fontSize: 11 }}
+                  axisLine={{ stroke: '#EEEEEE' }}
+                  tickLine={false}
+                />
+                <YAxis
+                  domain={[0, 100]}
+                  ticks={[0, 20, 40, 60, 80, 100]}
+                  tick={{ fill: '#1F4E20', fontSize: 11 }}
+                  axisLine={{ stroke: '#EEEEEE' }}
+                  tickLine={false}
+                  label={{
+                    value: "Tingkat Kelembapan (%)",
+                    angle: -90,
+                    position: "insideLeft",
+                    style: {
+                      textAnchor: "middle",
+                      fill: "#1F4E20",
+                      fontWeight: 600,
+                      fontSize: 11,
+                    },
+                  }}
+                />
+                <Tooltip
+                  content={(props) => <CustomTooltipBar {...props} dataKey="kelembapan" />}
+                  cursor={false}
+                  wrapperStyle={{ outline: 'none', pointerEvents: 'none' }}
+                  allowEscapeViewBox={{ x: true, y: true }}
+                  isAnimationActive={false}
+                  trigger="hover"
+                  offset={0}
+                />
+                <Bar
+                  dataKey="kelembapan"
+                  fill="#7FD083"
+                  radius={[5, 5, 0, 0]}
+                  isAnimationActive={false}
+                />
+              </BarChart>
+            </ResponsiveContainer>
+          ) : (
+            <div className="h-full flex items-center justify-center text-gray-500">
+              Tidak ada data yang tersedia
+            </div>
+          )}
+        </div>
+
+        <div className="mt-4">
+          <p className="text-xs text-black font-semibold mb-1">
+            {selectedPeriod.charAt(0).toUpperCase() + selectedPeriod.slice(1)}
+          </p>
+          <p className="text-xs text-black mb-1">
+            Rata-rata kelembapan tanah {selectedPeriod === 'harian' ? 'hari ini' : selectedPeriod === 'mingguan' ? 'minggu ini' : 'bulan ini'} :
+          </p>
+          <p className="text-2xl text-[#1F4E20] font-bold">
+            {calculateSafeAverage(soilMoistureData, 'kelembapan')}%
+          </p>
+        </div>
+      </div>
+
+      {/* Grafik Suhu Lingkungan */}
+      <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
+        <h2 className="text-base font-semibold text-[#1F4E20] mb-4">
+          Grafik Suhu Lingkungan
+        </h2>
+
+        <div className="h-[300px] w-full">
+          {environmentTemperatureData.length > 0 ? (
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart
+                data={environmentTemperatureData}
+                margin={{ top: 5, right: 5, bottom: 5, left: 0 }}
+              >
+                <defs>
+                  <linearGradient id="colorSuhuLingkungan" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#7FD083" stopOpacity={0.25} />
+                    <stop offset="95%" stopColor="#7FD083" stopOpacity={0.02} />
+                  </linearGradient>
+                </defs>
+
+                <CartesianGrid
+                  strokeDasharray="0"
+                  stroke="#EEEEEE"
+                  vertical={false}
+                />
+
+                <XAxis
+                  dataKey="day"
+                  tick={{ fill: '#1F4E20', fontSize: 11 }}
+                  axisLine={{ stroke: '#EEEEEE' }}
+                  tickLine={false}
+                />
+
+                <YAxis
+                  domain={[0, 50]}
+                  ticks={[10, 20, 30, 40, 50]}
+                  tick={{ fill: '#1F4E20', fontSize: 11 }}
+                  axisLine={{ stroke: '#EEEEEE' }}
+                  tickLine={false}
+                  label={{
+                    value: "Jumlah Suhu (°C)",
+                    angle: -90,
+                    position: "insideLeft",
+                    style: {
+                      textAnchor: "middle",
+                      fill: "#1F4E20",
+                      fontWeight: 600,
+                      fontSize: 11,
+                    },
+                  }}
+                />
+
+                <Tooltip
+                  content={<CustomTooltipSuhu />}
+                  cursor={false}
+                  wrapperStyle={{ outline: 'none', pointerEvents: 'none' }}
+                  allowEscapeViewBox={{ x: true, y: true }}
+                  isAnimationActive={false}
+                  trigger="hover"
+                  offset={0}
+                />
+
+                <Area
+                  type="linear"
+                  dataKey="suhu"
+                  stroke="#7FD083"
+                  strokeWidth={2}
+                  fill="url(#colorSuhuLingkungan)"
+                  dot={{
+                    fill: '#1F4E20',
+                    stroke: '#fff',
+                    strokeWidth: 2,
+                    r: 6
+                  }}
+                  activeDot={{
+                    r: 8,
+                    fill: '#1F4E20',
+                    stroke: '#fff',
+                    strokeWidth: 2
+                  }}
+                  isAnimationActive={false}
+                />
+              </AreaChart>
+            </ResponsiveContainer>
+          ) : (
+            <div className="h-full flex items-center justify-center text-gray-500">
+              Tidak ada data yang tersedia
+            </div>
+          )}
+        </div>
+
+        <div className="mt-4">
+          <p className="text-xs text-black font-semibold mb-1">
+            {selectedPeriod.charAt(0).toUpperCase() + selectedPeriod.slice(1)}
+          </p>
+          <p className="text-xs text-black mb-1">
+            Rata-rata suhu lingkungan {selectedPeriod === 'harian' ? 'hari ini' : selectedPeriod === 'mingguan' ? 'minggu ini' : 'bulan ini'} :
+          </p>
+          <p className="text-2xl text-[#1F4E20] font-bold">
+            {calculateSafeAverage(environmentTemperatureData, 'suhu')}°C
+          </p>
+        </div>
+      </div>
+
+      {/* Grafik Kelembapan Lingkungan */}
+      <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
+        <h2 className="text-base font-semibold text-[#1F4E20] mb-4">
+          Grafik Kelembapan Lingkungan
+        </h2>
+
+        <div className="h-[300px] w-full">
+          {environmentHumidityData.length > 0 ? (
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart
+                data={environmentHumidityData}
+                margin={{ top: 5, right: 5, bottom: 5, left: 0 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" stroke="#EEEEEE" />
+                <XAxis
+                  dataKey="day"
+                  tick={{ fill: '#1F4E20', fontSize: 11 }}
+                  axisLine={{ stroke: '#EEEEEE' }}
+                  tickLine={false}
+                />
+                <YAxis
+                  domain={[0, 100]}
+                  ticks={[0, 20, 40, 60, 80, 100]}
+                  tick={{ fill: '#1F4E20', fontSize: 11 }}
+                  axisLine={{ stroke: '#EEEEEE' }}
+                  tickLine={false}
+                  label={{
+                    value: "Tingkat Kelembapan (%)",
+                    angle: -90,
+                    position: "insideLeft",
+                    style: {
+                      textAnchor: "middle",
+                      fill: "#1F4E20",
+                      fontWeight: 600,
+                      fontSize: 11,
+                    },
+                  }}
+                />
+                <Tooltip
+                  content={(props) => <CustomTooltipBar {...props} dataKey="kelembapan" />}
+                  cursor={false}
+                  wrapperStyle={{ outline: 'none', pointerEvents: 'none' }}
+                  allowEscapeViewBox={{ x: true, y: true }}
+                  isAnimationActive={false}
+                  trigger="hover"
+                  offset={0}
+                />
+                <Bar
+                  dataKey="kelembapan"
+                  fill="#7FD083"
+                  radius={[5, 5, 0, 0]}
+                  isAnimationActive={false}
+                />
+              </BarChart>
+            </ResponsiveContainer>
+          ) : (
+            <div className="h-full flex items-center justify-center text-gray-500">
+              Tidak ada data yang tersedia
+            </div>
+          )}
+        </div>
+
+        <div className="mt-4">
+          <p className="text-xs text-black font-semibold mb-1">
+            {selectedPeriod.charAt(0).toUpperCase() + selectedPeriod.slice(1)}
+          </p>
+          <p className="text-xs text-black mb-1">
+            Rata-rata kelembapan lingkungan {selectedPeriod === 'harian' ? 'hari ini' : selectedPeriod === 'mingguan' ? 'minggu ini' : 'bulan ini'} :
+          </p>
+          <p className="text-2xl text-[#1F4E20] font-bold">
+            {calculateSafeAverage(environmentHumidityData, 'kelembapan')}%
+          </p>
+        </div>
+      </div>
+
+      {/* Weather Forecast */}
+      <div className="bg-[#6691FF] p-5 rounded-2xl shadow-sm">
+        <div className="flex overflow-x-auto pb-4 space-x-4">
+          {weatherData.map((day, index) => (
+            <div key={index} className="flex flex-col items-center text-white min-w-[60px]">
+              <div className="text-2xl mb-1">{day.weather}</div>
+              <div className="text-xs text-center mb-1">{day.desc}</div>
+              <div className="text-xs font-semibold">{day.temp}</div>
+              <div className="text-xs">{day.rain}</div>
+            </div>
+          ))}
+        </div>
+        
+        <div className="mt-4 pt-4 border-t border-white/20">
+          <div className="flex items-center justify-between">
+            <div className="text-white">
+              <p className="text-sm font-semibold">Cuaca hari ini:</p>
+              <p className="text-lg font-bold">Cerah Berawan, 27 °C, 1 mm</p>
+              <p className="text-xs opacity-90">Selasa, 8 September 2025</p>
+            </div>
+            <div className="text-4xl">🌤️</div>
+          </div>
         </div>
       </div>
     </div>
