@@ -22,7 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="id">
-      <body suppressHydrationWarning>
+      <body className={poppins.variable} suppressHydrationWarning>
         {/* SplashScreen tampil dulu */}
 
         <main className="bg-soft w-full h-screen flex flex-col md:hidden">

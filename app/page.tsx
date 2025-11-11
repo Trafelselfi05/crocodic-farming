@@ -119,7 +119,7 @@ export default function Dashboard() {
             <p className="text-sm font-medium text-[#1F4E20]">
               Jumlah : 12 lahan
             </p>
-            <Link href="#" className="flex items-center gap-0.5">
+            <Link href="/lahan" className="flex items-center gap-0.5">
               <span className="text-sm font-medium text-[#1F4E20]">
                 Semua Lahan
               </span>
@@ -164,7 +164,7 @@ export default function Dashboard() {
               <p className="text-xs text-black">Tanaman: Padi</p>
             </div>
             <Link
-              href="#"
+              href="/lahan/id"
               className="w-full h-[29px] bg-[#7FD083] rounded-b-[10px] flex items-center justify-between px-3"
             >
               <span className="text-xs text-white">Detail</span>
@@ -205,7 +205,7 @@ export default function Dashboard() {
               <p className="text-xs text-black">Tanaman: Jagung</p>
             </div>
             <Link
-              href="#"
+              href="/lahan/id"
               className="w-full h-[29px] bg-[#7FD083] rounded-b-[10px] flex items-center justify-between px-3"
             >
               <span className="text-xs text-white">Detail</span>
@@ -236,7 +236,7 @@ export default function Dashboard() {
         {/* Toggle Switches */}
         <div className="flex gap-2.5 px-2">
           {/* Penyiraman */}
-          <div className="w-[155px] h-[54px] bg-[#F4FAF4] border-[0.1px] border-[#1F4E20] rounded-[10px] p-2 flex items-center justify-between">
+          <div className="flex-1 h-[54px] bg-[#F4FAF4] border-[0.1px] border-[#1F4E20] rounded-[10px] p-2 flex items-center justify-between">
             <div className="flex items-center gap-1.5">
               <img
                 src="/asset/lahan/penyiraman-otomatis.svg"
@@ -267,7 +267,7 @@ export default function Dashboard() {
           </div>
 
           {/* Pemupukan */}
-          <div className="w-[155px] h-[54px] bg-[#F4FAF4] border-[0.1px] border-[#1F4E20] rounded-[10px] p-2 flex items-center justify-between">
+          <div className="flex-1 h-[54px] bg-[#F4FAF4] border-[0.1px] border-[#1F4E20] rounded-[10px] p-2 flex items-center justify-between">
             <div className="flex items-center gap-1.5">
               <div className="w-[26px] h-[26px] flex-shrink-0 relative">
                 <img
