@@ -233,19 +233,19 @@ export default function SensorPage() {
   const calculateAverageData = (period: "harian" | "mingguan" | "bulanan") => {
     const lahanKeys = Object.keys(allData).filter(key => key !== "Semua Lahan");
     const firstLahan = allData[lahanKeys[0] as keyof typeof allData][period];
-    
+
     return {
       nutrient: firstLahan.nutrient.map((_, index) => {
         const dayName = firstLahan.nutrient[index].day;
         let totalN = 0, totalP = 0, totalK = 0;
-        
+
         lahanKeys.forEach(lahan => {
           const data = allData[lahan as keyof typeof allData][period].nutrient[index];
           totalN += data.nitrogen;
           totalP += data.phospor;
           totalK += data.kalium;
         });
-        
+
         return {
           day: dayName,
           nitrogen: Math.round(totalN / lahanKeys.length),
@@ -256,12 +256,12 @@ export default function SensorPage() {
       suhu: firstLahan.suhu.map((_, index) => {
         const dayName = firstLahan.suhu[index].day;
         let totalSuhu = 0;
-        
+
         lahanKeys.forEach(lahan => {
           const data = allData[lahan as keyof typeof allData][period].suhu[index];
           totalSuhu += data.suhu;
         });
-        
+
         return {
           day: dayName,
           suhu: Math.round(totalSuhu / lahanKeys.length),
@@ -293,7 +293,7 @@ export default function SensorPage() {
   const CustomTooltipSuhu = ({ active, payload, coordinate }: any) => {
     if (active && payload && payload.length && coordinate) {
       return (
-        <div 
+        <div
           className="flex flex-col items-center pointer-events-none"
           style={{
             position: 'absolute',
@@ -305,7 +305,7 @@ export default function SensorPage() {
           <div className="bg-[#1F4E20] text-white px-3 py-1.5 rounded-lg text-sm font-semibold shadow-lg">
             {payload[0].value}°C
           </div>
-          <div 
+          <div
             className="w-0 h-0"
             style={{
               borderLeft: '8px solid transparent',
@@ -328,7 +328,7 @@ export default function SensorPage() {
       const kaliumData = payload.find((p: any) => p.dataKey === "kalium");
 
       return (
-        <div 
+        <div
           className="flex flex-col gap-1 items-center pointer-events-none"
           style={{
             position: 'absolute',
@@ -361,7 +361,7 @@ export default function SensorPage() {
               <div className="bg-[#FFB310] text-white px-4 py-2 rounded-full text-base font-semibold shadow-lg whitespace-nowrap">
                 {phosporData.value} ppm
               </div>
-              <div 
+              <div
                 className="w-0 h-0"
                 style={{
                   borderLeft: '10px solid transparent',
@@ -405,11 +405,10 @@ export default function SensorPage() {
                     setSelectedLahan(lahan);
                     setDropdownOpen(false);
                   }}
-                  className={`w-full text-left px-4 py-2 hover:bg-white/10 text-sm outline-none focus:outline-none focus-visible:outline-none ${
-                    selectedLahan === lahan
+                  className={`w-full text-left px-4 py-2 hover:bg-white/10 text-sm outline-none focus:outline-none focus-visible:outline-none ${selectedLahan === lahan
                       ? "bg-white/20 font-semibold text-white"
                       : "text-white"
-                  }`}
+                    }`}
                 >
                   {lahan}
                 </button>
@@ -425,11 +424,10 @@ export default function SensorPage() {
           <button
             key={period}
             onClick={() => setSelectedPeriod(period)}
-            className={`w-1/3 py-2.5 capitalize font-medium transition text-sm outline-none focus:outline-none focus-visible:outline-none ${
-              selectedPeriod === period
+            className={`w-1/3 py-2.5 capitalize font-medium transition text-sm outline-none focus:outline-none focus-visible:outline-none ${selectedPeriod === period
                 ? "bg-[#1F4E20] text-white"
                 : "bg-[#ffffff] text-[#1F4E20] hover:bg-[#7FD083]/20"
-            }`}
+              }`}
           >
             {period}
           </button>
@@ -476,8 +474,8 @@ export default function SensorPage() {
                 },
               }}
             />
-            <Tooltip 
-              content={<CustomTooltipNPK />} 
+            <Tooltip
+              content={<CustomTooltipNPK />}
               cursor={false}
               wrapperStyle={{ outline: 'none', pointerEvents: 'none' }}
               allowEscapeViewBox={{ x: true, y: true }}
@@ -537,82 +535,83 @@ export default function SensorPage() {
           Suhu Tanah
         </h2>
 
-        <div className="relative">
-          <div className="absolute left-0 top-[140px] -translate-x-2">
-            <div className="-rotate-90 origin-center">
-              <p className="text-[11px] font-semibold text-[#1F4E20] whitespace-nowrap">
-                Jumlah Suhu (°C)
-              </p>
-            </div>
-          </div>
+        <div className="h-[300px] w-full">
+          <ResponsiveContainer width="100%" height="100%">
+            <AreaChart
+              data={temperatureData}
+              margin={{ top: 5, right: 5, bottom: 5, left: 0 }}
+            >
+              <defs>
+                <linearGradient id="colorSuhu" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#7FD083" stopOpacity={0.25} />
+                  <stop offset="95%" stopColor="#7FD083" stopOpacity={0.02} />
+                </linearGradient>
+              </defs>
 
-          <div className="pl-6">
-            <ResponsiveContainer width="100%" height={300}>
-              <AreaChart
-                data={temperatureData}
-                margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
-              >
-                <defs>
-                  <linearGradient id="colorSuhu" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#7FD083" stopOpacity={0.25} />
-                    <stop offset="95%" stopColor="#7FD083" stopOpacity={0.02} />
-                  </linearGradient>
-                </defs>
+              <CartesianGrid
+                strokeDasharray="0"
+                stroke="#EEEEEE"
+                vertical={false}
+              />
 
-                <CartesianGrid
-                  strokeDasharray="0"
-                  stroke="#EEEEEE"
-                  vertical={false}
-                />
+              <XAxis
+                dataKey="day"
+                tick={{ fill: '#1F4E20', fontSize: 11 }}
+                axisLine={{ stroke: '#EEEEEE' }}
+                tickLine={false}
+              />
 
-                <XAxis
-                  dataKey="day"
-                  tick={{ fill: '#1F4E20', fontSize: 11 }}
-                  axisLine={{ stroke: '#EEEEEE' }}
-                  tickLine={false}
-                />
+              <YAxis
+                domain={[0, 50]}
+                ticks={[10, 20, 30, 40, 50]}
+                tick={{ fill: '#1F4E20', fontSize: 11 }}
+                axisLine={{ stroke: '#EEEEEE' }}
+                tickLine={false}
+                label={{
+                  value: "Jumlah Suhu (°C)",
+                  angle: -90,
+                  position: "insideLeft",
+                  style: {
+                    textAnchor: "middle",
+                    fill: "#1F4E20",
+                    fontWeight: 600,
+                    fontSize: 11,
+                  },
+                }}
+              />
 
-                <YAxis
-                  domain={[0, 50]}
-                  ticks={[10, 20, 30, 40, 50]}
-                  tick={{ fill: '#1F4E20', fontSize: 11 }}
-                  axisLine={{ stroke: '#EEEEEE' }}
-                  tickLine={false}
-                />
+              <Tooltip
+                content={<CustomTooltipSuhu />}
+                cursor={false}
+                wrapperStyle={{ outline: 'none', pointerEvents: 'none' }}
+                allowEscapeViewBox={{ x: true, y: true }}
+                isAnimationActive={false}
+                trigger="hover"
+                offset={0}
+              />
 
-                <Tooltip
-                  content={<CustomTooltipSuhu />}
-                  cursor={false}
-                  wrapperStyle={{ outline: 'none', pointerEvents: 'none' }}
-                  allowEscapeViewBox={{ x: true, y: true }}
-                  isAnimationActive={false}
-                  trigger="hover"
-                  offset={0}
-                />
-
-                <Area
-                  type="linear"
-                  dataKey="suhu"
-                  stroke="#7FD083"
-                  strokeWidth={2}
-                  fill="url(#colorSuhu)"
-                  dot={{
-                    fill: '#1F4E20',
-                    stroke: '#fff',
-                    strokeWidth: 2,
-                    r: 6
-                  }}
-                  activeDot={{
-                    r: 8,
-                    fill: '#1F4E20',
-                    stroke: '#fff',
-                    strokeWidth: 2
-                  }}
-                  isAnimationActive={false}
-                />
-              </AreaChart>
-            </ResponsiveContainer>
-          </div>
+              <Area
+                type="linear"
+                dataKey="suhu"
+                stroke="#7FD083"
+                strokeWidth={2}
+                fill="url(#colorSuhu)"
+                dot={{
+                  fill: '#1F4E20',
+                  stroke: '#fff',
+                  strokeWidth: 2,
+                  r: 6
+                }}
+                activeDot={{
+                  r: 8,
+                  fill: '#1F4E20',
+                  stroke: '#fff',
+                  strokeWidth: 2
+                }}
+                isAnimationActive={false}
+              />
+            </AreaChart>
+          </ResponsiveContainer>
         </div>
 
         <div className="mt-4">
