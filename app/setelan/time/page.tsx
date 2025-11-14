@@ -22,7 +22,7 @@ export default function AturZonaWaktuPage() {
 
         {/* WIB */}
         <label
-          className="flex items-center gap-3 bg-white px-4 py-4 rounded-2xl border border-[#7FD083] cursor-pointer"
+          className="flex items-center gap-3 bg-white px-4 py-4 rounded-full border border-[#7FD083] cursor-pointer"
         >
           <input
             type="radio"
@@ -39,7 +39,7 @@ export default function AturZonaWaktuPage() {
 
         {/* WITA */}
         <label
-          className="flex items-center gap-3 bg-white px-4 py-4 rounded-2xl border border-[#7FD083] cursor-pointer"
+          className="flex items-center gap-3 bg-white px-4 py-4 rounded-full border border-[#7FD083] cursor-pointer"
         >
           <input
             type="radio"
@@ -56,7 +56,7 @@ export default function AturZonaWaktuPage() {
 
         {/* WIT */}
         <label
-          className="flex items-center gap-3 bg-white px-4 py-4 rounded-2xl border border-[#7FD083] cursor-pointer"
+          className="flex items-center gap-3 bg-white px-4 py-4 rounded-full border border-[#7FD083] cursor-pointer"
         >
           <input
             type="radio"
