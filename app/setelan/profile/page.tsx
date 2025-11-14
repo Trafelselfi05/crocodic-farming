@@ -1,80 +1,143 @@
 "use client";
 
-import {
-  ArrowLeft,
-  Camera,
-  User,
-  Phone,
-  Mail,
-  Lock,
-  Pencil,
-} from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+
+const PROFILE_ITEMS = [
+  { 
+    icon: "/asset/setelan/profile2.svg", 
+    label: "Nama", 
+    value: "Selfi",
+  },
+  { 
+    icon: "/asset/setelan/tlp.svg", 
+    label: "Nomor Telepon", 
+    value: "+62 812 3456 7890",
+  },
+  { 
+    icon: "/asset/setelan/email-icon.svg", 
+    label: "Email", 
+    value: "aziz@example.com",
+  },
+  { 
+    icon: "/asset/setelan/lock-icon.svg", 
+    label: "Kata Sandi", 
+    value: "********",
+  },
+];
 
 export default function ProfilePage() {
   const router = useRouter();
 
-  const profileItems = [
-    { icon: User, label: "Nama", value: "Aziz Azzam" },
-    { icon: Phone, label: "Nomor Telepon", value: "+62 812 3456 7890" },
-    { icon: Mail, label: "Email", value: "aziz@example.com" },
-    { icon: Lock, label: "Kata Sandi", value: "********" },
-  ];
-
   return (
-    <div className=" w-full flex flex-col items-center">
-      {/* HEADER */}
-      <header className="w-full flex items-center justify-between px-4 py-4  sticky top-0">
+    <main className="inline-flex flex-col min-h-[670px] items-center gap-[30px] relative">
+      {/* Header */}
+      <header className="flex items-center justify-center gap-5 relative self-stretch w-full">
         <button
           onClick={() => router.back()}
-          className="flex items-center gap-1 text-gray-700 hover:text-[#1F4E20] transition"
+          type="button"
+          aria-label="Kembali ke halaman sebelumnya"
+          className="relative w-10 h-10 rotate-180 bg-transparent border-none p-0 cursor-pointer hover:opacity-70 transition-opacity"
         >
-          <ArrowLeft className="w-5 h-5" />
-          <h1 className="text-lg font-semibold text-gray-800 ">
+          <Image
+            src="/asset/setelan/back.svg"
+            alt=""
+            width={24}
+            height={21}
+            className="absolute w-[60.42%] h-[52.08%] top-[23.96%] left-[19.79%] rotate-180"
+            onError={(e) => {
+              const target = e.target as HTMLImageElement;
+              target.style.display = 'none';
+              console.error('Failed to load back.svg');
+            }}
+          />
+        </button>
+
+        <div className="flex flex-col items-start gap-2.5 relative flex-1">
+          <h1 className="relative w-fit -mt-[6.5px] -mb-[4.5px] font-['Poppins'] font-semibold text-black text-2xl tracking-normal leading-normal">
             Profile
           </h1>
-        </button>
+        </div>
       </header>
 
-      {/* AVATAR */}
-      <div className="relative mt-10">
+      {/* Avatar Section */}
+      <section className="flex flex-col w-44 items-end relative">
         <Image
-          src="/avatar-placeholder.png" // ganti dengan gambar user
-          alt="Profile"
-          width={120}
-          height={120}
-          className="rounded-full border-4 border-white shadow-md"
+          src="/asset/setelan/avatar.svg"
+          alt="Foto profil"
+          width={176}
+          height={176}
+          className="relative self-stretch w-full h-44 object-cover rounded-full"
+          onError={(e) => handleImageError(e, FALLBACK_IMAGES.avatar, 'Failed to load avatar.svg')}
         />
-        {/* ICON CAMERA */}
-        <button className="absolute bottom-1 left-1 bg-white p-2 rounded-full shadow-md hover:bg-gray-100 transition">
-          <Camera className="w-4 h-4 text-gray-700" />
+        
+        <button
+          type="button"
+          aria-label="Ubah foto profil"
+          className="relative w-[47px] h-[34px] -mt-[42px] bg-transparent border-none p-0 cursor-pointer hover:opacity-70 transition-opacity"
+        >
+          <Image
+            src="/asset/setelan/camera-icon.svg"
+            alt=""
+            width={28}
+            height={26}
+            className="object-contain"
+            onError={(e) => {
+              const target = e.target as HTMLImageElement;
+              target.style.display = 'none';
+              console.error('Failed to load camera-icon.svg');
+            }}
+          />
         </button>
-      </div>
+      </section>
 
-      {/* PROFILE CARD */}
-      <div className="w-full max-w-md mt-8 px-4 flex flex-col gap-4">
-        {profileItems.map((item, idx) => {
-          const Icon = item.icon;
-          return (
-            <div
-              key={idx}
-              className={`flex items-center justify-between w-full bg-white rounded-4xl px-4 py-6 shadow-sm hover:bg-[#7FD083]/10 transition border-secondary border`}
-            >
-              <div className="flex items-center gap-3">
-                <Icon className="w-5 h-5 text-[#1F4E20]" />
-                <div>
-                  <p className="text-sm text-gray-500">{item.label}</p>
-                  <p className="font-medium text-gray-800">{item.value}</p>
+      {/* Profile Items */}
+      <section className="flex flex-col w-[344px] items-start gap-[15px] relative">
+        {PROFILE_ITEMS.map((item, idx) => (
+          <article
+            key={idx}
+            className="flex flex-col h-[84px] items-start gap-2.5 p-[15px_11px] relative self-stretch w-full bg-white rounded-[25px] border border-[#AAAAAA] hover:shadow-md transition-shadow"
+          >
+            <div className="inline-flex items-center gap-[61px] relative">
+              <div className="inline-flex items-center gap-[25px] relative">
+                <div className="relative w-[53px] h-[53px] bg-[#AAAAAA] bg-opacity-50 rounded-full flex items-center justify-center shrink-0">
+                  <Image
+                    src={item.icon}
+                    alt=""
+                    width={30}
+                    height={30}
+                    className="object-contain"
+                    aria-hidden="true"
+                  />
+                </div>
+
+                <div className="flex flex-col w-[140px] items-start relative">
+                  <h2 className="relative self-stretch -mt-px font-['Poppins'] font-semibold text-black text-base tracking-normal leading-normal">
+                    {item.label}
+                  </h2>
+                  <p className="relative self-stretch font-['Poppins'] font-normal text-black text-xs tracking-normal leading-normal">
+                    {item.value}
+                  </p>
                 </div>
               </div>
-              <button className="text-gray-500 hover:text-[#1F4E20] transition">
-                <Pencil className="w-4 h-4" />
+
+              <button
+                type="button"
+                aria-label={`Edit ${item.label.toLowerCase()}`}
+                className="relative w-[21.75px] h-[21.75px] bg-transparent border-none p-0 cursor-pointer hover:opacity-70 transition-opacity"
+              >
+                <Image
+                  src="/asset/setelan/edit-icon.svg"
+                  alt=""
+                  width={22}
+                  height={22}
+                  className="relative w-[21.75px] h-[21.75px] object-contain"
+                />
               </button>
             </div>
-          );
-        })}
-      </div>
-    </div>
+          </article>
+        ))}
+      </section>
+    </main>
   );
 }

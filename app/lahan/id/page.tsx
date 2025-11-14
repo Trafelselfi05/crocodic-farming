@@ -3,8 +3,28 @@
 import { useState } from "react";
 import { ArrowLeft, Pencil, Trash2, Plus, ChevronDown, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import dynamic from "next/dynamic";
+import { useParams } from "next/navigation";
+
+// Import komponen statistik yang sudah dimodifikasi untuk otomatis berdasarkan ID
+const StatistikPage = dynamic(() => import('@/app/statistik/page'), {
+  ssr: false,
+  loading: () => (
+    <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-base font-semibold text-[#1F4E20]">Statistik Lahan</h2>
+      </div>
+      <div className="h-[300px] flex items-center justify-center">
+        <p className="text-gray-500">Memuat data statistik...</p>
+      </div>
+    </div>
+  )
+});
 
 export default function LahanDetailPage() {
+  const params = useParams();
+  const lahanId = params.id as string;
+  
   const [showFilterModal, setShowFilterModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showWeekdayModal, setShowWeekdayModal] = useState(false);
@@ -23,11 +43,29 @@ export default function LahanDetailPage() {
   const [penyiramanAktif, setPenyiramanAktif] = useState(true);
   const [pemupukanAktif, setPemupukanAktif] = useState(true);
 
+  // Data lahan berdasarkan ID
+  const dataLahan = [
+    { id: "1", nama: "Lahan 1", luas: "2 ha", tanaman: "Padi" },
+    { id: "2", nama: "Lahan 2", luas: "1.5 ha", tanaman: "Jagung" },
+    { id: "3", nama: "Lahan 3", luas: "3 ha", tanaman: "Kentang" },
+    { id: "4", nama: "Lahan 4", luas: "2.2 ha", tanaman: "Cabai" },
+    { id: "5", nama: "Lahan 5", luas: "1 ha", tanaman: "Tomat" },
+    { id: "6", nama: "Lahan 6", luas: "2.8 ha", tanaman: "Padi" },
+    { id: "7", nama: "Lahan 7", luas: "4 ha", tanaman: "Padi" },
+    { id: "8", nama: "Lahan 8", luas: "3.3 ha", tanaman: "Kentang" },
+    { id: "9", nama: "Lahan 9", luas: "2.6 ha", tanaman: "Jagung" },
+    { id: "10", nama: "Lahan 10", luas: "1.8 ha", tanaman: "Jagung" },
+    { id: "11", nama: "Lahan 11", luas: "2.4 ha", tanaman: "Padi" },
+    { id: "12", nama: "Lahan 12", luas: "3.1 ha", tanaman: "Tomat" },
+  ];
+
+  const currentLahan = dataLahan.find(lahan => lahan.id === lahanId) || dataLahan[0];
+
   // State untuk form edit lahan
   const [formData, setFormData] = useState({
-    namaLahan: "Lahan 01",
-    jenisTanaman: "Padi",
-    luasLahan: "2 ha"
+    namaLahan: currentLahan.nama,
+    jenisTanaman: currentLahan.tanaman,
+    luasLahan: currentLahan.luas
   });
 
   const handleBack = () => {
@@ -125,15 +163,15 @@ export default function LahanDetailPage() {
             <button onClick={handleBack} className="cursor-pointer">
               <ArrowLeft className="text-gray-700 w-5 h-5" />
             </button>
-            <h1 className="text-xl font-semibold text-gray-800">Lahan 01</h1>
+            <h1 className="text-xl font-semibold text-gray-800">{currentLahan.nama}</h1>
           </div>
         </div>
 
         {/* Info Section */}
         <div className="flex justify-between items-center mb-3">
           <div>
-            <p className="text-gray-700 text-sm">Luas: 2 ha</p>
-            <p className="text-gray-700 text-sm">Tanaman: Padi</p>
+            <p className="text-gray-700 text-sm">Luas: {currentLahan.luas}</p>
+            <p className="text-gray-700 text-sm">Tanaman: {currentLahan.tanaman}</p>
           </div>
           <div className="flex gap-3">
             <button className="bg-[#1F4E20] p-3 rounded-full" onClick={() => setShowEditModal(true)}>
@@ -309,6 +347,9 @@ export default function LahanDetailPage() {
             </div>
           </div>
         </div>
+
+        {/* Komponen Statistik - Langsung ditampilkan berdasarkan ID lahan */}
+        <StatistikPage />
       </div>
 
       {/* === MODAL: Konfirmasi Hapus Lahan === */}
@@ -349,7 +390,7 @@ export default function LahanDetailPage() {
                 {/* Text */}
                 <div className="text-center">
                   <p className="text-black text-sm font-normal leading-normal">
-                    Apakah kamu yakin ingin <br />menghapus Lahan 01?
+                    Apakah kamu yakin ingin <br />menghapus {currentLahan.nama}?
                   </p>
                 </div>
 
