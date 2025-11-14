@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Dashboard() {
   const [isPenyiramanOn, setIsPenyiramanOn] = useState(true);
@@ -147,17 +148,15 @@ export default function Dashboard() {
           <div className="flex-1 bg-white rounded-[10px] border-[0.5px] border-[#1F4E20] overflow-hidden">
             <div className="flex items-center justify-between px-3 pt-2 h-[33px]">
               <h3 className="text-sm font-semibold text-black">Lahan 1</h3>
-              <button type="button" aria-label="More options">
-                <svg
-                  className="w-6 h-6"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                >
-                  <circle cx="12" cy="6" r="2" />
-                  <circle cx="12" cy="12" r="2" />
-                  <circle cx="12" cy="18" r="2" />
-                </svg>
-              </button>
+                  <div className="w-6 h-6 p-1 bg-[#1F4E20] rounded-xl flex items-center justify-center flex-shrink-0">
+                    <Image
+                      src="/asset/lahan/padi.svg"
+                      alt="/asset/lahan/jagung.svg"
+                      width={16}
+                      height={16}
+                      className="w-4 h-4"
+                    />
+                  </div>
             </div>
             <div className="px-3 py-1 flex flex-col gap-0.5">
               <p className="text-xs text-black">Luas: 2 Ha</p>
@@ -188,17 +187,15 @@ export default function Dashboard() {
           <div className="flex-1 bg-white rounded-[10px] border-[0.5px] border-[#1F4E20] overflow-hidden">
             <div className="flex items-center justify-between px-3 pt-2 h-[33px]">
               <h3 className="text-sm font-semibold text-black">Lahan 2</h3>
-              <button type="button" aria-label="More options">
-                <svg
-                  className="w-6 h-6"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                >
-                  <circle cx="12" cy="6" r="2" />
-                  <circle cx="12" cy="12" r="2" />
-                  <circle cx="12" cy="18" r="2" />
-                </svg>
-              </button>
+                  <div className="w-6 h-6 p-1 bg-[#1F4E20] rounded-xl flex items-center justify-center flex-shrink-0">
+                    <Image
+                      src="/asset/lahan/jagung.svg"
+                      alt="/asset/lahan/jagung.svg"
+                      width={16}
+                      height={16}
+                      className="w-4 h-4"
+                    />
+                  </div>
             </div>
             <div className="px-3 py-1 flex flex-col gap-0.5">
               <p className="text-xs text-black">Luas: 4 Ha</p>
