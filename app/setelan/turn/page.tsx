@@ -23,12 +23,15 @@ export default function NotifikasiPage() {
         
         {/* LEFT SECTION (IMAGE + TEXT) */}
         <div className="flex items-start gap-4">
-          <Image
-            src="/asset/setelan/notifikasi.svg"
-            alt="notifikasi icon"
-            width={30}
-            height={30}
-          />
+              <div className="bg-primary rounded-full p-3">
+                <Image
+                  src="/asset/setelan/notifikasi.svg"
+                  alt=""
+                  width={42}
+                  height={42}
+                  className="text-primary"
+                />
+              </div>
 
           <div className="flex flex-col">
             <span className="text-[#1F4E20] font-bold text-lg">Notifikasi</span>
