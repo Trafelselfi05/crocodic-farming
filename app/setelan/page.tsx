@@ -15,19 +15,19 @@ const menuItems = [
     name: "Aturan Zona Waktu", 
     icon: Globe, 
     iconImage: "/asset/setelan/zona-waktu.svg", 
-    href: "/zona-waktu" 
+    href: "/time" 
   },
   { 
     name: "Notifikasi", 
     icon: Bell, 
     iconImage: "/asset/setelan/notifikasi.svg", 
-    href: "/notifikasi" 
+    href: "/turn" 
   },
   { 
     name: "Tentang Kami", 
     icon: Info, 
     iconImage: "/asset/setelan/tentang.svg", 
-    href: "/tentang" 
+    href: "/about" 
   },
   { 
     name: "Keluar", 
