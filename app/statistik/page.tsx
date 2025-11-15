@@ -165,7 +165,7 @@ const generateCompleteData = () => {
   };
 
   const allData: any = {};
-  
+
   // Generate data untuk semua lahan (1-10)
   for (let i = 1; i <= 10; i++) {
     allData[`Lahan ${i}`] = {
@@ -173,17 +173,17 @@ const generateCompleteData = () => {
       mingguan: JSON.parse(JSON.stringify(baseMingguan)),
       bulanan: JSON.parse(JSON.stringify(baseBulanan)),
     };
-    
+
     // Tambahkan variasi untuk membuat data setiap lahan berbeda
     if (i > 1) {
       const variation = (i - 1) * 0.8;
-      
+
       // Apply variation to all data types
       ['harian', 'mingguan', 'bulanan'].forEach(period => {
         ['nutrient', 'suhu', 'ph', 'kelembapanTanah', 'suhuLingkungan', 'kelembapanLingkungan'].forEach(dataType => {
           allData[`Lahan ${i}`][period][dataType] = allData[`Lahan ${i}`][period][dataType].map((item: any) => {
             const newItem = { ...item };
-            
+
             if (dataType === 'nutrient') {
               newItem.nitrogen = Math.max(20, Math.min(55, Math.round(item.nitrogen + (Math.sin(i) * 4))));
               newItem.phospor = Math.max(15, Math.min(35, Math.round(item.phospor + (Math.cos(i) * 3))));
@@ -195,7 +195,7 @@ const generateCompleteData = () => {
             } else if (dataType.includes('kelembapan')) {
               newItem.kelembapan = Math.max(30, Math.min(80, Math.round(item.kelembapan + (Math.sin(i) * 8))));
             }
-            
+
             return newItem;
           });
         });
@@ -224,13 +224,13 @@ export default function SensorPage() {
   const calculateAverageData = (period: "harian" | "mingguan" | "bulanan") => {
     try {
       const lahanKeys = Object.keys(allData).filter(key => key !== "Semua Lahan");
-      
+
       if (lahanKeys.length === 0) {
         return getEmptyData();
       }
 
       const firstLahan = allData[lahanKeys[0]][period];
-      
+
       if (!firstLahan) {
         return getEmptyData();
       }
@@ -278,8 +278,8 @@ export default function SensorPage() {
           } else {
             return {
               day: dayName,
-              [getValueKey(dataType)]: count > 0 ? 
-                (dataType === 'ph' ? Number((total / count).toFixed(1)) : Math.round(total / count)) 
+              [getValueKey(dataType)]: count > 0 ?
+                (dataType === 'ph' ? Number((total / count).toFixed(1)) : Math.round(total / count))
                 : 0,
             };
           }
@@ -337,13 +337,13 @@ export default function SensorPage() {
       if (selectedLahan === "Semua Lahan") {
         return calculateAverageData(selectedPeriod);
       }
-      
+
       const lahanData = allData[selectedLahan]?.[selectedPeriod];
       if (!lahanData) {
         console.warn(`No data found for ${selectedLahan} - ${selectedPeriod}`);
         return calculateAverageData(selectedPeriod);
       }
-      
+
       return lahanData;
     } catch (error) {
       console.error('Error getting filtered data:', error);
@@ -352,7 +352,7 @@ export default function SensorPage() {
   };
 
   const selectedData = getFilteredData();
-  
+
   // Data dengan fallback ke array kosong
   const nutrientData = selectedData?.nutrient || [];
   const temperatureData = selectedData?.suhu || [];
@@ -542,8 +542,8 @@ export default function SensorPage() {
                     setDropdownOpen(false);
                   }}
                   className={`w-full text-left px-4 py-2 hover:bg-white/10 text-sm outline-none focus:outline-none focus-visible:outline-none ${selectedLahan === lahan
-                      ? "bg-white/20 font-semibold text-white"
-                      : "text-white"
+                    ? "bg-white/20 font-semibold text-white"
+                    : "text-white"
                     }`}
                 >
                   {lahan}
@@ -561,8 +561,8 @@ export default function SensorPage() {
             key={period}
             onClick={() => setSelectedPeriod(period)}
             className={`w-1/3 py-2.5 capitalize font-medium transition text-sm outline-none focus:outline-none focus-visible:outline-none ${selectedPeriod === period
-                ? "bg-[#1F4E20] text-white"
-                : "bg-[#ffffff] text-[#1F4E20] hover:bg-[#7FD083]/20"
+              ? "bg-[#1F4E20] text-white"
+              : "bg-[#ffffff] text-[#1F4E20] hover:bg-[#7FD083]/20"
               }`}
           >
             {period}
@@ -583,7 +583,7 @@ export default function SensorPage() {
             className="h-12"
           />
         </div>
-        
+
         {nutrientData.length > 0 ? (
           <ResponsiveContainer width="100%" height={300}>
             <LineChart data={nutrientData} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
@@ -1114,7 +1114,7 @@ export default function SensorPage() {
             </div>
           ))}
         </div>
-        
+
         <div className="mt-4 pt-4 border-t border-white/20">
           <div className="flex items-center justify-between">
             <div className="text-white">

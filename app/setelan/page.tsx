@@ -5,35 +5,35 @@ import Link from "next/link";
 import Image from "next/image";
 
 const menuItems = [
-  { 
-    name: "Profil", 
-    icon: User, 
-    iconImage: "/asset/setelan/profile.svg", 
-    href: "/profile" 
+  {
+    name: "Profil",
+    icon: User,
+    iconImage: "/asset/setelan/profile.svg",
+    href: "/profile"
   },
-  { 
-    name: "Aturan Zona Waktu", 
-    icon: Globe, 
-    iconImage: "/asset/setelan/zona-waktu.svg", 
-    href: "/time" 
+  {
+    name: "Aturan Zona Waktu",
+    icon: Globe,
+    iconImage: "/asset/setelan/zona-waktu.svg",
+    href: "/time"
   },
-  { 
-    name: "Notifikasi", 
-    icon: Bell, 
-    iconImage: "/asset/setelan/notifikasi.svg", 
-    href: "/turn" 
+  {
+    name: "Notifikasi",
+    icon: Bell,
+    iconImage: "/asset/setelan/notifikasi.svg",
+    href: "/turn"
   },
-  { 
-    name: "Tentang Kami", 
-    icon: Info, 
-    iconImage: "/asset/setelan/tentang.svg", 
-    href: "/about" 
+  {
+    name: "Tentang Kami",
+    icon: Info,
+    iconImage: "/asset/setelan/tentang.svg",
+    href: "/about"
   },
-  { 
-    name: "Keluar", 
-    icon: LogOut, 
-    iconImage: "/asset/setelan/keluar.svg", 
-    href: "/logout" 
+  {
+    name: "Keluar",
+    icon: LogOut,
+    iconImage: "/asset/setelan/keluar.svg",
+    href: "/logout"
   },
 ];
 

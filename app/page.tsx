@@ -47,7 +47,7 @@ export default function Dashboard() {
         </div>
         {/* Notification Button */}
         <Link
-          href="/setelan/notifikasi"
+          href="/notifikasi"
           aria-label="Notifications"
           className="w-[53px] h-[53px] rounded-full bg-[#1F4E20] flex items-center justify-center flex-shrink-0"
         >
@@ -71,20 +71,11 @@ export default function Dashboard() {
         className="w-full bg-white rounded-[25px] py-3.5 px-0 flex items-center gap-1.5"
       >
         <div className="w-[72px] h-[53px] relative flex-shrink-0">
-          <svg
-            className="absolute top-2 right-0.5 w-[68px] h-[38px]"
-            viewBox="0 0 68 38"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <circle cx="19" cy="19" r="12" fill="#FDB813" />
-            <path
-              d="M19 7V4M19 34V31M31.66 7.34L33.78 5.22M4.22 33.78L6.34 31.66M36 19H39M0 19H3M31.66 30.66L33.78 32.78M4.22 4.22L6.34 6.34"
-              stroke="#FDB813"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-          </svg>
+          <img
+            src="/asset/beranda/cuaca.svg"
+            alt="cuaca"
+            className="w-16 h-16"
+          />
         </div>
         <div className="flex-1 flex items-center justify-between pr-2">
           <div className="flex flex-col gap-0.5">
@@ -148,15 +139,15 @@ export default function Dashboard() {
           <div className="flex-1 bg-white rounded-[10px] border-[0.5px] border-[#1F4E20] overflow-hidden">
             <div className="flex items-center justify-between px-3 pt-2 h-[33px]">
               <h3 className="text-sm font-semibold text-black">Lahan 1</h3>
-                  <div className="w-6 h-6 p-1 bg-[#1F4E20] rounded-xl flex items-center justify-center flex-shrink-0">
-                    <Image
-                      src="/asset/lahan/padi.svg"
-                      alt="/asset/lahan/jagung.svg"
-                      width={16}
-                      height={16}
-                      className="w-4 h-4"
-                    />
-                  </div>
+              <div className="w-6 h-6 p-1 bg-[#1F4E20] rounded-xl flex items-center justify-center flex-shrink-0">
+                <Image
+                  src="/asset/lahan/padi.svg"
+                  alt="/asset/lahan/jagung.svg"
+                  width={16}
+                  height={16}
+                  className="w-4 h-4"
+                />
+              </div>
             </div>
             <div className="px-3 py-1 flex flex-col gap-0.5">
               <p className="text-xs text-black">Luas: 2 Ha</p>
@@ -187,15 +178,15 @@ export default function Dashboard() {
           <div className="flex-1 bg-white rounded-[10px] border-[0.5px] border-[#1F4E20] overflow-hidden">
             <div className="flex items-center justify-between px-3 pt-2 h-[33px]">
               <h3 className="text-sm font-semibold text-black">Lahan 2</h3>
-                  <div className="w-6 h-6 p-1 bg-[#1F4E20] rounded-xl flex items-center justify-center flex-shrink-0">
-                    <Image
-                      src="/asset/lahan/jagung.svg"
-                      alt="/asset/lahan/jagung.svg"
-                      width={16}
-                      height={16}
-                      className="w-4 h-4"
-                    />
-                  </div>
+              <div className="w-6 h-6 p-1 bg-[#1F4E20] rounded-xl flex items-center justify-center flex-shrink-0">
+                <Image
+                  src="/asset/lahan/jagung.svg"
+                  alt="/asset/lahan/jagung.svg"
+                  width={16}
+                  height={16}
+                  className="w-4 h-4"
+                />
+              </div>
             </div>
             <div className="px-3 py-1 flex flex-col gap-0.5">
               <p className="text-xs text-black">Luas: 4 Ha</p>
@@ -393,8 +384,8 @@ export default function Dashboard() {
 
         {/* Detail Button */}
         <Link
-          href="#"
-          className="mx-2 mb-2.5 bg-[#1F4E20] rounded-[10px] flex items-center justify-center gap-24 py-4"
+          href="/lahan/id"
+          className="mx-2 mb-2.5 bg-[#1F4E20] rounded-[10px] flex items-center justify-between px-6 py-4"
         >
           <span className="text-base font-semibold text-white">
             Lihat Detail Lahan

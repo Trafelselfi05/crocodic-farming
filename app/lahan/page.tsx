@@ -162,7 +162,7 @@ export default function LahanPage() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className={`fixed inset-0 bg-black/50 flex justify-center z-50 px-4 ${step === 5 ? 'items-center' : 'items-end'}`}
+            className={`fixed inset-0 bg-black/50 flex justify-center z-50 px-0 ${step === 5 ? 'items-center' : 'items-end'}`}
             onClick={step === 5 ? closeModal : undefined}
           >
             <motion.div
@@ -171,20 +171,25 @@ export default function LahanPage() {
               exit={step === 5 ? { scale: 0.9, opacity: 0 } : { y: "100%", opacity: 0 }}
               transition={{ duration: 0.3 }}
               onClick={(e) => e.stopPropagation()}
-              className={`bg-white w-full mx-auto flex flex-col items-center relative ${
-                step === 5 
-                  ? 'max-w-[280px] rounded-[20px] px-5 py-6' 
-                  : 'max-w-[402px] rounded-t-[24px] px-4 pt-10 pb-6'
-              }`}
+              className={`bg-white w-full mx-auto flex flex-col items-center relative ${step === 5
+                  ? 'max-w-[280px] rounded-[20px] px-5 py-6'
+                  : 'w-full rounded-t-[24px] px-6 pt-10 pb-6'
+                }`}
             >
               {/* Close Button */}
               {step !== 5 && (
                 <button
                   onClick={closeModal}
-                  className="absolute top-4 right-4 w-6 h-6 flex items-center justify-center cursor-pointer bg-transparent border-none"
+                  className="absolute top-4 right-6 w-6 h-6 flex items-center justify-center cursor-pointer bg-transparent border-none"
                   aria-label="Tutup"
                 >
-                  <X className="w-5 h-5 text-gray-700" />
+                  <Image
+                    src="/asset/lahan/close.svg"
+                    alt="Close"
+                    width={24}
+                    height={24}
+                    className="w-6 h-6"
+                  />
                 </button>
               )}
 
@@ -366,9 +371,9 @@ export default function LahanPage() {
                               className="flex items-center justify-center gap-[10px] w-full h-[40px] px-[11px] py-[15px] bg-white rounded-[5px] border border-[#AAAAAA] cursor-pointer hover:bg-[#7FD083]/10 hover:border-[#7FD083] transition-all"
                             >
                               <div className="flex items-center justify-center gap-[31px] w-full">
-                                <input 
-                                  type="checkbox" 
-                                  className="w-[25px] h-[25px] accent-[#1F4E20] cursor-pointer flex-shrink-0" 
+                                <input
+                                  type="checkbox"
+                                  className="w-[25px] h-[25px] accent-[#1F4E20] cursor-pointer flex-shrink-0"
                                   defaultChecked
                                 />
                                 <div className="flex-1 flex items-start">
@@ -406,8 +411,8 @@ export default function LahanPage() {
                     <div className="flex flex-col gap-5 w-full items-center py-2">
                       {/* Success Icon */}
                       <svg width="50" height="50" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M29.987 13.4257C29.372 12.7765 28.345 12.7479 27.695 13.3652L17.343 23.1831L12.405 18.1133C11.779 17.4717 10.754 17.4576 10.112 18.0831C9.47 18.7079 9.457 19.7344 10.081 20.376L16.136 26.5917C16.453 26.9177 16.874 27.082 17.297 27.082C17.698 27.082 18.099 26.9338 18.413 26.6371L29.927 15.7182C30.577 15.102 30.604 14.0755 29.987 13.4257Z" fill="#1F4E20"/>
-                        <path d="M20 0C8.972 0 0 8.9719 0 20C0 31.0281 8.972 40 20 40C31.028 40 40 31.0281 40 20C40 8.9719 31.028 0 20 0ZM20 36.7568C10.761 36.7568 3.243 29.2401 3.243 20C3.243 10.7605 10.76 3.2432 20 3.2432C29.24 3.2432 36.757 10.7605 36.757 20C36.757 29.24 29.24 36.7568 20 36.7568Z" fill="#1F4E20"/>
+                        <path d="M29.987 13.4257C29.372 12.7765 28.345 12.7479 27.695 13.3652L17.343 23.1831L12.405 18.1133C11.779 17.4717 10.754 17.4576 10.112 18.0831C9.47 18.7079 9.457 19.7344 10.081 20.376L16.136 26.5917C16.453 26.9177 16.874 27.082 17.297 27.082C17.698 27.082 18.099 26.9338 18.413 26.6371L29.927 15.7182C30.577 15.102 30.604 14.0755 29.987 13.4257Z" fill="#1F4E20" />
+                        <path d="M20 0C8.972 0 0 8.9719 0 20C0 31.0281 8.972 40 20 40C31.028 40 40 31.0281 40 20C40 8.9719 31.028 0 20 0ZM20 36.7568C10.761 36.7568 3.243 29.2401 3.243 20C3.243 10.7605 10.76 3.2432 20 3.2432C29.24 3.2432 36.757 10.7605 36.757 20C36.757 29.24 29.24 36.7568 20 36.7568Z" fill="#1F4E20" />
                       </svg>
 
                       <p className="text-sm text-black text-center px-2 font-poppins">

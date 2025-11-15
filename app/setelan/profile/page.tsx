@@ -5,30 +5,30 @@ import { useRouter } from "next/navigation";
 import { useState, useRef } from "react";
 
 const PROFILE_ITEMS = [
-  { 
-    icon: "/asset/setelan/profile2.svg", 
-    label: "Nama", 
+  {
+    icon: "/asset/setelan/profile2.svg",
+    label: "Nama",
     value: "Selfi",
     type: "text",
     field: "nama"
   },
-  { 
-    icon: "/asset/setelan/tlp.svg", 
-    label: "Nomor Telepon", 
+  {
+    icon: "/asset/setelan/tlp.svg",
+    label: "Nomor Telepon",
     value: "+62 812 3456 7890",
     type: "tel",
     field: "telepon"
   },
-  { 
-    icon: "/asset/setelan/email-icon.svg", 
-    label: "Email", 
+  {
+    icon: "/asset/setelan/email-icon.svg",
+    label: "Email",
     value: "aziz@example.com",
     type: "email",
     field: "email"
   },
-  { 
-    icon: "/asset/setelan/lock-icon.svg", 
-    label: "Kata Sandi", 
+  {
+    icon: "/asset/setelan/lock-icon.svg",
+    label: "Kata Sandi",
     value: "********",
     type: "password",
     field: "password"
@@ -197,7 +197,7 @@ function EditModal({ isOpen, onClose, field, currentValue, onSave }: {
   if (!isOpen) return null;
 
   return (
-    <div 
+    <div
       className="fixed inset-0 z-50 animate-fadeIn"
       onClick={handleBackdropClick}
     >
@@ -246,13 +246,13 @@ function EditModal({ isOpen, onClose, field, currentValue, onSave }: {
         </div>
 
         {/* Virtual Keyboard */}
-        <VirtualKeyboard 
+        <VirtualKeyboard
           onKeyPress={handleKeyPress}
           onDelete={handleDelete}
           onSpace={handleSpace}
         />
       </div>
-      
+
       <style jsx>{`
         @keyframes fadeIn {
           from {
@@ -286,8 +286,8 @@ function EditModal({ isOpen, onClose, field, currentValue, onSave }: {
 }
 
 // Komponen Modal untuk Upload Gambar Profil
-function UploadProfileImageModal({ 
-  isOpen, 
+function UploadProfileImageModal({
+  isOpen,
   onClose,
   onGalleryOpen
 }: {
@@ -314,18 +314,18 @@ function UploadProfileImageModal({
   if (!isOpen) return null;
 
   return (
-    <div 
+    <div
       className="fixed inset-0 z-50 flex items-end justify-center bg-black bg-opacity-30 animate-fadeIn"
       onClick={handleBackdropClick}
     >
       {/* Main Modal Container */}
       <div className="flex flex-col w-full max-w-[402px] items-center gap-8 p-4 relative bg-white rounded-t-[24px] border border-[#1F4E20] animate-slideUpFromBottom">
-        
+
         {/* Header Section */}
         <section className="flex flex-col items-center gap-6 w-full">
           {/* Spacer div */}
           <div className="w-full h-6"></div>
-          
+
           <h1 className="text-[16px] font-semibold text-black font-['Poppins'] text-center">
             Tambahkan gambar profil Anda
           </h1>
@@ -442,8 +442,8 @@ function UploadProfileImageModal({
 }
 
 // Komponen Image Editor Modal
-function ImageEditorModal({ 
-  isOpen, 
+function ImageEditorModal({
+  isOpen,
   onClose,
   imageUrl,
   onSave
@@ -471,18 +471,18 @@ function ImageEditorModal({
   if (!isOpen) return null;
 
   return (
-    <div 
+    <div
       className="fixed inset-0 z-50 flex flex-col items-center bg-white animate-fadeIn"
       onClick={handleBackdropClick}
     >
       {/* Main Container */}
       <div className="flex flex-col w-full max-w-[360px] min-h-[729px] gap-[264px] py-[25px] items-center relative mx-auto">
-        
+
         {/* Image Container */}
         <figure className="image-container relative w-full max-w-[328px] m-0">
-          <img 
-            src={imageUrl} 
-            alt="Foto profil yang dipilih" 
+          <img
+            src={imageUrl}
+            alt="Foto profil yang dipilih"
             className="relative w-full h-auto max-h-[344px] object-contain"
           />
         </figure>
@@ -628,7 +628,7 @@ export default function ProfilePage() {
       setSelectedImage(imageUrl);
       setImageEditorOpen(true);
     }
-    
+
     // Reset input file
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
@@ -648,10 +648,10 @@ export default function ProfilePage() {
     // Simpan gambar ke state avatarImage - INI YANG MENGUBAH AVATAR
     setAvatarImage(imageUrl);
     console.log("Gambar profil berhasil diubah!");
-    
+
     // Tidak perlu revoke URL di sini karena kita ingin menggunakan gambar yang dipilih
     // URL akan tetap valid selama komponen mounted
-    
+
     setImageEditorOpen(false);
     setSelectedImage(null);
   };
@@ -699,7 +699,7 @@ export default function ProfilePage() {
           alt="Foto profil"
           className="relative self-stretch w-full h-44 object-cover rounded-full"
         />
-        
+
         <button
           type="button"
           aria-label="Ubah foto profil"

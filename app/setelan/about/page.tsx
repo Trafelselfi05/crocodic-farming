@@ -11,41 +11,24 @@ export default function AboutUsPage() {
       <main className="max-w-md mx-auto flex flex-col gap-8">
         {/* Header */}
         <header className="flex items-center gap-5">
-          <button 
-            type="button" 
+          <button
+            type="button"
             aria-label="Kembali ke halaman sebelumnya"
             onClick={() => router.back()}
             className="w-10 h-10 flex items-center justify-center hover:opacity-70 transition-opacity"
           >
-            <svg 
-              width="24" 
-              height="21" 
-              viewBox="0 0 24 21" 
-              fill="none" 
-              xmlns="http://www.w3.org/2000/svg"
-              className="rotate-180"
-            >
-              <path 
-                d="M14 5L20 10.5L14 16" 
-                stroke="currentColor" 
-                strokeWidth="2" 
-                strokeLinecap="round" 
-                strokeLinejoin="round"
-              />
-              <path 
-                d="M20 10.5H4" 
-                stroke="currentColor" 
-                strokeWidth="2" 
-                strokeLinecap="round"
-              />
-            </svg>
+            <img
+              className="w-6 h-6"
+              src="/asset/setelan/back.svg"
+              alt="Kembali"
+            />
           </button>
-          
+
           <h1 className="text-2xl font-semibold text-black">
             Tentang Kami
           </h1>
         </header>
-        
+
         {/* Content Card */}
         <section className="w-full">
           <article className="bg-white rounded-[25px] border border-gray-300 p-6 shadow-sm">
@@ -57,11 +40,11 @@ export default function AboutUsPage() {
                   Internet of Things (IoT).
                 </span>
               </p>
-              
+
               <p className="text-xs leading-relaxed text-black mt-4">
                 <span className="font-normal">Melalui aplikasi ini, pengguna dapat:</span>
               </p>
-              
+
               <ul className="text-xs leading-relaxed text-black mt-2 space-y-1">
                 <li className="font-normal">• Menambahkan dan mengelola lahan sesuai kebutuhan.</li>
                 <li className="font-normal">• Mengontrol sistem penyiraman dan pemupukan otomatis.</li>
@@ -69,13 +52,13 @@ export default function AboutUsPage() {
                 <li className="font-normal">• Melakukan monitoring kondisi tanah seperti suhu, pH, dan kelembapan.</li>
                 <li className="font-normal">• Memantau kondisi lingkungan, termasuk suhu, kelembapan udara, dan cuaca secara real time.</li>
               </ul>
-              
+
               <p className="text-xs leading-relaxed text-black mt-4">
                 <span className="font-normal">
                   Kami hadir untuk mendukung pertanian modern yang lebih efisien, ramah lingkungan, dan berkelanjutan.
                 </span>
               </p>
-              
+
               <p className="text-sm font-medium text-black mt-6">
                 Crocodic Smart Farming<br />
                 — Pertanian Cerdas, Panen Berkualitas
