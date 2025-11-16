@@ -56,7 +56,7 @@ export default function LahanPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F4FAF4] w-full px-6 pb-24 flex flex-col font-poppins">
+    <div className=" bg-[#F4FAF4] w-full px-6 flex flex-col font-poppins">
       {/* Header */}
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-semibold text-[#1F4E20] font-poppins">Lahan</h1>
@@ -128,7 +128,7 @@ export default function LahanPage() {
 
                 {/* Detail Button */}
                 <Link
-                  href={`/lahan/id`}
+                  href={`/lahan/${lahan.id}`}
                   className="flex w-full h-[29px] items-center justify-between px-3 bg-[#7FD083] rounded-b-[10px]"
                 >
                   <span className="font-medium text-sm text-white font-poppins">

@@ -28,7 +28,7 @@ export default function RootLayout({
         <main className="bg-soft w-full h-screen flex flex-col md:hidden">
           <SplashScreen />
 
-          <section className="flex-1 overflow-y-auto overflow-x-hidden flex flex-col items-center gap-5 pt-5 pb-5">
+          <section className="flex-1 overflow-y-auto overflow-x-hidden flex flex-col items-center gap-5 pt-5 pb-21">
             {children}
           </section>
           <BottomNavbar />

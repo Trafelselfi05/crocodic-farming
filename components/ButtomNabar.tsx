@@ -38,7 +38,7 @@ export default function BottomNavbar() {
 
   return (
     <nav
-      className="sticky bottom-0 left-0 right-0 z-30 bg-transparent"
+      className="fixed bottom-0 left-0 right-0 z-30 bg-transparent"
       role="navigation"
       aria-label="Main navigation"
     >
@@ -63,12 +63,12 @@ export default function BottomNavbar() {
                 <div
                   className={`absolute left-1/2 -translate-x-1/2 transition-all duration-300 ease-out ${
                     isActive
-                      ? "bottom-[42px] sm:bottom-[48px] opacity-100 scale-100"
+                      ? "bottom-7 opacity-100 scale-100"
                       : "bottom-[20px] opacity-0 scale-75"
                   }`}
                 >
                   {/* === White half circle background (menghadap ke atas) === */}
-                  <div className="absolute left-1/2 -translate-x-1/2 -bottom-4 w-[84px] h-[45px] bg-soft rounded-b-full z-0" />
+                  <div className="absolute left-1/2 -translate-x-1/2 -bottom-2.5 w-20 h-10 bg-soft  rounded-b-full z-0" />
 
                   {/* === Green Active Circle === */}
                   <div className="relative w-[58px] sm:w-[64px] h-[58px] sm:h-[64px] bg-[#1F4E20] rounded-full flex items-center justify-center shadow-md z-10">

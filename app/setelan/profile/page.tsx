@@ -46,7 +46,7 @@ function VirtualKeyboard({ onKeyPress, onDelete, onSpace }: {
   const bottomRow = ["z", "x", "c", "v", "b", "n", "m"];
 
   return (
-    <div className="bg-[#D1D5DB] px-1 pt-2 pb-0">
+    <div className=" px-1 pt-2 pb-0">
       {/* Top Row */}
       <div className="flex justify-center gap-[5px] mb-[8px]">
         {topRow.map((key) => (

@@ -7,7 +7,7 @@ export default function NotifikasiPage() {
   const [aktif, setAktif] = useState(false);
 
   return (
-    <div className="flex flex-col w-[344px] h-[430px] items-start gap-[30px] relative">
+    <div className="flex flex-col items-start gap-[30px] relative">
       {/* === HEADER === */}
       <header className="flex items-center justify-center gap-5 relative self-stretch w-full flex-none">
         <Link href="/setelan">
