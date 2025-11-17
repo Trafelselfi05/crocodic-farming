@@ -166,8 +166,8 @@ const generateCompleteData = () => {
 
   const allData: any = {};
 
-  // Generate data untuk semua lahan (1-10)
-  for (let i = 1; i <= 10; i++) {
+  // Generate data untuk semua lahan (1-12)
+  for (let i = 1; i <= 12; i++) {
     allData[`Lahan ${i}`] = {
       harian: JSON.parse(JSON.stringify(baseHarian)),
       mingguan: JSON.parse(JSON.stringify(baseMingguan)),
@@ -208,17 +208,25 @@ const generateCompleteData = () => {
 
 const allData = generateCompleteData();
 
-export default function SensorPage() {
+interface StatistikPageProps {
+  lahanId?: string;
+}
+
+export default function SensorPage({ lahanId }: StatistikPageProps) {
   const [selectedPeriod, setSelectedPeriod] = useState<
     "harian" | "mingguan" | "bulanan"
   >("harian");
-  const [selectedLahan, setSelectedLahan] = useState("Semua Lahan");
+  const [selectedLahan, setSelectedLahan] = useState(lahanId ? `Lahan ${lahanId}` : "Semua Lahan");
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
-  }, []);
+    // Jika ada lahanId dari props, set selectedLahan secara otomatis
+    if (lahanId) {
+      setSelectedLahan(`Lahan ${lahanId}`);
+    }
+  }, [lahanId]);
 
   // Fungsi untuk menghitung rata-rata semua lahan dengan error handling
   const calculateAverageData = (period: "harian" | "mingguan" | "bulanan") => {
@@ -328,7 +336,7 @@ export default function SensorPage() {
 
   const lahanList = [
     "Semua Lahan",
-    ...Array.from({ length: 10 }, (_, i) => `Lahan ${i + 1}`),
+    ...Array.from({ length: 12 }, (_, i) => `Lahan ${i + 1}`),
   ];
 
   // Mendapatkan data berdasarkan filter dengan error handling
@@ -367,10 +375,8 @@ export default function SensorPage() {
   const calculateSafeAverage = (data: any[], key: string) => {
     if (!data || data.length === 0) return 0;
     const sum = data.reduce((acc, curr) => acc + (curr[key] || 0), 0);
-    return dataType === 'ph' ? Number((sum / data.length).toFixed(1)) : Math.round(sum / data.length);
+    return key === 'ph' ? Number((sum / data.length).toFixed(1)) : Math.round(sum / data.length);
   };
-
-  let dataType = '';
 
   // Custom Tooltip untuk Suhu
   const CustomTooltipSuhu = ({ active, payload, coordinate }: any) => {
@@ -516,43 +522,45 @@ export default function SensorPage() {
 
   return (
     <div className="w-full bg-[#F4FAF4] px-6 pb-6 space-y-4 relative">
-      {/* Header */}
-      <div className="flex items-center justify-between relative pt-4">
-        <h1 className="text-2xl font-bold text-[#1F4E20]">
-          Statistic {selectedLahan}
-        </h1>
-        <div className="relative">
-          <button
-            onClick={() => setDropdownOpen(!dropdownOpen)}
-            className="hover:opacity-80 transition outline-none focus:outline-none focus-visible:outline-none"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34" fill="none">
-              <circle cx="17" cy="17" r="16.5" transform="matrix(-1 0 0 1 34 0)" fill="#F4FAF4" stroke="#1F4E20" />
-              <path d="M16 10C15.3793 9.99968 14.7739 10.1919 14.267 10.5501C13.7602 10.9083 13.3769 11.4148 13.17 12H10V14H13.17C13.3766 14.5855 13.7597 15.0926 14.2666 15.4512C14.7735 15.8099 15.3791 16.0025 16 16.0025C16.6209 16.0025 17.2265 15.8099 17.7334 15.4512C18.2403 15.0926 18.6234 14.5855 18.83 14H26V12H18.83C18.6231 11.4148 18.2398 10.9083 17.733 10.5501C17.2261 10.1919 16.6207 9.99968 16 10ZM15 13C15 12.7348 15.1054 12.4804 15.2929 12.2929C15.4804 12.1054 15.7348 12 16 12C16.2652 12 16.5196 12.1054 16.7071 12.2929C16.8946 12.4804 17 12.7348 17 13C17 13.2652 16.8946 13.5196 16.7071 13.7071C16.5196 13.8946 16.2652 14 16 14C15.7348 14 15.4804 13.8946 15.2929 13.7071C15.1054 13.5196 15 13.2652 15 13ZM20 18C19.3793 17.9997 18.7739 18.1919 18.267 18.5501C17.7602 18.9083 17.3769 19.4148 17.17 20H10V22H17.17C17.3766 22.5855 17.7597 23.0926 18.2666 23.4512C18.7735 23.8099 19.3791 24.0025 20 24.0025C20.6209 24.0025 21.2265 23.8099 21.7334 23.4512C22.2403 23.0926 22.6234 22.5855 22.83 22H26V20H22.83C22.6231 19.4148 22.2398 18.9083 21.733 18.5501C21.2261 18.1919 20.6207 17.9997 20 18ZM19 21C19 20.7348 19.1054 20.4804 19.2929 20.2929C19.4804 20.1054 19.7348 20 20 20C20.2652 20 20.5196 20.1054 20.7071 20.2929C20.8946 20.4804 21 20.7348 21 21C21 21.2652 20.8946 21.5196 20.7071 21.7071C20.5196 21.8946 20.2652 22 20 22C19.7348 22 19.4804 21.8946 19.2929 21.7071C19.1054 21.5196 19 21.2652 19 21Z" fill="#1F4E20" />
-            </svg>
-          </button>
+      {/* Header - Sembunyikan jika digunakan di halaman detail lahan */}
+      {!lahanId && (
+        <div className="flex items-center justify-between relative pt-4">
+          <h1 className="text-2xl font-bold text-[#1F4E20]">
+            Statistic {selectedLahan}
+          </h1>
+          <div className="relative">
+            <button
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+              className="hover:opacity-80 transition outline-none focus:outline-none focus-visible:outline-none"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34" fill="none">
+                <circle cx="17" cy="17" r="16.5" transform="matrix(-1 0 0 1 34 0)" fill="#F4FAF4" stroke="#1F4E20" />
+                <path d="M16 10C15.3793 9.99968 14.7739 10.1919 14.267 10.5501C13.7602 10.9083 13.3769 11.4148 13.17 12H10V14H13.17C13.3766 14.5855 13.7597 15.0926 14.2666 15.4512C14.7735 15.8099 15.3791 16.0025 16 16.0025C16.6209 16.0025 17.2265 15.8099 17.7334 15.4512C18.2403 15.0926 18.6234 14.5855 18.83 14H26V12H18.83C18.6231 11.4148 18.2398 10.9083 17.733 10.5501C17.2261 10.1919 16.6207 9.99968 16 10ZM15 13C15 12.7348 15.1054 12.4804 15.2929 12.2929C15.4804 12.1054 15.7348 12 16 12C16.2652 12 16.5196 12.1054 16.7071 12.2929C16.8946 12.4804 17 12.7348 17 13C17 13.2652 16.8946 13.5196 16.7071 13.7071C16.5196 13.8946 16.2652 14 16 14C15.7348 14 15.4804 13.8946 15.2929 13.7071C15.1054 13.5196 15 13.2652 15 13ZM20 18C19.3793 17.9997 18.7739 18.1919 18.267 18.5501C17.7602 18.9083 17.3769 19.4148 17.17 20H10V22H17.17C17.3766 22.5855 17.7597 23.0926 18.2666 23.4512C18.7735 23.8099 19.3791 24.0025 20 24.0025C20.6209 24.0025 21.2265 23.8099 21.7334 23.4512C22.2403 23.0926 22.6234 22.5855 22.83 22H26V20H22.83C22.6231 19.4148 22.2398 18.9083 21.733 18.5501C21.2261 18.1919 20.6207 17.9997 20 18ZM19 21C19 20.7348 19.1054 20.4804 19.2929 20.2929C19.4804 20.1054 19.7348 20 20 20C20.2652 20 20.5196 20.1054 20.7071 20.2929C20.8946 20.4804 21 20.7348 21 21C21 21.2652 20.8946 21.5196 20.7071 21.7071C20.5196 21.8946 20.2652 22 20 22C19.7348 22 19.4804 21.8946 19.2929 21.7071C19.1054 21.5196 19 21.2652 19 21Z" fill="#1F4E20" />
+              </svg>
+            </button>
 
-          {dropdownOpen && (
-            <div className="absolute right-0 mt-2 bg-[#1F4E20] border border-[#1F4E20] rounded-lg shadow-md z-10 w-40 max-h-60 overflow-y-auto">
-              {lahanList.map((lahan) => (
-                <button
-                  key={lahan}
-                  onClick={() => {
-                    setSelectedLahan(lahan);
-                    setDropdownOpen(false);
-                  }}
-                  className={`w-full text-left px-4 py-2 hover:bg-white/10 text-sm outline-none focus:outline-none focus-visible:outline-none ${selectedLahan === lahan
-                    ? "bg-white/20 font-semibold text-white"
-                    : "text-white"
-                    }`}
-                >
-                  {lahan}
-                </button>
-              ))}
-            </div>
-          )}
+            {dropdownOpen && (
+              <div className="absolute right-0 mt-2 bg-[#1F4E20] border border-[#1F4E20] rounded-lg shadow-md z-10 w-40 max-h-60 overflow-y-auto">
+                {lahanList.map((lahan) => (
+                  <button
+                    key={lahan}
+                    onClick={() => {
+                      setSelectedLahan(lahan);
+                      setDropdownOpen(false);
+                    }}
+                    className={`w-full text-left px-4 py-2 hover:bg-white/10 text-sm outline-none focus:outline-none focus-visible:outline-none ${selectedLahan === lahan
+                      ? "bg-white/20 font-semibold text-white"
+                      : "text-white"
+                      }`}
+                  >
+                    {lahan}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Tombol Harian / Mingguan / Bulanan */}
       <div className="flex w-full bg-white rounded-xl border border-[#1F4E20] overflow-hidden shadow-sm">

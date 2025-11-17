@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "motion/react";
 import dynamic from "next/dynamic";
 import { useParams } from "next/navigation";
 
-// Import komponen statistik yang sudah dimodifikasi untuk otomatis berdasarkan ID
+// Import komponen statistik yang sudah ada
 const StatistikPage = dynamic(() => import('@/app/statistik/page'), {
   ssr: false,
   loading: () => (
@@ -348,8 +348,8 @@ export default function LahanDetailPage() {
           </div>
         </div>
 
-        {/* Komponen Statistik - Langsung ditampilkan berdasarkan ID lahan */}
-        <StatistikPage />
+        {/* Komponen Statistik - Langsung menampilkan data berdasarkan ID lahan */}
+        <StatistikPage lahanId={lahanId} />
       </div>
 
       {/* === MODAL: Konfirmasi Hapus Lahan === */}
